@@ -6,8 +6,10 @@ merb_gems_version = "1.1.0"
 # Don't use json gem version lower than 1.1.7! Older versions has security bug!
 gem "json_pure", ">= 1.1.7", :require => "json"
 gem "merb-core", merb_gems_version
+gem "merb-auth", merb_gems_version
 
 gem "merb_sequel"
 gem "merb-haml"
 
 gem "mongrel"
+gem "webrat"
