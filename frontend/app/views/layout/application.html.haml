@@ -1,9 +1,79 @@
 !!! Strict
-%html{ html_attrs("en_us") }
+%html{ "xml:lang" => "pl", :lang => "pl", :xmlns => "http://www.w3.org/1999/xhtml" }
   %head
+    %meta{ :content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type" }
+    %meta{ :name => "description", :content => "Cyfrowy dorsz" }
+    %meta{ :name => "language", :content => "PL" }
     %title
-      Fresh Merb App
-    %meta{ :content => "text/html; charset=utf-8", "http-equiv" => "content-type" }/
-    %link{ :href => "/stylesheets/master.css", :rel => "stylesheet", :media => "screen", :type => "text/css", :charset => "utf-8" }/
+      cyfrowy dorsz
+    = js_include_tag 'jquery.js', 'menu.js', :bundle => 'ankieter.js'
+    = css_include_tag 'master.css', :bundle => 'ankieter.css'
   %body
-    = catch_content :for_layout
+    #wrapper
+      #header
+        %a.logo{ :href => "#" }
+          Ankieter
+        .sublogo
+          system do ankietowania
+        .login
+          twoj_login
+          %a{ :href => "/logout" }
+            wyloguj
+      #main
+        %ul#menu
+          %li
+            %a{ :href => "#" }
+              Wlazł
+            %ul.hidden
+              %li
+                %a{ :href => "#" }
+                  Miś
+              %li
+                %a{ :href => "#" }
+                  Na
+              %li
+                %a{ :href => "#" }
+                  Fotel
+          %li.active
+            %a{ :href => "#" }
+              Kotek
+            %ul
+              %li
+                %a{ :href => "#" }
+                  Kotek
+              %li
+                %a{ :href => "#" }
+                  Na
+              %li
+                %a{ :href => "#" }
+                  Płotek
+          %li
+            %a{ :href => "#" }
+              Na
+            %ul.hidden
+              %li
+                %a{ :href => "#" }
+                  Dziabąg
+              %li
+                %a{ :href => "#" }
+                  Na
+              %li
+                %a{ :href => "#" }
+                  Sofę
+          %li
+            %a{ :href => "#" }
+              Płotek
+            %ul.hidden
+              %li
+                %a{ :href => "#" }
+                  Kotek
+              %li
+                %a{ :href => "#" }
+                  Na
+              %li
+                %a{ :href => "#" }
+                  I Mruga
+        #content
+          = catch_content :for_layout
+      #footer
+        \&copy; Cyfrowy Dorsz

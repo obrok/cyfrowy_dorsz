@@ -1,5 +1,5 @@
 class Welcome < Secured
   def index
-    "You're in"
+    render "You're in"
   end
 end
