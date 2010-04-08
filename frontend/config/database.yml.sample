@@ -1,0 +1,13 @@
+---
+# This is a sample database file for the Sequel ORM
+:development: &defaults
+  :adapter: sqlite
+  :database: ankieter_development.db
+
+:test:
+  <<: *defaults
+  :database: ankieter_test.db
+
+:production:
+  <<: *defaults
+  :database: ankieter_production.db
