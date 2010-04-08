@@ -4,6 +4,7 @@ tmp/*
 TAGS
 *~
 .#*
+\#*\#
 schema/schema.rb
 schema/*_structure.sql
 schema/*.sqlite3
@@ -19,3 +20,4 @@ src/*
 gems/
 !gems/cache/
 merb_profile_results
+

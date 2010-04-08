@@ -6,7 +6,7 @@ module CreationTestHelper
   }
 
   def user_hash
-    USER_HASH
+    USER_HASH.merge(:email => "#{Time.now.to_f}@example.com")
   end
 
   def create_user
