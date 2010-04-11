@@ -1,7 +1,8 @@
+/* jasny zielony #8FC400 */
 body {
   font-size: 13px;
   font-family: verdana;
-  color: #653;
+  color: #48522C;
   padding: 0;
   margin: 0;
 }
@@ -9,13 +10,26 @@ body {
 a {
   outline: none;
   text-decoration: none;
-  color: #fa5;
+  color: #739E00;
   font-weight: bold;
+  padding: 2px;
+}
+
+a:hover {
+  color: #48522C;
+  background: #8FC400;
+  -moz-border-radius: 10px;
+}
+
+#content a:hover {
+  color: #48522C;
+  background: #8FC400;
+  -moz-border-radius: 10px;
 }
 
 h1 {
   font-size: 20px;
-  color: #DB9146;
+  color: #5B7A00;
 }
 
 #wrapper {
@@ -31,11 +45,16 @@ h1 {
 #header > a.logo {
   position: absolute;
   top: 10px;
-  left: 10px;
+  left: 3px;
   font-size: 40px;
   font-weight: bold;
-  color: #fa0;
+  color: #5B7A00;
   font-variant: small-caps;
+}
+
+#header > a.logo:hover {
+  color: #5B7A00;
+  background: none;
 }
 
 #header > div.sublogo {
@@ -43,15 +62,16 @@ h1 {
   top: 50px;
   left: 10px;
   font-size: 16px;
-  color: #e92;
+  color: #5B7A00;
+  letter-spacing: 5px
 }
 
 #header > div.login {
   position: absolute;
   right: 0px;
   top: 15px;
-  border-bottom: 1px solid #fd8;
-  border-left: 1px solid #fd8;
+  border-bottom: 1px solid #5B7A00;
+  border-left: 1px solid #5B7A00;
   padding: 0 10px 10px 20px;
 }
 
@@ -66,7 +86,7 @@ ul#menu {
 
 ul#menu > li {
   float: left;
-  background: #ed9;
+  background: #82A360;
   margin: 0 4px 0 0;
   height: 30px;
   line-height: 30px;
@@ -75,19 +95,19 @@ ul#menu > li {
 
 ul#menu > li > a {
   padding: 10px 40px;
-  color: #985;
+  color: #48522C;
 }
 
 ul#menu > li:hover {
-  background: #fa0;
+  background: #8FC400;
 }
 
 ul#menu > li:hover > a {
-  color: #653;
+  color: #48522C;
+  background: none;
 }
 ul#menu > li.active {
-  background: #fea;
-  
+  background: #BCE396;
 }
 
 ul#menu > li > ul {
@@ -105,22 +125,26 @@ ul#menu > li > ul {
 
 ul#menu > li > ul > li {
   float: left;
-  line-height: 30px;
-  height: 30px;
+  line-height: 20px;
+  height: 20px;
+  margin: 5px 0;
   font-size: 14px;
+  border-right: 1px solid #5B7A00;
 }
 
+ul#menu > li > ul > li.last {
+  border: none;
+}
 
 ul#menu > li > ul > li > a {
   margin: 10px 20px;
   padding: 1px 0;
-  color: #DB9146;
+  color: #5B7A00;
   font-weight: bold;
-  border-bottom: 1px solid #DB9146;
 }
 
 #content {
-  background: #fea;
+  background: #BCE396;
   padding: 60px 40px 40px 40px;
   text-align: justify;
 }
@@ -135,7 +159,7 @@ ul#menu > li > ul > li > a {
   width: 508px;
   float: left;
   font-size: 17px;
-  border-left: solid 1px #DB9146;
+  border-left: solid 1px #5B7A00;
 }
 
 /* forms */
@@ -148,12 +172,16 @@ fieldset {
   border: none;
 }
 
+form input {
+  color: #3C4228;
+}
+
 input[type="text"], input[type="password"] {
   width: 200px;
   height: 20px;
   padding: 3px;
   font-size: 16px;
-  border: 1px solid #DB9146;
+  border: 1px solid #5B7A00;
   -moz-border-radius: 5px;
 }
 
@@ -162,12 +190,12 @@ select {
   height: 30px;
   padding: 3px;
   font-size: 16px;
-  border: 1px solid #DB9146;
+  border: 1px solid #5B7A00;
   -moz-border-radius: 5px;
 }
 
 label {
-  color: #DB9146;
+  color: #5B7A00;
   font-weight: bold;
   width: 120px;
   float: left;
@@ -179,9 +207,9 @@ label {
   height: 30px;
   padding: 3px;
   font-size: 14px;
-  border: 1px solid #DB9146;
+  border: 1px solid #5B7A00;
   -moz-border-radius: 5px;
-  background: #fa0;
+  background: #8FC400;
   cursor: pointer;
 }
 
