@@ -1,13 +1,7 @@
 !!! Strict
 %html{ "xml:lang" => "pl", :lang => "pl", :xmlns => "http://www.w3.org/1999/xhtml" }
   %head
-    %meta{ :content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type" }
-    %meta{ :name => "description", :content => "Cyfrowy dorsz" }
-    %meta{ :name => "language", :content => "PL" }
-    %title
-      cyfrowy dorsz
-    = js_include_tag 'jquery.js', 'menu.js', :bundle => 'ankieter.js'
-    = css_include_tag 'master.css', :bundle => 'ankieter.css'
+    = partial 'layout/head'
   %body
     #wrapper
       #header
