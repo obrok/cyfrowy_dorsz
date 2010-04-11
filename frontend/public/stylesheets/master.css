@@ -13,6 +13,11 @@ a {
   font-weight: bold;
 }
 
+h1 {
+  font-size: 20px;
+  color: #DB9146;
+}
+
 #wrapper {
   width: 900px;
   margin: 15px auto;
@@ -120,6 +125,19 @@ ul#menu > li > ul > li > a {
   text-align: justify;
 }
 
+#content.anonymous {
+  padding: 40px;
+  height: 210px;
+}
+
+.info {
+  padding: 0 0 40px 40px;
+  width: 508px;
+  float: left;
+  font-size: 17px;
+  border-left: solid 1px #DB9146;
+}
+
 /* forms */
 form {
   width: 380px;
@@ -130,7 +148,7 @@ fieldset {
   border: none;
 }
 
-input[type="text"] {
+input[type="text"], input[type="password"] {
   width: 200px;
   height: 20px;
   padding: 3px;
@@ -156,9 +174,6 @@ label {
   line-height: 20px;
 }
 
-.buttons {
-  text-align: center
-}
 .buttons > input {
   width: 140px;
   height: 30px;
@@ -171,8 +186,42 @@ label {
 }
 
 .ctrl {
-  margin: 15px 0px;
+  margin: 10px 0px;
   height: 30px;
+}
+
+form#login-form {
+  width: 228px;
+  float: left;
+  margin-right: 40px;
+}
+
+form#login-form label {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+form#login-form input {
+  position: absolute;
+  top: 20px;
+  left: 0px;
+}
+
+form#login-form .ctrl {
+  position: relative;
+  width: 208px;
+  height: 48px;
+}
+
+form#login-form .buttons {
+  height: 30px;
+  margin: 15px 0;
+  position: static
+}
+
+form#login-form .buttons input {
+  position: static
 }
 
 /* end forms */

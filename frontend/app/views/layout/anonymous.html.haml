@@ -1,0 +1,28 @@
+!!! Strict
+%html{ "xml:lang" => "pl", :lang => "pl", :xmlns => "http://www.w3.org/1999/xhtml" }
+  %head
+    %meta{ :content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type" }
+    %meta{ :name => "description", :content => "Cyfrowy dorsz" }
+    %meta{ :name => "language", :content => "PL" }
+    %title
+      cyfrowy dorsz
+    = js_include_tag 'jquery.js', 'menu.js', :bundle => 'ankieter.js'
+    = css_include_tag 'master.css', :bundle => 'ankieter.css'
+  %body
+    #wrapper
+      #header
+        %a.logo{ :href => "#" }
+          Ankieter
+        .sublogo
+          system do ankietowania
+        .login
+          = partial 'shared/login'
+      #main
+        %ul#menu
+          %li
+            %a{ :href => "#" }
+              Home
+        #content.anonymous
+          = catch_content :for_layout
+      #footer
+        \&copy; Cyfrowy Dorsz

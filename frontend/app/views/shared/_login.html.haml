@@ -1,0 +1,7 @@
+- if session.user.blank?
+  %a{ :href => "/login" }
+    zaloguj
+- else
+  = session.user.email
+  %a{ :href => "/logout" }
+    wyloguj

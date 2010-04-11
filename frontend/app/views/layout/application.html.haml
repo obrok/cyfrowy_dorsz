@@ -16,9 +16,7 @@
         .sublogo
           system do ankietowania
         .login
-          twoj_login
-          %a{ :href => "/logout" }
-            wyloguj
+          = partial 'shared/login'
       #main
         %ul#menu
           %li

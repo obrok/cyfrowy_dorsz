@@ -1,4 +1,5 @@
 class Exceptions < Merb::Controller
+  layout :anonymous
   
   # handle NotFound exceptions (404)
   def not_found

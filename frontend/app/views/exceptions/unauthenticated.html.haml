@@ -1,0 +1,13 @@
+= form :action => "/login", :method => 'PUT', :id => 'login-form' do
+  %fieldset
+    .ctrl
+      = text_field :email, :label => 'Email'
+    .ctrl
+      = password_field :password, :label => 'Password'
+    .ctrl.buttons
+      = submit 'Log in'
+
+.info
+  %h1
+    Czym jest Ankieter?
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ac tortor eu diam volutpat aliquam. Nulla sit amet nibh sed est condimentum vestibulum sit amet quis neque. Vivamus eros sapien, venenatis a sagittis id, tristique sit amet ipsum. In sed erat purus, ut molestie velit.
