@@ -30,3 +30,5 @@ gem "sqlite3-ruby"
 
 gem "mongrel"
 gem "webrat"
+
+gem 'ruby-debug'
