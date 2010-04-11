@@ -32,7 +32,15 @@ h1 {
 }
 
 h2 {
-  font-size: 12px;
+  font-size: 14px;
+}
+
+.exception {
+  text-align: center;
+}
+
+.exception img {
+  border: solid 1px #82A360;
 }
 
 #wrapper {
