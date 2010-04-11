@@ -23,7 +23,7 @@ begin
   class Merb::Authentication
 
     def fetch_user(session_user_id)
-      Merb::Authentication.user_class.get(session_user_id)
+      Merb::Authentication.user_class.filter(:id => session_user_id).first
     end
 
     def store_user(user)
