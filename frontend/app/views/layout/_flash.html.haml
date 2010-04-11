@@ -1,0 +1,9 @@
+#flash{ :style => "display:none" }
+  - if message[:notice]
+    .notice
+      %img{ :src => '/images/tick.png' }
+      =h message[:notice]
+  - elsif message[:error]
+    .error
+      %img{ :src => '/images/error.png' }
+      =h message[:error]

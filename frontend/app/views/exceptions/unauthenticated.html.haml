@@ -1,5 +1,6 @@
 = form :action => "/login", :method => 'PUT', :id => 'login-form' do
   %fieldset
+    = error_messages_for session.authentication
     .ctrl
       = text_field :email, :label => 'Email'
     .ctrl

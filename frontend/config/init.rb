@@ -20,4 +20,6 @@ end
  
 Merb::BootLoader.after_app_loads do
   # This will get executed after your app's classes have been loaded.
+  Merb::Authentication.register :form, Merb.root / "merb" / "merb-auth" / "strategies" / "form.rb"
+  Merb::Authentication.activate! :form
 end

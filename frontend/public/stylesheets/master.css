@@ -1,4 +1,3 @@
-/* jasny zielony #8FC400 */
 body {
   font-size: 13px;
   font-family: verdana;
@@ -30,6 +29,10 @@ a:hover {
 h1 {
   font-size: 20px;
   color: #5B7A00;
+}
+
+h2 {
+  font-size: 12px;
 }
 
 #wrapper {
@@ -73,6 +76,41 @@ h1 {
   border-bottom: 1px solid #5B7A00;
   border-left: 1px solid #5B7A00;
   padding: 0 10px 10px 20px;
+}
+
+#flash {
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  width: 900px;
+  min-height: 40px;
+  font-size: 15px;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+#flash img {
+  margin: 0 10px 0 0;
+}
+
+#flash > .notice {
+  margin: 0;
+  padding: 5px;
+  background: #A9CC49;
+  -moz-border-radius: 0 0 10px 10px;
+  border: 1px solid #5B7A00;
+  border-top: none;
+}
+
+#flash > .error {
+  margin: 0;
+  padding: 5px;
+  color: #600;
+  background: #E33232;
+  -moz-border-radius: 0 0 10px 10px;
+  border: 1px solid #600;
+  border-top: none;
 }
 
 ul#menu {
@@ -151,7 +189,7 @@ ul#menu > li > ul > li > a {
 
 #content.anonymous {
   padding: 40px;
-  height: 210px;
+  min-height: 210px;
 }
 
 .info {
@@ -170,6 +208,17 @@ form {
 
 fieldset {
   border: none;
+}
+
+form .error {
+  color: #600;
+}
+
+form .error ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
 }
 
 form input {
