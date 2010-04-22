@@ -20,10 +20,19 @@ class Polls < Application
     begin
       @poll.user = session.user
       @poll.save
-      session.poll = @poll
     rescue Sequel::ValidationFailed
       render :new
     end
   end
+
+  def edit
+    @poll = Poll[:id => params[:id]]
+    raise NotFound unless @poll
+    @action = url(:controller => "questions", :action => "create", :id => params[:id])
+    @method = :post
+
+    render
+  end
+
 end
 
