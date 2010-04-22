@@ -1,0 +1,7 @@
+%h2 Twoje ankiety
+%table
+  %tr
+    %th= "Nazwa ankiety"
+  - @polls.each do |poll|
+    %tr
+      %td= h(poll.name)
