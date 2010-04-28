@@ -1,9 +1,9 @@
-%h2 Twoje ankiety
+%h1 Twoje ankiety
 %table
   %tr
     %th= "Nazwa ankiety"
-    %th= 'Akcje'
+    %th= 'Edycja'
   - @polls.each do |poll|
     %tr
       %td= h(poll.name)
-      %td= link_to(h("Edycja"), resource(poll, :edit))
+      %td= link_to(h("Edytuj"), resource(poll, :edit))

@@ -1,18 +1,20 @@
 %h1= "Edycja ankiety "+@poll.name
 
-%h3 Pytania
-%table
-  %tr
-    %th= 'Tekst pytania'
-    %th= 'Rodzaj pytania'
-    %th= 'Edycja'
-    %th= 'Usuwanie'
-    - @poll.questions.each do |question|
-      %tr
-        %td= question.text
-        %td= question.question_type
-        %td= link_to("Edytuj", resource(@poll, question, :edit))
-        %td= link_to("Usuń", resource(@poll, question, :delete))
+
+-if (@poll.questions.length > 0)
+  %h3 Pytania
+  %table 
+    %tr
+      %th= 'Tekst pytania'
+      %th= 'Rodzaj pytania'
+      %th= 'Edycja'
+      %th= 'Usuwanie'
+      - @poll.questions.each do |question|
+        %tr
+          %td= question.text
+          %td= question.question_type
+          %td= link_to("Edytuj", resource(@poll, question, :edit))
+          %td= link_to("Usuń", resource(@poll, question, :delete))
 
 
 %h3 Dodaj nowe pytanie

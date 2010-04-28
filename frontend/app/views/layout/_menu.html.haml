@@ -1,17 +1,13 @@
 %ul#menu
   %li.active
-    %a{ :href => "#" }
-      Wlazł
+    =link_to("Zarządzaj", resource(:polls))
     %ul.hidden
       %li
-        %a{ :href => "#" }
-          Miś
-      %li
-        %a{ :href => "#" }
-          Na
+        =link_to("Lista ankiet", resource(:polls))
+
       %li.last
-        %a{ :href => "#" }
-          Fotel
+        =link_to("Dodaj ankietę", resource(:polls, :new))
+
   %li
     %a{ :href => "#" }
       Kotek
