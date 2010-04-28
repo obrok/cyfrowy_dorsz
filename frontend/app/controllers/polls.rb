@@ -27,6 +27,10 @@ class Polls < Application
 
   def edit
     @poll = Poll[:id => params[:id]]
+    @action = resource(@poll, :questions)
+    @method = :post
+    @question = Question.new
+    @question.poll = @poll
     raise NotFound unless @poll
 
     render
