@@ -10,3 +10,6 @@ development: &defaults
 test:
   adapter: sqlite
   database: ankieter_test.db
+
+rake:
+  <<: *defaults

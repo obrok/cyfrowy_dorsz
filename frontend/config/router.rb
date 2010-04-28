@@ -29,7 +29,9 @@ Merb.logger.info("Compiling routes...")
 Merb::Router.prepare do
   # RESTful routes
   # resources :posts
-  resources :polls
+  resources :polls do
+    resources :questions, :controller => :questions
+  end
 
   slice(:merb_auth_slice_password, :name_prefix => nil, :path_prefix => "")
 

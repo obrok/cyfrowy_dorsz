@@ -1,0 +1,6 @@
+= form_for(@question, :action => resource(poll, :questions), :method => :post) do
+  %fieldset
+    = text_field(:text, :label => "Treść pytania")
+    = select(:question_type, :label => "Typ pytania", :collection => Question::TYPES)
+  .ctrl
+    = button("Dodaj pytanie")

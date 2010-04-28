@@ -1,0 +1,11 @@
+%h2 Edycja ankiety
+= @poll.name
+%table
+  %tr
+    %th= 'Tekst pytania'
+    %th= 'Rodzaj pytania'
+    %th= 'Akcje'
+    - @poll.questions.each do |question|
+      = partial('questions/question', :question => question)
+
+= partial('questions/form', :poll => @poll)

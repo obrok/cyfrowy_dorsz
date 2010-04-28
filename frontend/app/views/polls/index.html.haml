@@ -2,6 +2,8 @@
 %table
   %tr
     %th= "Nazwa ankiety"
+    %th= 'Akcje'
   - @polls.each do |poll|
     %tr
       %td= h(poll.name)
+      %td= link_to(h("Edycja"), resource(poll, :edit))

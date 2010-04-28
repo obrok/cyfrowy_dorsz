@@ -28,8 +28,6 @@ class Polls < Application
   def edit
     @poll = Poll[:id => params[:id]]
     raise NotFound unless @poll
-    @action = url(:controller => "questions", :action => "create", :id => params[:id])
-    @method = :post
 
     render
   end

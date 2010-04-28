@@ -9,10 +9,10 @@ class Questions < Application
     render
   end
 
-  def create
+  def create    
     @question = Question.new(params[:question] || {})
     begin
-      @question.poll = Poll[params[:id]]
+      @question.poll = Poll[params[:poll_id]]
       @question.save
     rescue Sequel::ValidationFailed
       render :new
