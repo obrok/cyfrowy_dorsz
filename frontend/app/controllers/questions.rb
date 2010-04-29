@@ -29,13 +29,6 @@ class Questions < Application
   end
 
   def update
-    puts "dupa"
-    puts
-    puts
-    puts
-    puts
-
-    puts session.user.polls
     poll = session.user.polls_dataset[:id => params[:poll_id]]
     @question = poll.questions_dataset[:id=>params[:id]]
     begin

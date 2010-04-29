@@ -1,6 +1,5 @@
 %h1= "Edycja ankiety "+@poll.name
 
-
 -if (@poll.questions.length > 0)
   %h3 Pytania
   %table 
@@ -19,3 +18,7 @@
 
 %h3 Dodaj nowe pytanie
 = partial('questions/form', :poll => @poll)
+
+%h3 Tokeny
+= link_to("Generuj tokeny", resource(@poll, :tokens, :generate), "method" => "post")
+= link_to("Pokaż tokeny", resource(@poll, :tokens))
