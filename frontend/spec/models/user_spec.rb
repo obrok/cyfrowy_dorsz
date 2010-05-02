@@ -26,4 +26,11 @@ describe User do
       @user.should_not be_valid
     end
   end
+
+  it "should randomize the password" do
+    @user.randomize_password!
+    password = @user.password
+    @user.randomize_password!
+    password.should_not == @user.password
+  end
 end
