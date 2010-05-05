@@ -6,4 +6,4 @@
   - @polls.each do |poll|
     %tr
       %td= h(poll.name)
-      %td= link_to(h("Edytuj"), resource(poll, :edit))
+      %td= link_to("Edytuj", resource(poll, :edit))

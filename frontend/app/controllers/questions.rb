@@ -1,8 +1,6 @@
 class Questions < Application
   before :ensure_authenticated
 
-  # provides :xml, :yaml, :js
-
   # GET /questions/new
   def new
     @question = Question.new
@@ -15,7 +13,7 @@ class Questions < Application
       @question.poll = Poll[params[:poll_id]]
       @question.save
 
-      redirect(resource(@question.poll, :edit))
+      render :layout => false
     rescue Sequel::ValidationFailed
       render :new
     end

@@ -1,4 +1,4 @@
-= form_for(@question, :action => @action, :method => @method) do
+= form_for(@question, :action => @action, :method => @method, :id => "question-form") do
   %fieldset
     .ctrl
       = text_field(:text, :label => "Treść pytania")

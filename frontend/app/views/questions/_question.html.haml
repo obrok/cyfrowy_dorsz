@@ -1,0 +1,5 @@
+%tr
+  %td= h(question.text)
+  %td= h(question.question_type)
+  %td= link_to("Edytuj", resource(question.poll, question, :edit))
+  %td= link_to("Usuń", resource(question.poll, question, :delete), :class => 'delete-question')
