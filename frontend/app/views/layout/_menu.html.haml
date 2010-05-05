@@ -1,24 +1,24 @@
 %ul#menu
   %li.active
     =link_to("Zarządzaj", resource(:polls))
-    %ul.hidden
+    %ul
       %li
         =link_to("Lista ankiet", resource(:polls))
 
-      %li.last
+      %li
         =link_to("Dodaj ankietę", resource(:polls, :new))
 
   %li
     %a{ :href => "#" }
       Kotek
-    %ul
+    %ul.hidden
       %li
         %a{ :href => "#" }
           Kotek
       %li
         %a{ :href => "#" }
           Na
-      %li.last
+      %li
         %a{ :href => "#" }
           Płotek
   %li
@@ -31,7 +31,7 @@
       %li
         %a{ :href => "#" }
           Na
-      %li.last
+      %li
         %a{ :href => "#" }
           Sofę
   %li
@@ -44,6 +44,6 @@
       %li
         %a{ :href => "#" }
           Na
-      %li.last
+      %li
         %a{ :href => "#" }
           I Mruga

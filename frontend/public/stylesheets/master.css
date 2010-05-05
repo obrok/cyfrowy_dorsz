@@ -175,11 +175,8 @@ ul#menu > li > ul > li {
   height: 20px;
   margin: 5px 0;
   font-size: 14px;
-  border-right: 1px solid #5B7A00;
-}
-
-ul#menu > li > ul > li.last {
-  border: none;
+  border: 1px solid #5B7A00;
+  margin: 3px;
 }
 
 ul#menu > li > ul > li > a {
@@ -187,6 +184,10 @@ ul#menu > li > ul > li > a {
   padding: 1px 0;
   color: #5B7A00;
   font-weight: bold;
+}
+
+ul#menu > li > ul > li > a:hover {
+  background: none;
 }
 
 #content {
