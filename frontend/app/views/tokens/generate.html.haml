@@ -1,6 +1,8 @@
 = form(:action => resource(@poll, :tokens, :save)) do
   %fieldset
-    = text_field(:count, :label => "Ilość tokenów", :value => 10)
-    = text_field(:valid_until, :label => "Data ważności tokenów", :value=> (DateTime::now()+20).strftime("%Y-%m-%d"))
-  .ctrl
-    = button("Generuj tokeny")
+    .ctrl
+      = text_field(:count, :label => "Ilość tokenów", :value => 10)
+    .ctrl
+      = text_field(:valid_until, :label => "Data ważności tokenów", :value=> (DateTime::now()+20).strftime("%Y-%m-%d"))
+    .ctrl.buttons
+      = submit("Generuj tokeny")
