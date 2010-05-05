@@ -2,6 +2,7 @@
   .error
     = error_messages_for(@poll)
   %fieldset
-    = text_field :name, :label => "Nazwa"
-  .ctrl
-    = button "Stwórz"
+    .ctrl
+      = text_field :name, :label => "Nazwa"
+    .ctrl.buttons
+      = submit "Stwórz"

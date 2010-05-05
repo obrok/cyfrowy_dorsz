@@ -281,19 +281,19 @@ form#login-form {
   margin-right: 40px;
 }
 
-form#login-form label {
+.ctrl label {
   position: absolute;
   top: 0px;
   left: 0px;
 }
 
-form#login-form input {
+.ctrl input {
   position: absolute;
   top: 20px;
   left: 0px;
 }
 
-form#login-form .ctrl {
+.ctrl {
   position: relative;
   width: 208px;
   height: 48px;
@@ -302,11 +302,11 @@ form#login-form .ctrl {
 form#login-form .buttons {
   height: 30px;
   margin: 15px 0;
-  position: static
+  position: static;
 }
 
 form#login-form .buttons input {
-  position: static
+  position: static;
 }
 
 /* end forms */
