@@ -4,8 +4,13 @@
     %th= 'Nazwa ankiety'
     %th= 'Wartość'
     %th= 'Ważny do'
+    %th= 'Użyty'
     - @tokens.each do |token|
       %tr
         %td= token.poll.name
         %td= token.value
         %td= token.valid_until
+        - if token.used 
+          %td= "tak"
+        - else
+          %td= "nie"

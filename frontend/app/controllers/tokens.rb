@@ -29,6 +29,7 @@ class Tokens < Application
     token.poll = @poll
     token.valid_until = date
     token.value = generate_random_value
+    token.used = false
     begin
       token.save
 
