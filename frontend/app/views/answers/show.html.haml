@@ -1,1 +1,13 @@
-to juz nastepny ticket
+%h1= "Wypełnienie ankiety " + h(@token.poll.name)
+
+%h3 Pytania
+%table{ :id => 'questions' }
+  %tr
+    %th= 'Tekst pytania'
+    %th= 'Rodzaj pytania'
+    %th= 'Odpowiedz'
+    -@token.poll.questions.each do |question|
+      = partial 'questions/question_answer', :question => question
+        
+
+

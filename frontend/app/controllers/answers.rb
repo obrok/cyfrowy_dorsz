@@ -10,7 +10,7 @@ class Answers < Application
 
     if (@token != nil and not @token.used and @token.valid_until > DateTime::now)
       message[:notice] = "Witamy w sesji"
-      redirect url(:controller => "answers", :action => "show", :id => @token.poll.id), :message => message
+      redirect url(:controller => "answers", :action => "show", :id => @token.value), :message => message
     else
       message[:notice] = "Nieważny token"
       redirect url(:controller => "answers", :action => "index"), :message => message
@@ -18,6 +18,7 @@ class Answers < Application
   end
 
   def show
+    @token = Token[:value => params[:id]]
     print "answers | show"
     render
   end
