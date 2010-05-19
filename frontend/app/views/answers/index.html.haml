@@ -1,0 +1,9 @@
+%h1 Zaloguj sie
+
+= form :action => url(:controller => "answers", :action => "check_token") do
+  %fieldset
+    = error_messages_for session.authentication
+    .ctrl
+      = text_field :token, :label => 'Token'
+    .ctrl.buttons
+      = submit 'wypelnij'
