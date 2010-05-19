@@ -52,5 +52,17 @@ class Tokens < Application
       create(params[:valid_until])
     end
   end
+
+  def delete(id)
+    @token = Token[:id =>id ]    
+    poll = @token.poll
+
+    raise NotFound unless @token
+    if @token.destroy
+      redirect resource(poll, :tokens)
+    else
+      raise InternalServerError
+    end
+  end
 end
 

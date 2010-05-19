@@ -36,7 +36,7 @@ Merb::Router.prepare do
   # resources :posts
   resources :polls do
     resources :questions, :controller => :questions
-    resources :tokens, :controller => :tokens, :collection => {:generate => :post, :save => :post}
+    resources :tokens, :controller => :tokens, :collection => {:generate => :post, :save => :post, :delete => :post}
   end
 
   slice(:merb_auth_slice_password, :name_prefix => nil, :path_prefix => "")

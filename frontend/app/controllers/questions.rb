@@ -45,7 +45,7 @@ class Questions < Application
 
     raise NotFound unless @question  
     if @question.destroy
-      redirect resource(poll, :edit)  
+      redirect resource(poll, :edit)
     else
       raise InternalServerError
     end

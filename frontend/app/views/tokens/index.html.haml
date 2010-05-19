@@ -5,6 +5,7 @@
     %th= 'Wartość'
     %th= 'Ważny do'
     %th= 'Użyty'
+    %th= 'Usuwanie'
     - @tokens.each do |token|
       %tr
         %td= token.poll.name
@@ -14,3 +15,4 @@
           %td= "tak"
         - else
           %td= "nie"
+        %td= link_to("Usuń", resource(token.poll, token, :delete), :class => 'delete-token')
