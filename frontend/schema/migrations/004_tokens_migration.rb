@@ -5,6 +5,7 @@ class TokensMigration < Sequel::Migration
       String :value
       foreign_key :poll_id, :polls
       Date :valid_until
+      bool :used
     end
   end
 
