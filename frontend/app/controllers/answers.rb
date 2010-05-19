@@ -1,5 +1,4 @@
 class Answers < Application
-  before :ensure_authenticated
 
   def index
     print "anwers | index"
@@ -8,13 +7,16 @@ class Answers < Application
 
   def check_token
     @token = Token[:value => params[:token]]
-    print "answers | check_token"
-    print token
+    if (@token != nil and not @token.used and @token.valid_until > DateTime::now)
+      redirect url(:controller => "answers", :action => "show", :id => @token.poll.id)  
+    else
+      redirect url(:controller => "answers", :action => "index")
+    end
   end
 
   def show
     print "answers | show"
-
+    render
   end
 
   def mysave
