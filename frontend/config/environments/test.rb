@@ -9,5 +9,6 @@ Merb::Config.use { |c|
   #c[:log_file]  = Merb.root / "log" / "test.log"
   # or redirect logger using IO handle
   c[:log_stream] = STDOUT
+  c[:hostname] = "localhost:4000"
 }
 Merb::Mailer.delivery_method = :test_send
