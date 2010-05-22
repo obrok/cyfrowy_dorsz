@@ -7,7 +7,9 @@ describe "Logged in user" do
 
   [["reset_password", :get],
    ["perform_reset_password", :post],
-   ["request_reset_password", :get]].each do |action, method|
+   ["request_reset_password", :get],
+   ["send_reset_password", :post]
+  ].each do |action, method|
     it "cannot access the #{action} action" do
       visit "/users/#{action}", method
       response_status.should == 403
@@ -33,7 +35,8 @@ describe "Resetting the password" do
   end
 
   it "doesn't allow viewing of the reset form with an incorrect token" do
-    pending
+    visit resource(:users, :reset_password, :token => "not a token")
+    response_status.should == 403
   end
 
   it "shows an error message on reset submission with wrong token" do

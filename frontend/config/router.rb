@@ -43,7 +43,8 @@ Merb::Router.prepare do
   resources(:users, :collection => {
               :reset_password => :get,
               :perform_reset_password => :post,
-              :request_reset_password => :get
+              :request_reset_password => :get,
+              :send_reset_password => :post
             })
 
   slice(:merb_auth_slice_password, :name_prefix => nil, :path_prefix => "")
