@@ -9,7 +9,6 @@ describe "Logged in user" do
    ["perform_reset_password", :post],
    ["request_reset_password", :get]].each do |action, method|
     it "cannot access the #{action} action" do
-      pending
       visit "/users/#{action}", method
       response_status.should == 403
     end
