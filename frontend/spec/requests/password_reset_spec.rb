@@ -31,6 +31,18 @@ describe "Resetting the password" do
   end
 
   it "resets the password correctly" do
+    visit resource(:users, :reset_password, :token => @token)
+    fill_in "Nowe hasło", :with => "nowe hasło"
+    fill_in "Potwierdź", :with => "nowe hasło"
+    click_button "Zapisz"
+    response.should include "Hasło zmienione"
+
+    login_as(@user, "nowe hasło")
+    visit "/"
+    response_status.should == 200
+  end
+
+  it "doesn't work if the confirmation is not the same" do
     pending
   end
 

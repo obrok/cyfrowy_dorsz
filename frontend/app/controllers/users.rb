@@ -17,7 +17,11 @@ class Users < Application
   end
 
   def perform_reset_password
-    raise
+    @user.password = params[:password]
+    @user.password_confirmation = params[:password_confirmation]
+    @user.login_token = nil
+    @user.save
+    redirect(url(:login), :notice => "Hasło zmienione")
   end
 
   def request_reset_password
@@ -31,7 +35,8 @@ class Users < Application
   private
   def prepare_token
     @token = params[:token]
-    raise Forbidden unless @token && User[:login_token => @token]
+    @user = User[:login_token => @token]
+    raise Forbidden unless @token && @user
   end
 end
 
