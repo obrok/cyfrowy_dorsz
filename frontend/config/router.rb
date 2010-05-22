@@ -32,12 +32,15 @@ Merb.logger.info("Compiling routes...")
 Merb::Router.prepare do
   match("/polls/:id/tokens/generate").to(:controller => "tokens", :action => "generate")
   match("/polls/:id/tokens/save").to(:controller => "tokens", :action => "save")
+
   # RESTful routes
   # resources :posts
   resources :polls do
     resources :questions, :controller => :questions
     resources :tokens, :controller => :tokens, :collection => {:generate => :post, :save => :post}
   end
+
+  resources(:users, :collection => {:reset_password => :get})
 
   slice(:merb_auth_slice_password, :name_prefix => nil, :path_prefix => "")
 
