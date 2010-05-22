@@ -28,11 +28,13 @@ class Users < Application
   end
 
   def request_reset_password
-    raise
+    render
   end
 
   def send_reset_password
-    raise
+    @user = User[:email => params[:email]]
+    @user.reset_password! if @user
+    redirect(url(:login), :notice => "Wysłano email")
   end
 
   private

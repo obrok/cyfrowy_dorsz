@@ -62,6 +62,13 @@ describe "Resetting the password" do
   end
 
   it "allows user to request a reset email" do
-    pending
+    visit url(:login)
+    click_link "Zapomniałem hasła"
+    fill_in "Email", :with => @user.email
+    click_button "Wyślij"
+
+    response.should include "Wysłano email"
+    last_email.to.should include @user.email
+    last_email.text.should include @user.reload.login_token
   end
 end
