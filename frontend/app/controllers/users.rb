@@ -22,6 +22,9 @@ class Users < Application
     @user.login_token = nil
     @user.save
     redirect(url(:login), :notice => "Hasło zmienione")
+  rescue Sequel::ValidationFailed
+    message[:notice] = "Hasła różnią się"
+    render :reset_password
   end
 
   def request_reset_password

@@ -43,7 +43,12 @@ describe "Resetting the password" do
   end
 
   it "doesn't work if the confirmation is not the same" do
-    pending
+    visit resource(:users, :reset_password, :token => @token)
+    fill_in "Nowe hasło", :with => "nowe hasło"
+    fill_in "Potwierdź", :with => "inne hasło"
+    click_button "Zapisz"
+    response.should include "Hasła różnią się"
+    response.should include "Zmiana hasła"
   end
 
   it "doesn't allow viewing of the reset form with an incorrect token" do
@@ -52,7 +57,8 @@ describe "Resetting the password" do
   end
 
   it "shows an error message on reset submission with wrong token" do
-    pending
+    visit resource(:users, :perform_reset_password, :token => "not a token", :password => "123", :password_confirmation => "123"), :post
+    response_status.should == 403
   end
 
   it "allows user to request a reset email" do
