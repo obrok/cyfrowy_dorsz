@@ -26,4 +26,22 @@ describe User do
       @user.should_not be_valid
     end
   end
+
+  it "should randomize the password" do
+    @user.randomize_password!
+    password = @user.password
+    @user.randomize_password!
+    password.should_not == @user.password
+  end
+
+  it "should prepare a login token" do
+    @user.reset_password!
+    @user.login_token.should_not be_nil
+  end
+
+  it "should notify the user" do
+    @user.reset_password!
+    last_email.to.should include @user.email
+    last_email.text.should include @user.login_token
+  end
 end

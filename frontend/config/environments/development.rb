@@ -12,4 +12,6 @@ Merb::Config.use { |c|
   c[:log_file]   = nil
   # Or redirect logging into a file:
   # c[:log_file]  = Merb.root / "log" / "development.log"
+  c[:hostname] = "localhost:4000"
 }
+Merb::Mailer.delivery_method = :test_send
