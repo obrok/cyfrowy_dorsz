@@ -9,8 +9,8 @@ module CreationTestHelper
     USER_HASH.merge(:email => "#{Time.now.to_f}@example.com")
   end
 
-  def create_user
-    User.create(user_hash)
+  def create_user(values = {})
+    User.create(user_hash.merge(values))
   end
 end
 
