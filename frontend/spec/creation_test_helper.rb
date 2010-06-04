@@ -12,6 +12,10 @@ module CreationTestHelper
   def create_user(values = {})
     User.create(user_hash.merge(values))
   end
+
+  def create_poll(values = {})
+    Poll.create(:name => "#{Time.now.to_f}")
+  end
 end
 
 include CreationTestHelper
