@@ -12,6 +12,22 @@ module CreationTestHelper
   def create_user(values = {})
     User.create(user_hash.merge(values))
   end
+
+  def create_poll(values = {})
+    Poll.create(:name => "#{Time.now.to_f}")
+  end
+
+  def create_user_poll(user, name)
+    Poll.create(:user => user, :name => name)
+  end
+
+  def create_question(values = {})
+    Question.create(
+      :poll => create_poll, 
+      :text => "tresc pytania", 
+      :question_type => Question::TYPES[rand(Question::TYPES.size)]
+    )
+  end
 end
 
 include CreationTestHelper
