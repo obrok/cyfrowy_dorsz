@@ -8,6 +8,7 @@ class Question < Sequel::Model
   def validate
     super
     validates_presence :text
+    validates_presence :poll
     errors[:question_type] << "Niepoprawny typ pytania" unless TYPES.include?(question_type)
   end
 end
