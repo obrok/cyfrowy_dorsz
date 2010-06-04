@@ -20,7 +20,7 @@ class Polls < Application
     begin
       @poll.user = session.user
       @poll.save
-      redirect(resource(@poll, :edit))
+      redirect(resource(@poll, :edit), :notice => "Stworzono ankietę " + @poll.name)
     rescue Sequel::ValidationFailed
       render :new
     end
