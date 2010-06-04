@@ -23,4 +23,20 @@ describe "Creating the poll" do
     click_button "Stwórz"
     response.should include "Stworzono ankietę " + name
   end
+
+  it "shows edit poll form correctly" do
+    @poll = create_poll
+    visit resource(@poll, :edit)
+    response.should include "Dodaj nowe pytanie"
+  end
+
+  it "adds new question correctly" do
+    text = "#{Time.now.to_f}"
+    @poll = create_poll
+    visit resource(@poll, :edit)
+    fill_in "Treść pytania", :with => text
+    fill_in "Typ pytania", :with => Question::TYPES[rand(Question::TYPES.size)]
+    click_button "Zapisz pytanie"
+    response.should include text
+  end
 end
