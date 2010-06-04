@@ -17,6 +17,10 @@ module CreationTestHelper
     Poll.create(:name => "#{Time.now.to_f}")
   end
 
+  def create_user_poll(user, name)
+    Poll.create(:user => user, :name => name)
+  end
+
   def create_question(values = {})
     Question.create(
       :poll => create_poll, 
