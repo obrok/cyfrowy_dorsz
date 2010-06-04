@@ -15,6 +15,7 @@ require "spec/creation_test_helper"
 require "spec/login_test_helper"
 require "spec/view_test_helper"
 require "spec/email_test_helper"
+require "spec/request_test_helper"
 
 # this loads all plugins required in your init file so don't add them
 # here again, Merb will do it for you

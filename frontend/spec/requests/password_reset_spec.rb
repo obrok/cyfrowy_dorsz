@@ -3,6 +3,11 @@ require 'spec/spec_helper'
 describe "Logged in user" do
   before(:each) do
     login
+    Merb::Config[:disable_csrf] = true
+  end
+
+  after(:each) do
+    Merb::Config[:disable_csrf] = false
   end
 
   [["reset_password", :get],
@@ -23,6 +28,11 @@ describe "Resetting the password" do
     User.destroy
     @token = "123"
     @user = create_user(:login_token => @token)
+    Merb::Config[:disable_csrf] = true
+  end
+
+  after(:each) do
+    Merb::Config[:disable_csrf] = false
   end
 
   it "shows the reset form if the correct token is supplied" do

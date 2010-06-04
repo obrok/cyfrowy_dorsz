@@ -1,4 +1,7 @@
+require 'lib/csrf'
+
 class Exceptions < Merb::Controller
+  include CSRF
   layout :anonymous
   
   # handle NotFound exceptions (404)

@@ -1,6 +1,20 @@
 module Merb
   module GlobalHelpers
     # helpers defined here available to all views.  
+
+    def form(*args)
+      token, timestamp = generate_token
+      super(*args).sub(">", ">" +
+        hidden_field(:name => "_csrf_token", :value => token) +
+        hidden_field(:name => "_csrf_timestamp", :value => timestamp))
+    end
+
+    def form_for(*args)
+      token, timestamp = generate_token
+      super(*args).sub(">", ">" +
+        hidden_field(:name => "_csrf_token", :value => token) +
+        hidden_field(:name => "_csrf_timestamp", :value => timestamp))
+    end
   end
 
   module Helpers
