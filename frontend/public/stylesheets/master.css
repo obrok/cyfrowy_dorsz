@@ -77,13 +77,19 @@ h2 {
   background: none;
 }
 
+#logo {
+  float: left;
+  border: none;
+}
+
 #header > div.sublogo {
   position: absolute;
   top: 50px;
   left: 10px;
   font-size: 16px;
   color: #5B7A00;
-  letter-spacing: 5px
+  letter-spacing: 5px;
+  margin: 5px 0 0 100px;
 }
 
 #header > div.login {
