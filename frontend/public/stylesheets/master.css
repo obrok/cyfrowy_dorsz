@@ -192,6 +192,7 @@ ul#menu > li > ul > li {
   font-size: 14px;
   border: 1px solid #5B7A00;
   margin: 3px;
+  -moz-border-radius: 5px;
 }
 
 ul#menu > li > ul > li:hover {
