@@ -5,8 +5,8 @@
   %tr
     %th= 'Tekst pytania'
     %th= 'Rodzaj pytania'
-    %th= 'Edycja'
-    %th= 'Usuwanie'
+    %th
+    %th
     - @poll.questions.each do |question|
       = partial 'questions/question', :question => question
 

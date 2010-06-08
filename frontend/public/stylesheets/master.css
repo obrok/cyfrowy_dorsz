@@ -26,6 +26,15 @@ a:hover {
   -moz-border-radius: 10px;
 }
 
+#content a.image-link img {
+  border: none;
+}
+
+#content a.image-link {
+  -moz-border-radius: 3px;
+  display: block;
+}
+
 h1 {
   font-size: 20px;
   color: #5B7A00;
@@ -179,6 +188,10 @@ ul#menu > li > ul > li {
   margin: 3px;
 }
 
+ul#menu > li > ul > li:hover {
+  background: #8FC400;
+}
+
 ul#menu > li > ul > li > a {
   margin: 10px 20px;
   padding: 1px 0;
@@ -188,6 +201,17 @@ ul#menu > li > ul > li > a {
 
 ul#menu > li > ul > li > a:hover {
   background: none;
+}
+
+#add-poll {
+  margin: 3px;
+  float: left;
+}
+
+#login, #logout {
+  border: none;
+  margin: 2px 2px 0 10px;
+  float: right;
 }
 
 #content {

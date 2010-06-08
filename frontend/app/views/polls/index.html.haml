@@ -2,8 +2,8 @@
 %table
   %tr
     %th= "Nazwa ankiety"
-    %th= 'Edycja'
+    %th
   - @polls.each do |poll|
     %tr
       %td= h(poll.name)
-      %td= link_to("Edytuj", resource(poll, :edit))
+      %td= link_to(image_tag('/images/edit.png', :alt => 'edytuj', :title => 'edytuj'), resource(poll, :edit), :class => 'image-link')

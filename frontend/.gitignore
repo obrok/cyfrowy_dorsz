@@ -21,4 +21,4 @@ gems/
 !gems/cache/
 merb_profile_results
 nbproject
-
+config/database.yml
