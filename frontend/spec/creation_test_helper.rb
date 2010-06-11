@@ -12,6 +12,10 @@ module CreationTestHelper
   def create_user
     User.create(user_hash)
   end
+
+  def create_token
+    
+  end
 end
 
 include CreationTestHelper
