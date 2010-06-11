@@ -21,4 +21,8 @@ describe "Student" do
     click_button "Wypełnij ankietę"
     response.should include "Nieważny token"
   end
+
+  it "should save after stadent's submission" do
+    
+  end
 end

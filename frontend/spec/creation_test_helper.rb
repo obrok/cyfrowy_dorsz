@@ -31,18 +31,20 @@ module CreationTestHelper
     QuestionAnswer.create(:question => question, :answer => create_answer(question.poll), :value=>"3")
   end
 
-  def create_question(values = {})
+  def create_question(poll = nil)
+    poll = create_poll unless poll
     Question.create(
-      :poll => create_poll, 
+      :poll => poll, 
       :text => "tresc pytania", 
       :question_type => Question::TYPES[rand(Question::TYPES.size)]
     )
   end
 
-  def create_token
+  def create_token(poll = nil)
+    poll = create_poll unless poll
     token = Token.new
     token.value = Token.generate_random_value
-    token.poll = create_poll
+    token.poll = poll
     token.valid_until = DateTime.now + 1
 
     token.save
