@@ -28,6 +28,10 @@ module CreationTestHelper
       :question_type => Question::TYPES[rand(Question::TYPES.size)]
     )
   end
+
+  def create_token
+    
+  end
 end
 
 include CreationTestHelper
