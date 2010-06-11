@@ -30,7 +30,13 @@ module CreationTestHelper
   end
 
   def create_token
-    
+    token = Token.new
+    token.value = Token.generate_random_value
+    token.poll = create_poll
+    token.valid_until = DateTime.now + 1
+
+    token.save
+    return token
   end
 end
 

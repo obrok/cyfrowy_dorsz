@@ -1,7 +1,6 @@
 class Answers < Application
 
   def index
-    print "anwers | index"
     render
   end
 
@@ -19,12 +18,10 @@ class Answers < Application
 
   def show
     @token = Token[:value => params[:id]]
-    print "answers | show"
     render
   end
 
   def mysave
-    print "answers | send"
     @poll = Poll[params[:id]]
 
   end

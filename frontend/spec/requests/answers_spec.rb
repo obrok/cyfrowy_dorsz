@@ -10,9 +10,15 @@ describe "Student" do
   end
 
   it "should have to provide correct token to authenticate" do
-    @token = create_token
-    fill_in "Token", :with => @token
+    token = create_token
+    fill_in "Token", :with => token.value
     click_button "Wypełnij ankietę"
-    response.should include "Zapisz odpowiedzi"
+    response.should include token.poll.name
+  end
+
+  it "should not be authenticated if token is invalid" do
+    fill_in "Token", :with => "losowyciag"
+    click_button "Wypełnij ankietę"
+    response.should include "Nieważny token"
   end
 end
