@@ -1,13 +1,13 @@
 %h1= "Wypełnienie ankiety " + h(@token.poll.name)
 
 %h3 Pytania
-%table{ :id => 'questions' }
-  %tr
-    %th= 'Tekst pytania'
-    %th= 'Rodzaj pytania'
-    %th= 'Odpowiedz'
+= form :action => url(:controller => "answers", :action => "save_answer") do
+  %fieldset
     -@token.poll.questions.each do |question|
       = partial 'questions/question_answer', :question => question
+    = hidden_field :name => "token", :value => @token.value
+    .ctrl.buttons
+      = submit "Wyślij odpowiedzi"
         
 
 

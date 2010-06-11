@@ -23,6 +23,20 @@ describe "Student" do
   end
 
   it "should save after stadent's submission" do
-    
+    poll = create_poll
+    token = create_token(poll)
+    question = create_question(poll)
+
+    fill_in "Token", :with => token.value
+    click_button "Wypełnij ankietę"
+
+    fill_in question.text, :with => "3"
+    click_button "Wyślij odpowiedzi"
+    response.should include "Dziękujemy za wypełnienie ankiety"
+
+    token = Token[token.id]
+    token.used.should equal true
+    poll = Poll[poll.id]
+    poll.answers.size.should equal 1
   end
 end

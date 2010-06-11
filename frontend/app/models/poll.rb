@@ -3,6 +3,7 @@ class Poll < Sequel::Model
   many_to_one :user
   one_to_many :questions
   one_to_many :tokens
+  one_to_many :answers
 
   def validate
     super

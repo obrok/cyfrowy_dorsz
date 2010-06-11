@@ -8,5 +8,7 @@ class QuestionAnswer < Sequel::Model
     validates_presence :value
     validates_presence :question
     validates_presence :answer
+
+
   end
 end

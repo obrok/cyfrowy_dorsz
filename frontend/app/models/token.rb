@@ -12,4 +12,8 @@ class Token < Sequel::Model
     charset = %w{ 2 3 4 6 7 9 A C D E F G H J K L M N P Q R T V W X Y Z}
     (0...size).map{ charset.to_a[rand(charset.size)] }.join
   end
+
+  def is_valid_to_use
+    not used and valid_until > DateTime::now
+  end
 end

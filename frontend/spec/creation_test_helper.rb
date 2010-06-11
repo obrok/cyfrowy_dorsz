@@ -42,7 +42,9 @@ module CreationTestHelper
 
   def create_token(poll = nil)
     poll = create_poll unless poll
+
     token = Token.new
+    token.used = false
     token.value = Token.generate_random_value
     token.poll = poll
     token.valid_until = DateTime.now + 1
