@@ -6,5 +6,7 @@ class QuestionAnswer < Sequel::Model
   def validate
     super
     validates_presence :value
+    validates_presence :question
+    validates_presence :answer
   end
 end

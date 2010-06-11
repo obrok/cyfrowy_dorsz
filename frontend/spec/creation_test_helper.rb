@@ -21,8 +21,14 @@ module CreationTestHelper
     Poll.create(:user => user, :name => name)
   end
 
-  def create_answer
-    Answer.create(:date => DateTime.now, :poll => create_poll)
+  def create_answer(poll = nil)
+    poll = create_poll unless poll
+    Answer.create(:date => DateTime.now, :poll => poll)
+  end
+
+  def create_question_answer
+    question = create_question
+    QuestionAnswer.create(:question => question, :answer => create_answer(question.poll), :value=>"3")
   end
 
   def create_question(values = {})
