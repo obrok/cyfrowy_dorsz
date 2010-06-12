@@ -18,8 +18,8 @@ describe "Viewing list of polls" do
   it "should contain all user's polls" do
     name = "#{Time.now.to_f}"
   
-    create_user_poll(@user, name + "A")
-    create_user_poll(@user, name + "B")
+    create_poll(:user => @user, :name => name + "A")
+    create_poll(:user => @user, :name => name + "B")
 
     visit resource(:polls)
     response.should include name + "A"

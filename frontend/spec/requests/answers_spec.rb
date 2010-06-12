@@ -24,8 +24,8 @@ describe "Student" do
 
   it "should save after stadent's submission" do
     poll = create_poll
-    token = create_token(poll)
-    question = create_question(poll)
+    token = create_token(:poll => poll)
+    question = create_question(:poll => poll)
 
     fill_in "Token", :with => token.value
     click_button "Wypełnij ankietę"
