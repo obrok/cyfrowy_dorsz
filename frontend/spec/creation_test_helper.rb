@@ -28,7 +28,7 @@ module CreationTestHelper
   end
 
   def poll_hash
-    POLL_HASH.merge(:name => "#{Time.now.to_f}")
+    POLL_HASH.merge(:name => "#{Time.now.to_f}", :user => create_user)
   end
 
   def answer_hash

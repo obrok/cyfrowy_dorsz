@@ -36,8 +36,10 @@ Merb::Router.prepare do
   # RESTful routes
   # resources :posts
   resources :polls do
-    resources :questions, :controller => :questions
-    resources :tokens, :controller => :tokens, :collection => {:generate => :post, :save => :post, :delete => :post}
+    resources :questions, :controller => :questions do
+      resources :results, :controller => :results
+    end
+    resources :tokens, :controller => :tokens, :collection => {:generate => :post, :save => :post, :delete => :post}    
   end
 
   resources(:users, :collection => {
