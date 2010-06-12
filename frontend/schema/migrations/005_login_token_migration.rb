@@ -1,4 +1,4 @@
-class TokensMigration < Sequel::Migration
+class LoginTokensMigration < Sequel::Migration
   def up
     alter_table :users do
       add_column :login_token, String
