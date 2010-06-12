@@ -1,6 +1,7 @@
 class Question < Sequel::Model
   plugin :validation_helpers
   many_to_one :poll
+  one_to_many :question_answers
 
   TYPES = ["Otwarte",
            "Zamknięte"]

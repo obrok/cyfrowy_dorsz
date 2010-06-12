@@ -24,4 +24,9 @@ describe Question do
     @question.question_type = "invalid_type"
     @question.should_not be_valid
   end
+
+  it "should allow access to answers" do
+    answer = create_question_answer(:question => @question)
+    @question.reload.question_answers.should include answer
+  end
 end
