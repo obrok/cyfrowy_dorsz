@@ -2,7 +2,8 @@ require 'spec/spec_helper'
 
 describe "Student" do
   before(:each) do
-    visit "/answers"
+    visit "/"
+    click_link "Student"
   end
 
   it "can access the answers controller" do

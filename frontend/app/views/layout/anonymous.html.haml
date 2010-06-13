@@ -15,8 +15,11 @@
       #main
         %ul#menu
           %li
-            %a{ :href => "#" }
-              Home
+            %a{ :href => "/" }
+              Prowadzący
+          %li
+            %a{ :href => "/answers" }
+              Student
         #content.anonymous
           = catch_content :for_layout
       #footer

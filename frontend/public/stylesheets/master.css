@@ -14,12 +14,6 @@ a {
   padding: 2px;
 }
 
-a:hover {
-  color: #48522C;
-  background: #8FC400;
-  -moz-border-radius: 10px;
-}
-
 #content a:hover {
   color: #48522C;
   background: #8FC400;
@@ -28,20 +22,29 @@ a:hover {
 
 #content a.image-link img {
   border: none;
+  margin: 5px 0 0 0;
+  padding: 2px;
 }
 
 #content a.image-link {
-  -moz-border-radius: 3px;
+  -moz-border-radius: 5px;
   display: block;
+  padding: 2px;
 }
 
 h1 {
   font-size: 20px;
   color: #5B7A00;
+  font-size: 18px;
+  margin: 15px 0 25px 0;
 }
 
 h2 {
   font-size: 14px;
+}
+
+h3 {
+  margin: 25px 0 15px 0;
 }
 
 .exception {
@@ -115,6 +118,11 @@ h2 {
 
 #flash img {
   margin: 0 10px 0 0;
+  vertical-align: middle;
+}
+
+#flash span.message {
+  vertical-align: middle;
 }
 
 #flash > .notice {
@@ -135,6 +143,7 @@ h2 {
   border: 1px solid #600;
   border-top: none;
 }
+
 
 ul#menu {
   list-style: none;
@@ -193,6 +202,8 @@ ul#menu > li > ul > li {
   border: 1px solid #5B7A00;
   margin: 3px;
   -moz-border-radius: 5px;
+  background: #C8F0A1;
+  padding: 5px 0;
 }
 
 ul#menu > li > ul > li:hover {
@@ -230,6 +241,7 @@ ul#menu > li > ul > li > a:hover {
 #content.anonymous {
   padding: 40px;
   min-height: 210px;
+  overflow: auto;
 }
 
 .info {
@@ -347,4 +359,52 @@ form#login-form .buttons input {
   font-size: 10px;
   text-align: center;
   padding: 5px 0;
+}
+
+th, td {
+  padding: 0 10px;
+  text-align: center;
+  background: #C8F0A1;
+  -moz-border-radius: 5px;
+  border: 1px solid #799C57;
+}
+
+th {
+  font-size: 13px;
+  background: #ACD980;
+  padding: 5px 10px;
+}
+
+th.action, td.action {
+  padding: 0 3px;
+}
+
+#content td a:hover {
+  padding: 0 2px;
+}
+
+
+#content table tr td a {
+  margin: 0 2px;
+}
+
+#content table tr td a:hover {
+  margin: 2px;
+}
+
+span.name {
+  color: #77A300;
+}
+
+ul.answers {
+  list-style: none;
+}
+
+ul.answers li {
+  padding: 10px;
+  background: #C8F0A1;
+  -moz-border-radius: 5px;
+  border: 1px solid #799C57;
+  width: 500px;
+  margin: 5px 0;
 }

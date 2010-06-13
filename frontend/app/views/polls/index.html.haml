@@ -1,9 +1,7 @@
 %h1 Twoje ankiety
 %table
   %tr
-    %th= "Nazwa ankiety"
-    %th
   - @polls.each do |poll|
     %tr
+      %td.action= link_to(image_tag('/images/edit.png', :alt => 'edytuj', :title => 'edytuj'), resource(poll, :edit), :class => 'image-link')
       %td= h(poll.name)
-      %td= link_to(image_tag('/images/edit.png', :alt => 'edytuj', :title => 'edytuj'), resource(poll, :edit), :class => 'image-link')

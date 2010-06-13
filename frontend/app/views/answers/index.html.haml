@@ -1,9 +1,15 @@
-%h1 Zaloguj sie
-
-= form :action => url(:controller => "answers", :action => "check_token") do
+= form :action => url(:controller => "answers", :action => "check_token"), :id => 'login-form' do
   %fieldset
     = error_messages_for session.authentication
     .ctrl
       = text_field :token, :label => 'Token'
     .ctrl.buttons
       = submit 'Wypełnij ankietę'
+
+.info
+  %h1
+    Czym jest Cyfrowy Dorsz?
+  Cyfrowy Dorsz to system służący do anonimowego ankietowania studentów. Prowadzący zajęcia mają możliwość wykorzystania wielu rodzajów pytań, przeglądania danych oraz ich statystycznej analizy. Ankietowani za pośrednictwem gwarantującego unikalność hasła mogą wejść do systemu i odpowiedzieć na pytania dotyczące zajęć.
+
+
+

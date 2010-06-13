@@ -9,11 +9,9 @@ class Tokens < Application
     render
   end
 
-
-
-
   def index
-    @tokens = Poll[params[:poll_id]].tokens
+    @poll = Poll[params[:poll_id]]
+    @tokens = @poll.tokens
     render
   end
 

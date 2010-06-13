@@ -1,5 +1,6 @@
 class Answers < Application
-
+  layout :anonymous
+  
   def index
     render
   end
@@ -11,7 +12,7 @@ class Answers < Application
       message[:notice] = "Witamy w sesji"
       redirect url(:controller => "answers", :action => "show", :id => @token.value), :message => message
     else
-      message[:notice] = "Nieważny token"
+      message[:error] = "Nieważny token"
       redirect url(:controller => "answers", :action => "index"), :message => message
     end
   end

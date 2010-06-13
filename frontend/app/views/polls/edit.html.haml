@@ -1,12 +1,13 @@
-%h1= "Edycja ankiety " + h(@poll.name)
+%h1= "Edycja ankiety <span class='name'>'#{h(@poll.name)}'</span>"
 
 %h3 Pytania
 %table{ :id => 'questions' }
   %tr
     %th= 'Tekst pytania'
     %th= 'Rodzaj pytania'
-    %th
-    %th
+    %th.action
+    %th.action
+    %th.action
     - @poll.questions.each do |question|
       = partial 'questions/question', :question => question
 

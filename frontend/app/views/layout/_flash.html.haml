@@ -2,8 +2,8 @@
   - if message[:notice]
     .notice
       %img{ :src => '/images/tick.png' }
-      =h message[:notice]
+      %span.message=h message[:notice]
   - elsif message[:error]
     .error
       %img{ :src => '/images/error.png' }
-      =h message[:error]
+      %span.message=h message[:error]

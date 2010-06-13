@@ -1,4 +1,4 @@
-%h1= "Wypełnienie ankiety " + h(@token.poll.name)
+%h1= "Wypełnienie ankiety <span class='name'>'#{h(@token.poll.name)}'</span>"
 
 %h3 Pytania
 = form :action => url(:controller => "answers", :action => "save_answer") do
