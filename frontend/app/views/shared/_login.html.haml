@@ -1,0 +1,9 @@
+- if session.user.blank?
+  %a{ :href => "/login" }
+    zaloguj
+  = image_tag('/images/login.png', :id => 'login')
+- else
+  = session.user.email
+  %a{ :href => "/logout" }
+    wyloguj
+  = image_tag('/images/logout.png', :id => 'logout')

@@ -1,0 +1,26 @@
+!!! Strict
+%html{ "xml:lang" => "pl", :lang => "pl", :xmlns => "http://www.w3.org/1999/xhtml" }
+  %head
+    = partial 'layout/head'
+  %body
+    #wrapper
+      = partial 'layout/flash'
+      #header
+        %a.logo{ :href => "#" }
+          Cyfrowy Dorsz
+        .sublogo
+          system do ankietowania
+        .login
+          = partial 'shared/login'
+      #main
+        %ul#menu
+          %li
+            %a{ :href => "/" }
+              Prowadzący
+          %li
+            %a{ :href => "/answers" }
+              Student
+        #content.anonymous
+          = catch_content :for_layout
+      #footer
+        \&copy; Cyfrowy Dorsz

@@ -1,0 +1,13 @@
+%h1= "Wypełnienie ankiety <span class='name'>'#{h(@token.poll.name)}'</span>"
+
+%h3 Pytania
+= form :action => url(:controller => "answers", :action => "save_answer") do
+  %fieldset
+    -@token.poll.questions.each do |question|
+      = partial 'questions/question_answer', :question => question
+    = hidden_field :name => "token", :value => @token.value
+    .ctrl.buttons
+      = submit "Wyślij odpowiedzi"
+        
+
+

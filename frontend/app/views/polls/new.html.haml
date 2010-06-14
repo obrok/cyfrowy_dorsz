@@ -1,0 +1,9 @@
+%p Podaj nazwę nowej ankiety
+= form_for(@poll, :action => resource(:polls), :method => :post) do
+  .error
+    = error_messages_for(@poll)
+  %fieldset
+    .ctrl
+      = text_field :name, :label => "Nazwa"
+    .ctrl.buttons
+      = submit "Stwórz"

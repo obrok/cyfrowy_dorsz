@@ -1,0 +1,34 @@
+source :gemcutter
+
+# dependencies are generated using a strict version, don't forget to edit the dependency versions when upgrading.
+merb_gems_version = "1.1.0"
+
+# If you did disable json for Merb, comment out this line.
+# If you want use json gem just change it.
+# Don't use json gem version lower than 1.1.7! Older versions has security bug!
+gem "json_pure", ">= 1.1.7", :require => "json"
+gem "merb-action-args", merb_gems_version
+gem "merb-assets", merb_gems_version
+gem "merb-auth", merb_gems_version
+gem "merb-auth-core", merb_gems_version
+gem "merb-auth-more", merb_gems_version
+gem "merb-auth-slice-password", merb_gems_version
+gem "merb-cache", merb_gems_version
+gem "merb-core", merb_gems_version
+gem "merb-exceptions", merb_gems_version
+gem "merb-gen", merb_gems_version
+gem "merb-haml", merb_gems_version
+gem "merb-helpers", merb_gems_version
+gem "merb-mailer", merb_gems_version
+gem "merb-param-protection", merb_gems_version
+gem "merb-slices", merb_gems_version
+
+gem "merb_sequel"
+gem "merb-haml"
+
+gem "sqlite3-ruby"
+
+gem "mongrel"
+gem "webrat"
+
+gem "ruby-debug"

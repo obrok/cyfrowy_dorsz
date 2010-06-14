@@ -1,0 +1,5 @@
+%h1= "Odpowiedzi na pytanie <span class='name'>'#{h(@question.text)}'</span>"
+
+%ul.answers
+  - @question.question_answers.each do |answer|
+    %li= h(answer.value)
