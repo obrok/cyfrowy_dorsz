@@ -35,19 +35,21 @@ class Tokens < Application
   def generate
     @tokeninfo
     @poll = Poll[params[:id]]
-    render :generate
+    render
   end
 
   def save
     @poll = Poll[params[:id]]
 
-    params[:count].to_i.times do |i|
+    params[:count].to_i.times do
       create(params[:valid_until])
     end
+
+    redirect(url(:poll_tokens, @poll))
   end
 
   def delete(id)
-    @token = Token[:id =>id ]    
+    @token = Token[:id =>id]    
     poll = @token.poll
 
     raise NotFound unless @token
