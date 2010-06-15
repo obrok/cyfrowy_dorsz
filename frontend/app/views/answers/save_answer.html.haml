@@ -1,2 +1,5 @@
-%h1= "Dziękujemy za wypełnienie ankiety " + h(@token.poll.name)
-
+#thankyou
+  = image_tag('thankyou.jpg', :alt => 'thank you!')
+  %h2= "Dziękujemy za wypełnienie ankiety <span class='name'>'#{h(@token.poll.name)}'</span>."
+  Przejdź na
+  = "#{link_to('stronę główną', '/')}."

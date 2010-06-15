@@ -47,11 +47,11 @@ h3 {
   margin: 25px 0 15px 0;
 }
 
-.exception {
+.exception, #thankyou {
   text-align: center;
 }
 
-.exception img {
+.exception img, #thankyou img {
   border: solid 1px #82A360;
 }
 
