@@ -1,5 +1,5 @@
 .ctrl
-  - if question.question_type == "Otwarte"
+  - if question.open?
     = text_field :name => question.id, :label => question.text
-  - if question.question_type == "Zamknięte"
+  - if question.closed?
     = select(:name => question.id, :label => question.text, :collection => "1".."5")

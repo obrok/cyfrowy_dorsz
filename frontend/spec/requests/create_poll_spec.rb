@@ -1,6 +1,6 @@
 require 'spec/spec_helper'
 
-describe "Creating the poll" do
+describe Questions, "Creating the poll" do
   before(:each) do
     @user = create_user
     login_as(@user, CreationTestHelper::USER_HASH[:password])
@@ -31,12 +31,13 @@ describe "Creating the poll" do
   end
 
   it "adds new question correctly" do
-    text = "#{Time.now.to_f}"
-    @poll = create_poll
-    visit resource(@poll, :edit)
-    fill_in "Treść pytania", :with => text
-    fill_in "Typ pytania", :with => Question::TYPES[rand(Question::TYPES.size)]
+    poll = create_poll(:user => @user)
+    visit '/polls' / poll.id/ "edit"
+    question = create_question
+    fill_in "Treść pytania", :with => question.text
+    fill_in "Typ pytania", :with => question.question_type
     click_button "Zapisz pytanie"
-    response.should include text
+
+    response.should include(question.text)
   end
 end

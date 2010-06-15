@@ -1,0 +1,2 @@
+= form_for(:question, :action => resource(poll, :questions), :id => "question-form") do
+  = partial('questions/form', :poll => poll, :question => question)

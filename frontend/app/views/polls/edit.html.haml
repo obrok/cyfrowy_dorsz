@@ -13,7 +13,7 @@
 
 
 %h3 Dodaj nowe pytanie
-= partial('questions/form', :poll => @poll)
+= partial 'questions/new', :poll => @poll, :question => Question.new
 
 %h3 Tokeny
 = link_to("Generuj tokeny", resource(@poll, :tokens, :generate), "method" => "post")

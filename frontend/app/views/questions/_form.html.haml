@@ -1,8 +1,11 @@
-= form_for(@question, :action => @action, :method => @method, :id => "question-form") do
-  %fieldset
-    .ctrl
-      = text_field(:text, :label => "Treść pytania")
-    .ctrl
-      = select(:question_type, :label => "Typ pytania", :collection => Question::TYPES)
-    .ctrl.buttons
-      = submit("Zapisz pytanie")
+%fieldset
+  .ctrl
+    = text_field(:text, :label => "Treść pytania")
+    %span.validation.error
+      = question.errors.on(:text)
+  .ctrl
+    = select(:question_type, :label => "Typ pytania", :collection => Question::TYPES.values)
+    %span.validation.error
+      = question.errors.on(:question_type)
+  .ctrl.buttons
+    = submit("Zapisz pytanie")

@@ -14,11 +14,16 @@ $(document).ready(function() {
       url: $(this).attr("action"),
       type: 'POST',
       data: $(this).serialize(),
-      success: function(question, textStatus) {
-        $("#questions").append(question);
-        toggleQuestions();
+      success: function(html, textStatus) {
+        if (!html.match('form')) {
+          $("#questions").append(html);
+          toggleQuestions();
+        }
+        else {
+          $("form#question-form").replaceWith(html);
+        }
       },
-      error: function(XMLHttpRequest, textStatus){
+      error: function(form, textStatus){
         $('#flash').html('<div class="error">Przepraszamy, wystąpił błąd podczas dodawania pytania.</div>');
         showFlash();
       }

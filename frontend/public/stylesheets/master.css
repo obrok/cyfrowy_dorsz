@@ -254,7 +254,7 @@ ul#menu > li > ul > li > a:hover {
 
 /* forms */
 form {
-  width: 380px;
+  width: 450px;
   margin: 10px auto;
 }
 
@@ -264,6 +264,13 @@ fieldset {
 
 form .error {
   color: #600;
+}
+
+.validation {
+  position: absolute;
+  top: 25px;
+  left: 230px;
+  text-align: left;
 }
 
 form .error ul {
@@ -314,11 +321,6 @@ label {
   cursor: pointer;
 }
 
-.ctrl {
-  margin: 10px 0px;
-  height: 30px;
-}
-
 form#login-form {
   width: 228px;
   float: left;
@@ -338,8 +340,9 @@ form#login-form {
 }
 
 .ctrl {
+  margin: 10px 0px;
   position: relative;
-  width: 208px;
+  width: 450px;
   height: 48px;
 }
 

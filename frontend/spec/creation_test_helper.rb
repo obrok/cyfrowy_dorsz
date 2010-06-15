@@ -36,7 +36,7 @@ module CreationTestHelper
   end
 
   def question_hash
-    QUESTION_HASH.merge(:poll => create_poll, :question_type => Question::TYPES[rand(Question::TYPES.size)])
+    QUESTION_HASH.merge(:poll => create_poll, :question_type => Question::TYPES.values[rand(Question::TYPES.size)])
   end
 
   def question_answer_hash

@@ -1,5 +1,7 @@
 class Questions < Application
   before :ensure_authenticated
+  before :load_poll, :exclude => [:new]
+  before :load_question, :exclude => [:new, :create]
 
   # GET /questions/new
   def new
@@ -7,48 +9,45 @@ class Questions < Application
     render
   end
 
-  def create    
+  def create
     @question = Question.new(params[:question] || {})
     begin
-      @question.poll = Poll[params[:poll_id]]
+      @question.poll = @poll
       @question.save
-
-      render :layout => false
+      @status = 'succes'
     rescue Sequel::ValidationFailed
-      render :new
+      @status = 'error'
     end
+    render :layout => false
   end
 
-  def edit(id)
-    @question = Question[:id =>id ] 
-    @method = :put
-    @action = resource(@question.poll, @question)
+  def edit
     render
   end
 
   def update
-    poll = session.user.polls_dataset[:id => params[:poll_id]]
-    @question = poll.questions_dataset[:id=>params[:id]]
-    begin
-      raise NotFound unless @question
-      @question.update(params[:question])
-
-      redirect(resource(@question.poll, :edit))
-    rescue Sequel::ValidationFailed
-      render :new
-    end
+    @question.update(params[:question])
+    redirect(resource(@poll, :edit))
+  rescue Sequel::ValidationFailed
+    render :new
   end
 
-  def delete(id)
-    @question = Question[:id =>id ]    
-    poll = @question.poll
-
-    raise NotFound unless @question  
+  def delete
     if @question.destroy
-      redirect resource(poll, :edit)
+      redirect resource(@poll, :edit)
     else
       raise InternalServerError
     end
+  end
+
+  protected
+
+  def load_poll
+    @poll = session.user.polls_dataset.filter(:id => params[:poll_id]).first or raise NotFound
+  end
+
+  def load_question
+    @question = @poll.questions_dataset.filter(:id => params[:id]).first or raise NotFound
   end
 end
 
