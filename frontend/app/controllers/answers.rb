@@ -54,6 +54,8 @@ class Answers < Application
     @token.save
 
     render
+  rescue Sequel::ValidationFailed
+    render :show
   end
 
 end
