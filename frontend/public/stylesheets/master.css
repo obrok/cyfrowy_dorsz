@@ -386,6 +386,9 @@ th.action, td.action {
   padding: 0 2px;
 }
 
+#content table {
+  margin: 10px 0;
+}
 
 #content table tr td a {
   margin: 0 2px;

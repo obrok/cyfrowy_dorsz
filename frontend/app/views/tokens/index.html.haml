@@ -1,4 +1,6 @@
 %h1= "Tokeny dla ankiety <span class='name'>'#{h(@poll.name)}'</span>"
+= link_to("Generuj nowe tokeny", resource(@poll, :tokens, :generate), "method" => "post")
+
 %table
   %tr
     %th= 'Nazwa ankiety'
