@@ -11,17 +11,17 @@ describe Questions, "Creating the poll" do
   end
 
   it "shows new poll form" do
-    visit resource(:polls, :new)
+    visit '/polls/new'
     response.should include "Podaj nazwę nowej ankiety"
   end
 
   it "creates the poll correctly" do
-    name = "#{Time.now.to_f}"
-  
-    visit resource(:polls, :new)
-    fill_in "Nazwa", :with => name
+    poll = create_poll
+    visit '/polls/new'
+    fill_in "Nazwa", :with => poll.name
+    fill_in "Typ zajęć", :with => poll.poll_type
     click_button "Stwórz"
-    response.should include "Stworzono ankietę " + name
+    response.should include "Stworzono ankietę " + poll.name
   end
 
   it "shows edit poll form correctly" do

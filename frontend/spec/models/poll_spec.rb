@@ -17,4 +17,9 @@ describe Poll do
     @poll.name = nil
     @poll.should_not be_valid
   end
+
+  it "should validate poll type" do
+    @poll.poll_type = 'something stupid'
+    @poll.should_not be_valid
+  end
 end

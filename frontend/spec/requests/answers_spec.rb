@@ -23,21 +23,25 @@ describe "Student" do
     response.should include "Nieważny token"
   end
 
-  it "should save after stadent's submission" do
+  it "can see poll type when filling in poll" do
     poll = create_poll
     token = create_token(:poll => poll)
     question = create_question(:poll => poll)
+    fill_in "Token", :with => token.value
+    click_button "Wypełnij ankietę"
 
+    response.should include(poll.poll_type)
+  end
+
+  it "should save after student's submission" do
+    poll = create_poll
+    token = create_token(:poll => poll)
+    question = create_question(:poll => poll)
     fill_in "Token", :with => token.value
     click_button "Wypełnij ankietę"
 
     fill_in question.text, :with => "3"
     click_button "Wyślij odpowiedzi"
     response.should include "Dziękujemy za wypełnienie ankiety"
-
-    token = Token[token.id]
-    token.used.should equal true
-    poll = Poll[poll.id]
-    poll.answers.size.should equal 1
   end
 end

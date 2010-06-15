@@ -1,4 +1,3 @@
-p "TEST"
 Merb.logger.info("Loaded TEST Environment...")
 Merb::Config.use { |c|
   c[:testing]           = true
