@@ -31,6 +31,7 @@
 Merb.logger.info("Compiling routes...")
 Merb::Router.prepare do
   match("/polls/:id/tokens/generate").to(:controller => "tokens", :action => "generate")
+  match("/polls/:id/tokens/generate_multi").to(:controller => "tokens", :action => "generate_multi")
   match("/polls/:id/tokens/save").to(:controller => "tokens", :action => "save")
 
   # RESTful routes
@@ -39,7 +40,7 @@ Merb::Router.prepare do
     resources :questions, :controller => :questions do
       resources :results, :controller => :results
     end
-    resources :tokens, :controller => :tokens, :collection => {:generate => :post, :save => :post, :delete => :post}    
+    resources :tokens, :controller => :tokens, :collection => {:generate => :post, :generate_multi => :post, :save => :post, :delete => :post}    
   end
 
   resources(:users, :collection => {
