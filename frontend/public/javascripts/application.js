@@ -9,7 +9,7 @@ $(document).ready(function() {
     $(this).slideUp("fast");
   });
 
-  $("form#question-form").submit(function () {
+  $("form#new-question-form").submit(function () {
     $.ajax({
       url: $(this).attr("action"),
       type: 'POST',
@@ -20,7 +20,7 @@ $(document).ready(function() {
           toggleQuestions();
         }
         else {
-          $("form#question-form").replaceWith(html);
+          $("form#new-question-form").replaceWith(html);
         }
       },
       error: function(form, textStatus){
