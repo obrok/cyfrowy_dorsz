@@ -364,7 +364,7 @@ form#login-form .buttons input {
   padding: 5px 0;
 }
 
-th, td {
+#content table.custom th, td {
   padding: 0 10px;
   text-align: center;
   background: #C8F0A1;
@@ -372,13 +372,13 @@ th, td {
   border: 1px solid #799C57;
 }
 
-th {
+#content table.custom th {
   font-size: 13px;
   background: #ACD980;
   padding: 5px 10px;
 }
 
-th.action, td.action {
+#content table.custom th.action, td.action {
   padding: 0 3px;
 }
 
@@ -386,15 +386,15 @@ th.action, td.action {
   padding: 0 2px;
 }
 
-#content table {
+#content table.custom {
   margin: 10px 0;
 }
 
-#content table tr td a {
+#content table.custom tr td a {
   margin: 0 2px;
 }
 
-#content table tr td a:hover {
+#content table.custom tr td a:hover {
   margin: 2px;
 }
 

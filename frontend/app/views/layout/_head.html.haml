@@ -6,5 +6,7 @@
 
 %title
   cyfrowy dorsz
-= js_include_tag 'jquery.js', 'menu.js', 'application.js', :bundle => 'ankieter.js'
-= css_include_tag 'master.css', :bundle => 'ankieter.css'
+= js_include_tag 'menu', 'application', :bundle => 'ankieter.js'
+= js_include_tag 'vendor/jquery', 'vendor/jquery-ui-1.8.2.custom.min', :bundle => 'ankieter-vendor.js'
+= css_include_tag 'master', :bundle => 'ankieter.css'
+= css_include_tag 'vendor/jquery-ui-1.8.2.custom', :bundle => 'ankieter-vendor.css'
