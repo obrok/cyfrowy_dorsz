@@ -49,4 +49,18 @@ describe Tokens do
     response.should include(valid_until)
     response.should include(value)
   end
+
+  it "should provide information about errors while creating multi-token" do
+    poll = create_poll(:user => @user)
+    visit '/polls' / poll.id / 'edit'
+    click_link 'Zarządzaj tokenami'
+    click_link 'Generuj nowy token wielorazowy'
+    fill_in "Liczba użyć", :with => 20
+    valid_until = "2100-01-01"
+    fill_in "Data ważności", :with => valid_until
+    click_button 'Generuj token'
+
+    response.should include(valid_until)
+    response.should include("Niepoprawne dane")
+  end
 end
