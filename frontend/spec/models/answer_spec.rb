@@ -13,7 +13,7 @@ describe Answer do
     @answer.should be_valid
   end
 
-  [:date, :poll].each do |field|
+  [:date, :poll, :token].each do |field|
     it "should validate presence of #{field}" do
       @answer.send("#{field}=", nil)
       @answer.should_not be_valid

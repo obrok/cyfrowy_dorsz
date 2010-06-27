@@ -24,12 +24,14 @@ class Answers < Application
 
   def save_answer
     @token = Token[:value => params[:token]]
-    if (@token ==nil or not @token.is_valid_to_use)
-      message[:notice] = "Nieważny token"
+
+    if (@token == nil or not @token.is_valid_to_use)
+      message[:error] = "Nieważny token"
       redirect url(:controller => "answers", :action => "index"), :message => message
     end
 
     answer = Answer.new
+    answer.token = @token
     answer.date = DateTime.now
     answer.poll = @token.poll
 
@@ -50,7 +52,6 @@ class Answers < Application
       qa.save 
     end
 
-    @token.used = true
     @token.save
 
     render
