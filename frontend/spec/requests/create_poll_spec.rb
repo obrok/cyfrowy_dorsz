@@ -30,6 +30,13 @@ describe Questions, "Creating the poll" do
     response.should include "Dodaj nowe pytanie"
   end
 
+  it "shows edit question form correctly" do
+    poll = create_poll
+    question = create_question(:poll => poll)
+    visit resource(poll, question, :edit)
+    response.should include question.text
+  end
+
   it "adds new question correctly" do
     poll = create_poll(:user => @user)
     visit '/polls' / poll.id/ "edit"
