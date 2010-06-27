@@ -31,9 +31,9 @@ describe Questions, "Creating the poll" do
   end
 
   it "shows edit question form correctly" do
-    poll = create_poll
+    poll = create_poll(:user => @user)
     question = create_question(:poll => poll)
-    visit resource(poll, question, :edit)
+    visit '/polls' / poll.id/ "questions" / question.id / "edit"
     response.should include question.text
   end
 
