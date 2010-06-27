@@ -6,6 +6,9 @@ class Token < Sequel::Model
     super
     validates_presence :value
     validates_presence :valid_until
+    validates_presence :poll
+    validates_presence :used
+    validates_unique :value
   end
 
   def self.generate_random_value(size = 8)
