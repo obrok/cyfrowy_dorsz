@@ -5,31 +5,30 @@ class Answers < Application
     render
   end
 
-  def check_token
-    @token = Token[:value => params[:token]]
+  def show(values = nil)
+
+    @token = Token[:value => params[:token]] unless params[:token] == nil
+    @token = Token[:value => params[:id]] unless params[:id] == nil
 
     if (@token !=nil and @token.is_valid_to_use)
       message[:notice] = "Witamy w sesji"
-      redirect url(:controller => "answers", :action => "show", :id => @token.value), :message => message
+      render
     else
       message[:error] = "Nieważny token"
       redirect url(:controller => "answers", :action => "index"), :message => message
     end
   end
 
-  def show(values = nil)
-    @token = Token[:value => params[:id]]
-    render
-  end
-
   def save_answer
     @token = Token[:value => params[:token]]
-    if (@token ==nil or not @token.is_valid_to_use)
-      message[:notice] = "Nieważny token"
+
+    if (@token == nil or not @token.is_valid_to_use)
+      message[:error] = "Nieważny token"
       redirect url(:controller => "answers", :action => "index"), :message => message
     end
 
     answer = Answer.new
+    answer.token = @token
     answer.date = DateTime.now
     answer.poll = @token.poll
 
@@ -50,7 +49,6 @@ class Answers < Application
       qa.save 
     end
 
-    @token.used = true
     @token.save
 
     render

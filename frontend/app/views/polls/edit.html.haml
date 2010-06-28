@@ -1,6 +1,7 @@
 %h1= "Edycja ankiety <span class='name'>'#{h(@poll.name)}'</span>"
 
 = link_to 'Statystyki', resource(@poll, :stats)
+= link_to("Zarządzaj tokenami", resource(@poll, :tokens))
 
 %h3 Pytania
 %table.custom{ :id => 'questions' }
@@ -16,7 +17,3 @@
 
 %h3 Dodaj nowe pytanie
 = partial 'questions/new', :poll => @poll, :question => Question.new
-
-%h3 Tokeny
-= link_to("Generuj tokeny", resource(@poll, :tokens, :generate), "method" => "post")
-= link_to("Pokaż tokeny", resource(@poll, :tokens))

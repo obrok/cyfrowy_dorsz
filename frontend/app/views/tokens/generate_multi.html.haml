@@ -2,16 +2,18 @@
 = form(:action => resource(@poll, :tokens, :save)) do
   %fieldset
     .ctrl
-      = text_field(:count, :label => "Ilość tokenów", :value => 10)
+      = text_field(:value, :label => "Nazwa")
+    .ctrl
+      = text_field(:max_usage, :label => "Liczba użyć", :value => 10)
     .ctrl
       = text_field(:valid_until, :id=>"valid_until", :label => "Data ważności tokenów", :value=> (DateTime::now()+20).strftime("%Y-%m-%d"))
     .ctrl
-      = hidden_field(:token_type, :value => Token::TYPES[:single])
+      = hidden_field(:token_type, :value => Token::TYPES[:multi])
     .ctrl.buttons
-      = submit("Generuj tokeny")
+      = submit("Generuj token")
   %script{:type=>"text/javascript"}
     //<![CDATA[
     $(function() {
-    $('#valid_until').datepicker({ dateFormat: 'yy-mm-dd' });
+    $('#valid_until').datepicker();
     });
     //]]>

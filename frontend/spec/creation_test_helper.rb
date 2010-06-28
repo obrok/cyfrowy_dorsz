@@ -20,7 +20,7 @@ module CreationTestHelper
   }
 
   TOKEN_HASH = {
-    :used => false,
+    :max_usage => 1
   }
 
   def user_hash
@@ -32,7 +32,8 @@ module CreationTestHelper
   end
 
   def answer_hash
-    ANSWER_HASH.merge(:date => DateTime.now, :poll => create_poll)
+    poll = create_poll
+    ANSWER_HASH.merge(:date => DateTime.now, :poll => poll, :token => create_token(:poll => poll))
   end
 
   def question_hash
@@ -45,7 +46,7 @@ module CreationTestHelper
   end
 
   def token_hash
-    TOKEN_HASH.merge(:poll => create_poll, :value => Token.generate_random_value, :valid_until => Time.now + 1.day)
+    TOKEN_HASH.merge(:poll => create_poll, :value => Token.generate_random_value, :valid_until => Time.now + 1.day, :token_type => Token::TYPES.values[rand(Token::TYPES.size)])
   end
 
   def create_user(values = {})
