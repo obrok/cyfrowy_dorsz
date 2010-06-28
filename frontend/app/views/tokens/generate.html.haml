@@ -1,17 +1,16 @@
-= js_include_tag 'jquery_ui_datepicker.js', 'ui.datepicker-pl.js'
-= form(:action => resource(@poll, :tokens, :save)) do
+%h3= "Generacja tokenów dla ankiety '<span class='name'>#{@poll.name}</span>':"
+%p= '<strong>Nazwa</strong> tokenu jest <strong>opcjonalna</strong>, jeżeli jej nie podasz, zostanie wygenerowana unikalna nazwa.'
+%p= 'Możesz utworzyć tylko <strong>jeden token</strong> o <strong>podanej</strong> przez ciebie nazwie.'
+
+= form(:action => resource(@poll, :tokens, :save), :id => 'generate-tokens-form') do
   %fieldset
     .ctrl
-      = text_field(:count, :label => "Ilość tokenów", :value => 10)
+      = text_field(:value, :label => "Nazwa", :id => 'value')
+    .ctrl
+      = text_field(:count, :label => "Ilość tokenów", :value => 10, :id => 'count')
+    .ctrl
+      = text_field(:max_usage, :label => "Liczba użyć", :value => 1)
     .ctrl
       = text_field(:valid_until, :id=>"valid_until", :label => "Data ważności tokenów", :value=> (DateTime::now()+20).strftime("%Y-%m-%d"))
-    .ctrl
-      = hidden_field(:token_type, :value => Token::TYPES[:single])
     .ctrl.buttons
       = submit("Generuj tokeny")
-  %script{:type=>"text/javascript"}
-    //<![CDATA[
-    $(function() {
-    $('#valid_until').datepicker({ dateFormat: 'yy-mm-dd' });
-    });
-    //]]>

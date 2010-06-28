@@ -46,7 +46,7 @@ module CreationTestHelper
   end
 
   def token_hash
-    TOKEN_HASH.merge(:poll => create_poll, :value => Token.generate_random_value, :valid_until => Time.now + 1.day, :token_type => Token::TYPES.values[rand(Token::TYPES.size)])
+    TOKEN_HASH.merge(:poll => create_poll, :value => Token.generate_random_value, :valid_until => Time.now + 1.day, :max_usage => 7)
   end
 
   def create_user(values = {})

@@ -11,8 +11,7 @@ class Tokens < Application
 
   def index
     @poll = Poll[params[:poll_id]]
-    @tokens = @poll.tokens_dataset.filter(:token_type=>Token::TYPES[:single])
-    @tokens_multi = @poll.tokens_dataset.filter(:token_type=>Token::TYPES[:multi])
+    @tokens = @poll.tokens
     render
   end
 
@@ -23,7 +22,6 @@ class Tokens < Application
     token.poll = @poll
     token.valid_until = date
     token.max_usage = max_usage
-    token.token_type = token_type
     token.value = value
     begin
       token.save
@@ -40,21 +38,12 @@ class Tokens < Application
     render
   end
 
-  def generate_multi
-    @tokeninfo
-    @poll = Poll[params[:id]]
-    render
-  end
-
   def save
     @poll = Poll[params[:id]]
 
-    if params[:token_type] == Token::TYPES[:multi] then
-      create(params[:valid_until], params[:token_type], params[:max_usage], params[:value])
-    else  
-      params[:count].to_i.times do
-        create(params[:valid_until], params[:token_type], 1, Token.generate_random_value)
-      end
+    params[:count].to_i.times do
+      value = params[:value].blank? ? Token.generate_random_value : params[:value]
+      create(params[:valid_until], params[:token_type], params[:max_usage].to_i, value)
     end
 
     redirect(url(:poll_tokens, @poll))

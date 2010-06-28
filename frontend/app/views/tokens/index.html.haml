@@ -1,39 +1,16 @@
 %h1= "Tokeny dla ankiety <span class='name'>'#{h(@poll.name)}'</span>"
 
-
-%h2= 'Wielorazowe tokeny'
-
-= link_to("Generuj nowy token wielorazowy", resource(@poll, :tokens, :generate_multi), "method" => "post")
-
-%table
-  %tr
-    %th= 'Odnośnik hipertekstowy'
-    %th= 'Ważny do'
-    %th= 'Zużycie'
-    %th.action
-    - @tokens_multi.each do |token|
-      %tr
-        %td= link_to("http://localhost:4000/answers/show/" + token.value, "http://localhost:4000/answers/show/" + token.value)
-        %td= token.valid_until
-        %td= token.answers.size.to_s + "/" + token.max_usage.to_s
-        %td.action= link_to(image_tag('/images/delete.png', :alt => 'usuń', :title => 'usuń'), resource(token.poll, token, :delete), :class => 'image-link delete-token')
-
-%h2= 'Jednorazowe tokeny'
-
-= link_to("Generuj nowe tokeny jednorazowe", resource(@poll, :tokens, :generate), "method" => "post")
+= link_to("Generuj nowe tokeny", resource(@poll, :tokens, :generate), "method" => "post")
 
 %table.custom
   %tr
     %th= 'Wartość'
     %th= 'Ważny do'
-    %th= 'Zużyty'
+    %th= 'Pozostało użyć'
     %th.action
     - @tokens.each do |token|
       %tr
         %td= token.value
         %td= token.valid_until
-        - if token.used 
-          %td= "tak"
-        - else
-          %td= "nie"
+        %td= token.remaining_count
         %td.action= link_to(image_tag('/images/delete.png', :alt => 'usuń', :title => 'usuń'), resource(token.poll, token, :delete), :class => 'image-link delete-token')

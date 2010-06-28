@@ -8,12 +8,9 @@ class Token < Sequel::Model
     validates_presence :value
     validates_presence :valid_until
     validates_presence :poll
-    validates_presence :token_type
     validates_presence :max_usage
     validates_unique :value
     errors[:max_usage] << "niepoprawna liczba użyć" if max_usage!=nil and max_usage<1
-    errors[:token_type] << "niepoprawny typ tokenu" unless TYPES.values.include?(token_type)
-    errors[:token_type] << "niepoprawny typ tokenu" if max_usage!=nil and max_usage>1 and token_type!=nil and token_type==TYPES[:single]
   end
 
   def self.generate_random_value(size = 8)
@@ -22,15 +19,10 @@ class Token < Sequel::Model
   end
 
   def is_valid_to_use
-    not used and valid_until > DateTime::now
+    remaining_count>0 && valid_until>DateTime::now
   end
 
-  def used
-    max_usage <= answers.size
+  def remaining_count
+    max_usage-answers.size
   end
-
-  TYPES = {
-    :single => "Jednorazowy",
-    :multi => "Wielorazowy"
-  }
 end

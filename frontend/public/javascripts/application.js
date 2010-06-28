@@ -32,6 +32,18 @@ $(document).ready(function() {
   });
 
   toggleQuestions();
+
+  $('form#generate-tokens-form #valid_until').datepicker({ dateFormat: 'yy-mm-dd' });
+  $('form#generate-tokens-form #value').blur(function() {
+    var count = $('form#generate-tokens-form #count');
+    if ($(this).attr("value") != "") {
+      count.attr("value", 1);
+      count.attr("disabled", "disabled");
+    }
+    else {
+      count.removeAttr("disabled");
+    }
+  })
 });
 
 function toggleQuestions() {

@@ -9,8 +9,7 @@ describe Tokens do
   it "should redirect to tokens list after tokens generation" do
     poll = create_poll(:user => @user)
     visit '/polls' / poll.id / 'edit'
-    click_link 'Zarządzaj tokenami'
-    click_link 'Generuj nowe tokeny jednorazowe'
+    click_link 'Generuj tokeny'
     click_button 'Generuj tokeny'
 
     response.should include("Tokeny dla ankiety")
@@ -20,8 +19,7 @@ describe Tokens do
   it "should show correct amount of valid tokens after single-tokens generation" do
     poll = create_poll(:user => @user)
     visit '/polls' / poll.id / 'edit'
-    click_link 'Zarządzaj tokenami'
-    click_link 'Generuj nowe tokeny jednorazowe'
+    click_link 'Generuj tokeny'
     fill_in "Ilość tokenów", :with => 20
     valid_until = "2100-01-01"
     fill_in "Data ważności", :with => valid_until
@@ -37,8 +35,7 @@ describe Tokens do
   it "should show correct token after multi-token generation" do
     poll = create_poll(:user => @user)
     visit '/polls' / poll.id / 'edit'
-    click_link 'Zarządzaj tokenami'
-    click_link 'Generuj nowy token wielorazowy'
+    click_link 'Generuj tokeny'
     value = "#{Time.now.to_f}"
     fill_in "Nazwa", :with => value
     fill_in "Liczba użyć", :with => 20
