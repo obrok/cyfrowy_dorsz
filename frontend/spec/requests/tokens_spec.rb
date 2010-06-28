@@ -46,4 +46,12 @@ describe Tokens do
     response.should include(valid_until)
     response.should include(value)
   end
+
+  it "should display print view correctly" do
+    poll = create_poll(:user => @user)
+    visit '/polls' / poll.id / 'edit'
+    click_link 'Drukuj tokeny'
+    response.should include('Tokeny dla ankiety')
+    response.should include(poll.name)
+  end
 end

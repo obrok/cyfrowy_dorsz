@@ -1,0 +1,12 @@
+= css_include_tag 'print_view'
+
+#print-view
+  %h3= "Tokeny dla ankiety '#{@poll.name}':"
+  %table
+    %tr
+      %th= 'Nazwa'
+      %th= 'Ważny do'
+    - @poll.tokens.each do |token|
+      %tr
+        %td= token.value
+        %td= token.valid_until

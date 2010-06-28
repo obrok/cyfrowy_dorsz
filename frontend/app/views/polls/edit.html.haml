@@ -3,6 +3,7 @@
 = link_to 'Statystyki', resource(@poll, :stats)
 = link_to("Generuj tokeny", resource(@poll, :tokens, :generate), "method" => "post")
 = link_to("Pokaż tokeny", resource(@poll, :tokens))
+= link_to("Drukuj tokeny", resource(@poll, :tokens, :print))
 
 %h3 Pytania
 %table.custom{ :id => 'questions' }

@@ -1,0 +1,17 @@
+#print-view {
+  width: 900px;
+  text-align: center;
+  margin: 0px auto;
+  font-family: verdana;
+}
+
+table {
+  border: 1px solid #666;
+  width: 100%;
+}
+
+table td, th {
+  border: 1px solid #666;
+  text-align: center;
+  padding: 20px 0;
+}

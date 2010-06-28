@@ -8,7 +8,7 @@ module LoginTestHelper
     visit "/login"
     fill_in "Email", :with => user.email
     fill_in "Password", :with => password || CreationTestHelper::USER_HASH[:password]
-    click_button "Log In"
+    click_button "Log in"
   end
 
   def logout

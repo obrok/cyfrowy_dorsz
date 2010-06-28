@@ -1,5 +1,6 @@
 class Tokens < Application
   before :ensure_authenticated
+  before :load_poll, :only => [:index, :generate, :save, :print]
 
   # provides :xml, :yaml, :js
 
@@ -10,7 +11,6 @@ class Tokens < Application
   end
 
   def index
-    @poll = Poll[params[:poll_id]]
     @tokens = @poll.tokens
     render
   end
@@ -33,14 +33,10 @@ class Tokens < Application
   end
 
   def generate
-    @tokeninfo
-    @poll = Poll[params[:id]]
     render
   end
 
   def save
-    @poll = Poll[params[:id]]
-
     params[:count].to_i.times do
       value = params[:value].blank? ? Token.generate_random_value : params[:value]
       create(params[:valid_until], params[:token_type], params[:max_usage].to_i, value)
@@ -59,6 +55,16 @@ class Tokens < Application
     else
       raise InternalServerError
     end
+  end
+
+  def print
+    render :layout => false
+  end
+
+  protected
+
+  def load_poll
+    @poll = Poll[params[:poll_id]]
   end
 end
 
