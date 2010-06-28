@@ -1,5 +1,7 @@
 %h1= "Edycja ankiety <span class='name'>'#{h(@poll.name)}'</span>"
 
+= link_to 'Statystyki', resource(@poll, :stats)
+
 %h3 Pytania
 %table.custom{ :id => 'questions' }
   %tr

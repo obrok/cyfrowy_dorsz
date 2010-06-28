@@ -1,7 +1,7 @@
 .ctrl
   - if question.open?
-    = text_field :name => question.id, :label => question.text
+    = text_field :name => question.id, :label => question.title
     %span.validation.error
       = question.errors.on(:value)
   - if question.closed?
-    = select(:name => question.id, :label => question.text, :collection => "1".."5")
+    = select(:name => question.id, :label => question.title, :collection => "1".."5")

@@ -1,4 +1,4 @@
-%p Podaj nazwę nowej ankiety
+%h3 Podaj nazwę nowej ankiety
 = form_for(@poll, :action => resource(:polls), :method => :post) do
   .error
     = error_messages_for(@poll)

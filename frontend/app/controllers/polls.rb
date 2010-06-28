@@ -1,5 +1,6 @@
 class Polls < Application
   before :ensure_authenticated
+  before :load_poll, :only => [:edit, :stats]
 
   # provides :xml, :yaml, :js
 
@@ -26,8 +27,7 @@ class Polls < Application
     end
   end
 
-  def edit
-    @poll = Poll[:id => params[:id]]
+  def edit    
     @action = resource(@poll, :questions)
     @method = :post
     @question = Question.new
@@ -35,6 +35,26 @@ class Polls < Application
     raise NotFound unless @poll
 
     render
+  end
+
+  def stats
+    @questions = @poll.questions_dataset.filter(:question_type => Question::TYPES[:closed])
+    @answers = []
+    @questions.each_with_index do |question, i|
+      question.question_answers.each_with_index do |answer, j|
+        unless @answers[j]
+          @answers[j] = []
+        end
+        @answers[j][i] = answer
+      end
+    end
+    render
+  end
+
+  protected
+
+  def load_poll
+    @poll = Poll[:id => params[:id]]
   end
 
 end

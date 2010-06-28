@@ -1,3 +1,5 @@
+require 'spec/spec_helper'
+
 describe "Per question results" do
   before(:each) do
     @poll = create_poll
@@ -22,5 +24,12 @@ describe "Per question results" do
     response.should include "Odpowiedź 1"
     response.should include "Odpowiedź 2"
     response.should_not include "Odpowiedź 3"
+  end
+
+  it "should display charts page correctly" do
+    click_link "Statystyki"
+    response.should include "Statystyki pytań zamkniętych dla ankiety"
+    response.should include @poll.name
+    response.should include "visualize"
   end
 end

@@ -24,4 +24,12 @@ class Question < Sequel::Model
   def closed?
     question_type == TYPES[:closed]
   end
+
+  def title
+    if text.size>20
+      "#{text[0..20]}..."
+    else
+      text
+    end
+  end
 end

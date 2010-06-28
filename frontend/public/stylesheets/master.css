@@ -305,7 +305,7 @@ select {
 label {
   color: #5B7A00;
   font-weight: bold;
-  width: 120px;
+  width: 200px;
   float: left;
   line-height: 20px;
 }
@@ -413,4 +413,20 @@ ul.answers li {
   border: 1px solid #799C57;
   width: 500px;
   margin: 5px 0;
+}
+
+#stats-content {
+  font-size: 10px;
+  text-align: left;
+}
+
+#stats-content .visualize {
+  margin: 10px 0;
+  border: solid 1px #82A360;
+}
+
+#stats-content .visualize .visualize-title {
+  font-size: 14px;
+  margin: 3px auto;
+  left: 40px;
 }
