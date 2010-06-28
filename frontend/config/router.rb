@@ -42,7 +42,7 @@ Merb::Router.prepare do
     end
 
     member :stats, :method => :get
-    resources :tokens, :controller => :tokens, :collection => {:generate => :post, :generate_multi => :post, :save => :post, :delete => :post}
+    resources :tokens, :controller => :tokens, :collection => {:generate => :post, :generate_multi => :post, :save => :post, :delete => :post}    
   end
 
   resources(:users, :collection => {
