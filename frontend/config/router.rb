@@ -39,6 +39,8 @@ Merb::Router.prepare do
     resources :questions, :controller => :questions do
       resources :results, :controller => :results
     end
+
+    member :stats, :method => :get
     resources :tokens, :controller => :tokens, :collection => {:generate => :post, :save => :post, :delete => :post}    
   end
 
@@ -58,5 +60,5 @@ Merb::Router.prepare do
   default_routes
   
   # Change this for your home page to be available at /
-  match('/').to(:controller => 'welcome', :action =>'index')
+  match('/').to(:controller => 'polls', :action =>'index')
 end
