@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class Answers < Application
   layout :anonymous
   
@@ -5,20 +6,16 @@ class Answers < Application
     render
   end
 
-  def check_token
+  def show(values = nil)
     @token = Token[:value => params[:token]]
 
     if (@token !=nil and @token.is_valid_to_use)
       message[:notice] = "Witamy w sesji"
-      redirect url(:controller => "answers", :action => "show", :id => @token.value), :message => message
     else
       message[:error] = "Nieważny token"
-      redirect url(:controller => "answers", :action => "index"), :message => message
+      return redirect url(:controller => "answers", :action => "index"), :message => message
     end
-  end
 
-  def show(values = nil)
-    @token = Token[:value => params[:id]]
     render
   end
 
@@ -57,6 +54,5 @@ class Answers < Application
   rescue Sequel::ValidationFailed
     render :show
   end
-
 end
 

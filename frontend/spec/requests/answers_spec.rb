@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'spec/spec_helper'
 
 describe "Student" do
@@ -43,5 +44,19 @@ describe "Student" do
     fill_in question.text, :with => "3"
     click_button "Wyślij odpowiedzi"
     response.should include "Dziękujemy za wypełnienie ankiety"
+  end
+
+  it "should see his answers if something is wrong" do
+    poll = create_poll
+    token = create_token(:poll => poll)
+    question = create_question(:poll => poll, :question_type => "Otwarte", :text => "Pytanie A")
+    question2 = create_question(:poll => poll, :question_type => "Otwarte", :text => "Pytanie B")
+
+    fill_in("Token", :with => token.value)
+    click_button("Wypełnij ankietę")
+
+    fill_in(question2.text, :with => "Odpowiedź")
+    click_button("Wyślij odpowiedzi")
+    response.should include "Odpowiedź"
   end
 end

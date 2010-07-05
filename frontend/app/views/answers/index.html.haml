@@ -1,6 +1,5 @@
-= form :action => url(:controller => "answers", :action => "check_token"), :id => 'login-form' do
+= form :action => url(:controller => "answers", :action => "show"), :id => 'login-form' do
   %fieldset
-    = error_messages_for session.authentication
     .ctrl
       = text_field :token, :label => 'Token'
     .ctrl.buttons
