@@ -1,17 +1,31 @@
-Test line
+Setting up:
 
-Install
+Install some prerequisites (package names form Ubuntu)
 
-sudo gem install bundler
+$ sudo apt-get install ruby1.8-dev
+$ sudo apt-get install libxml2-dev
+$ sudo apt-get install libxslt-dev
+$ sudo apt-get install libsqlite3-dev
+$ sudo apt-get install libopenssl-ruby
 
-sudo apt-get install ruby1.8-dev
-sudo apt-get install libxml2-dev
-sudo apt-get install libxslt-dev
-sudo apt-get install libsqlite3-dev
-sudo apt-get install libopenssl-ruby
+Install rubygems >= 1.3.6; you may need to do it form source: go to http://rubygems.org/pages/download and follow instructions at the bottom of the page
 
-bundle install
+Then
 
-Run
+$ sudo gem install bundler
+$ sudo gem install rake
 
-bin/merb => at localhost:4000
+Navigate to cyfrowy_dorsz/frontend
+
+$ bundle install
+
+To migrate db:
+
+$ rake sequel:db:migrate
+$ MERB_ENV=test rake sequel:db:migrate # Migrates db for given environment
+
+To run:
+
+$ bin/merb # Runs at localhost:4000 in development environment by default
+$ MERB_ENV=production bin/merb # Runs in production environment, same for staging
+$ rake # Runs automated tests by default
