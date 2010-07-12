@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class QuestionAnswer < Sequel::Model
   plugin :validation_helpers
   many_to_one :question
@@ -8,7 +9,5 @@ class QuestionAnswer < Sequel::Model
     validates_presence :value, :message => 'odpowiedź jest wymagana'
     validates_presence :question
     validates_presence :answer
-
-
   end
 end
