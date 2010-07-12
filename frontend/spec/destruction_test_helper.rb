@@ -20,3 +20,10 @@ class Question < Sequel::Model
     question_answers.each{|x| x.destroy}
   end
 end
+
+class Token < Sequel::Model
+  def before_destroy
+    super
+    answers.each{|x| x.destroy}
+  end
+end

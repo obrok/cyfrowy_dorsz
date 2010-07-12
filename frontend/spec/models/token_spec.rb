@@ -26,7 +26,7 @@ describe Token do
 
   it "remaining count should be decreased after answering" do
     create_answer(:poll => @token.poll, :token => @token)
-    @token.remaining_count.should == @token.max_usage-1
+    @token.remaining_count.should == @token.max_usage - 1
   end
 
   it "should allow multiple answers" do
