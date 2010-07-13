@@ -14,10 +14,10 @@ class Question < Sequel::Model
   }
 
   def before_save
-    super
     if choice? && possible_answers == nil
       self.possible_answers = []
     end
+    super
   end
 
   def validate

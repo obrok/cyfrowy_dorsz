@@ -71,6 +71,12 @@ describe Questions, "Creating the poll" do
   end
 
   it "allows to remove an answer from a choice question" do
-    pending
+    poll = create_poll(:user => @user)
+    question = create_question(:poll => poll, :question_type => "Wyboru", :possible_answers => ["Odpowiedź1", "Odpowiedź2"])
+    visit resource(poll, :edit)
+    
+    click_link "Usuń Odpowiedź1"
+
+    question.reload.possible_answers.should_not include "Odpowiedź1"
   end
 end
