@@ -50,7 +50,13 @@ describe Questions, "Creating the poll" do
   end
 
   it "shows all current answers to a choice question" do
-    pending
+    poll = create_poll(:user => @user)
+    question = create_question(:poll => poll, :question_type => "Wyboru", :possible_answers => ["Odpowiedź1", "Odpowiedź2"])
+    visit resource(poll, :edit)
+    
+    question.possible_answers.each do |answer|
+      response.should include answer
+    end
   end
 
   it "allows to add an answer to a choice question" do

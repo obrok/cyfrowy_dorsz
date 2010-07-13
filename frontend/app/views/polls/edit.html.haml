@@ -10,9 +10,7 @@
   %tr
     %th= 'Tekst pytania'
     %th= 'Rodzaj pytania'
-    %th.action
-    %th.action
-    %th.action
+    %th.action{:colspan => 3}
     - @poll.questions.each do |question|
       = partial 'questions/question', :question => question
 
