@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'spec/spec_helper'
 
 describe QuestionAnswer do
@@ -18,5 +19,17 @@ describe QuestionAnswer do
       @answer.send("#{field}=", nil)
       @answer.should_not be_valid
     end
+  end
+
+  it "should validate the answer to a choice question" do
+    question = create_question(:question_type => "Wyboru")
+    question.possible_answers = ["Odpowiedź1", "Odpowiedź2"]
+    @answer.question = question
+    @answer.answer = create_answer(:poll => question.poll)
+
+    @answer.value = "Odpowiedź3"
+    @answer.should_not be_valid
+    @answer.value = "Odpowiedź2"
+    @answer.should be_valid
   end
 end

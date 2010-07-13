@@ -9,5 +9,13 @@ class QuestionAnswer < Sequel::Model
     validates_presence :value, :message => 'odpowiedź jest wymagana'
     validates_presence :question
     validates_presence :answer
+    validate_answer
+  end
+
+  private
+  def validate_answer
+    if question && question.choice? && !question.possible_answers.include?(value)
+      errors[:value] << 'musisz wybrać jedną z odpowiedzi'
+    end
   end
 end
