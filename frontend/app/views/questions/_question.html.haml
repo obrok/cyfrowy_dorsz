@@ -5,7 +5,6 @@
   %td.action= link_to(image_tag('/images/edit.png', :alt => 'edytuj'), resource(question.poll, question, :edit), :class => 'image-link')
   %td.action= link_to(image_tag('/images/delete.png', :alt => 'usuń', :title => 'usuń'), resource(question.poll, question, :delete), :class => 'image-link delete-question')
 - if question.choice?
-  - p question
   %td
     = partial("possible_answers/form", :question => question)
   %td{:colspan => 4}

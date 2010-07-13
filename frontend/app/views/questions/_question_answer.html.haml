@@ -3,5 +3,9 @@
     = text_field :name => question.id, :label => question.title, :value => h(params[question.id.to_s])
     %span.validation.error
       = question.errors.on(:value)
+  - if question.choice?
+    = select(:name => question.id, :label => question.title, :collection => question.possible_answers.map{|x| h(x)}, :selected => params[question.id], :prompt => "")
+    %span.validation.error
+      = question.errors.on(:value)
   - if question.closed?
-    = select(:name => question.id, :label => question.title, :collection => "1".."5", :selected => params[question.id])
+    = select(:name => question.id, :label => question.title, :collection => "1".."5", :selected => params[question.id])  

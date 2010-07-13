@@ -59,4 +59,17 @@ describe "Student" do
     click_button("Wyślij odpowiedzi")
     response.should include "Odpowiedź"
   end
+
+  it "should be able to answer a choice question" do    
+    poll = create_poll
+    token = create_token(:poll => poll)
+    question = create_question(:poll => poll, :question_type => "Wyboru", :text => "Pytanie A", :possible_answers => ["Tak", "Nie"])
+
+    fill_in("Token", :with => token.value)
+    click_button("Wypełnij ankietę")
+
+    select "Tak", :from => "Pytanie A"
+    click_button("Wyślij odpowiedzi")
+    response.should include "Dziękujemy za wypełnienie ankiety"
+  end
 end
