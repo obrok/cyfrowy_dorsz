@@ -60,7 +60,14 @@ describe Questions, "Creating the poll" do
   end
 
   it "allows to add an answer to a choice question" do
-    pending
+    poll = create_poll(:user => @user)
+    question = create_question(:poll => poll, :question_type => "Wyboru", :possible_answers => ["Odpowiedź1", "Odpowiedź2"])
+    visit resource(poll, :edit)
+
+    fill_in "Nowa odpowiedź", :with => "Odpowiedź3"
+    click_button "Dodaj odpowiedź"
+
+    question.reload.possible_answers.should include "Odpowiedź3"
   end
 
   it "allows to remove an answer from a choice question" do

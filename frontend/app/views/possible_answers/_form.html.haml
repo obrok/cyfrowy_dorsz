@@ -1,0 +1,6 @@
+= form(:action => resource(question.poll, question, :possible_answers), :method => :post) do
+  %fieldset
+  .ctrl
+    = text_field(:text, :label => "Nowa odpowiedź", :name => "answer")
+  .ctrl.buttons
+    = submit("Dodaj odpowiedź")

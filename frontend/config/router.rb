@@ -3,6 +3,7 @@ Merb::Router.prepare do
   resources :polls do
     resources :questions, :controller => :questions do
       resources :results, :controller => :results
+      resources :possible_answers, :controller => :possible_answers
     end
 
     member :stats, :method => :get
