@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class Question < Sequel::Model
   plugin :hook_class_methods
   plugin :validation_helpers
@@ -6,7 +7,8 @@ class Question < Sequel::Model
 
   TYPES = {
     :open => "Otwarte",
-    :closed => "Zamknięte"
+    :closed => "Zamknięte",
+    :choice => "Wyboru"
   }
 
   def validate
@@ -23,6 +25,10 @@ class Question < Sequel::Model
 
   def closed?
     question_type == TYPES[:closed]
+  end
+
+  def choice?
+    question_type == TYPES[:choice]
   end
 
   def title

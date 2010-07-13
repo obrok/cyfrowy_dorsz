@@ -30,3 +30,23 @@ describe Question do
     @question.reload.question_answers.should include answer
   end
 end
+
+describe "Closed Question" do
+  before(:each) do
+    @question = create_question(:question_type => "Wyboru")
+  end
+
+  after(:each) do
+    @question.destroy
+  end
+
+  it "should be valid" do
+    @question.should be_valid
+  end
+
+  it "should be choice" do
+    @question.should be_choice
+    @question.should_not be_open
+    @question.should_not be_closed
+  end
+end

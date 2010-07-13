@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 module CreationTestHelper
   USER_HASH = {
     :email => "example@example.com",
@@ -10,6 +11,7 @@ module CreationTestHelper
 
   QUESTION_HASH = {
     :text => "tresc pytania", 
+    :question_type => "Zamknięte",
   }
 
   ANSWER_HASH = {
@@ -37,7 +39,7 @@ module CreationTestHelper
   end
 
   def question_hash
-    QUESTION_HASH.merge(:poll => create_poll, :question_type => Question::TYPES.values[rand(Question::TYPES.size)])
+    QUESTION_HASH.merge(:poll => create_poll)
   end
 
   def question_answer_hash
