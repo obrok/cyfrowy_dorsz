@@ -49,4 +49,19 @@ describe "Closed Question" do
     @question.should_not be_open
     @question.should_not be_closed
   end
+
+  it "should have no possible answers by default" do
+    @question.possible_answers.class.should == Array
+    @question.possible_answers.should be_empty
+  end
+
+  it "should properly serialize an array of strings" do
+    @question.possible_answers = ["Tak", "Nie"]
+    @question.save
+    @question.reload
+    
+    @question.possible_answers.class.should == Array
+    @question.possible_answers.should include "Tak"
+    @question.possible_answers.should include "Nie"
+  end
 end

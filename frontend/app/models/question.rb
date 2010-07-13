@@ -2,6 +2,8 @@
 class Question < Sequel::Model
   plugin :hook_class_methods
   plugin :validation_helpers
+  plugin :serialization, :json, :possible_answers
+
   many_to_one :poll
   one_to_many :question_answers
 
@@ -10,6 +12,13 @@ class Question < Sequel::Model
     :closed => "Zamknięte",
     :choice => "Wyboru"
   }
+
+  def before_save
+    super
+    if choice? && possible_answers == nil
+      self.possible_answers = []
+    end
+  end
 
   def validate
     super
