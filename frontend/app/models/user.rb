@@ -36,7 +36,9 @@ class User < Sequel::Model
       end
     end
 
-    return sum.to_f/count.to_f
+    return sum.to_f/count.to_f unless count == 0
+
+    return "-"
   end
 
   private
