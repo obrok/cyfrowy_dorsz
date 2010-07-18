@@ -1,0 +1,9 @@
+%h1 Ranking prowadzących
+%table.custom
+  %tr
+    %th= 'Prowadzący'
+    %th= 'Ranking'
+  - @users.each do |user|
+    %tr
+      %td= user.email
+      %td= 7
