@@ -1,0 +1,11 @@
+%h3 Uzupełnij dane
+= form_for(@user, :action => :update) do
+  .error
+    = error_messages_for(@user)
+  %fieldset
+    .ctrl
+      = text_field :name, :label => "Imię"
+    .ctrl
+      = text_field :surname, :label => "Nazwisko"
+    .ctrl.buttons
+      = submit "Zapisz zmiany"

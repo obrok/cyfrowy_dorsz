@@ -11,6 +11,21 @@ class Users < Application
                                    :perform_reset_password
                                   ]
 
+  def profile
+    @user = session.user
+    render(:layout => :application)
+  end
+
+  def update
+    puts "dupa"
+    puts "dupa"
+    puts "dupa"
+
+    session.user.update(params[:user])
+
+    redirect(resource(:users, :profile), :notice => "Dane zapisane")
+  end
+
   def reset_password
     @token = params[:token]
     render
