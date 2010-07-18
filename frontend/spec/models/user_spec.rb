@@ -44,4 +44,13 @@ describe User do
     last_email.to.should include @user.email
     last_email.text.should include @user.login_token
   end
+
+  it "should count correct ranking" do
+    poll = create_poll(:user => @user)
+    question = create_question(:poll => poll, :question_type => Question::TYPES[:closed])
+    create_question_answer(:question => question, :value => 1)
+    create_question_answer(:question => question, :value => 4)
+
+    @user.ranking.should == 2.5
+  end
 end
