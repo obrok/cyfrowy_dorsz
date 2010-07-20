@@ -27,11 +27,19 @@ class Polls < Application
     end
   end
 
-  def edit    
+  def edit
     @action = resource(@poll, :questions)
     @method = :post
     @question = Question.new
     @question.poll = @poll
+
+    if @poll.questions_dataset.filter(:question_type => Question::TYPES[:teacher]).count == 0
+      @question_types = Question::TYPES.values
+    else 
+      @question_types = Array.new(Question::TYPES.values)
+      @question_types.delete(Question::TYPES[:teacher])
+    end
+
     raise NotFound unless @poll
 
     render
