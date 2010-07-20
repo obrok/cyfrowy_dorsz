@@ -33,7 +33,7 @@ class Polls < Application
     @question = Question.new
     @question.poll = @poll
 
-    if @poll.questions_dataset.filter(:question_type => Question::TYPES[:teacher]).count == 0
+    if !@poll.contains_teacher_question
       @question_types = Question::TYPES.values
     else 
       @question_types = Array.new(Question::TYPES.values)
@@ -58,6 +58,8 @@ class Polls < Application
     end
     render
   end
+
+
 
   protected
 

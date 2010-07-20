@@ -7,6 +7,10 @@ class Poll < Sequel::Model
   one_to_many :tokens
   one_to_many :answers
 
+  def contains_teacher_question
+    questions_dataset.filter(:question_type => Question::TYPES[:teacher]).count != 0
+  end
+
   def validate
     super
     validates_presence :name
