@@ -7,6 +7,7 @@
       = partial 'layout/flash'
       #header
         %a.logo{ :href => "#" }
+          =image_tag('/images/logo.png', :id => 'logo')
           Cyfrowy Dorsz
         .sublogo
           system do ankietowania
@@ -20,6 +21,9 @@
           %li
             %a{ :href => "/answers" }
               Student
+          %li
+            %a{ :href => "/rankings" }
+              Ranking
         #content.anonymous
           = catch_content :for_layout
       #footer
