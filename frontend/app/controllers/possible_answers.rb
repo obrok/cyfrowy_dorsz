@@ -3,7 +3,7 @@ class PossibleAnswers < Secured
   before :load_question
 
   def create
-    @question.possible_answers << params[:answer]
+    @question.add_possible_answer(params[:answer])
     @question.save
     ""
   end

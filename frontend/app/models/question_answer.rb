@@ -12,6 +12,22 @@ class QuestionAnswer < Sequel::Model
     validate_answer
   end
 
+  def value=(v)
+    if question != nil && question.teacher?
+      super Question.teacher_to_id(v)
+    else
+      super v
+    end
+  end
+
+  def value
+    if question != nil && question.teacher?
+      return Question.id_to_teacher(super)
+    else
+      return super
+    end
+  end
+
   private
   def validate_answer
     if question && question.choice? && !question.possible_answers.include?(value)
