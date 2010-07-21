@@ -16,5 +16,6 @@ class Poll < Sequel::Model
     validates_presence :name
 
     errors[:poll_type] << "niepoprawny typ ankiety" unless Poll::TYPES.include?(poll_type)
+    errors[:questions] << "tylko jedno pytanie o prowadzącego" if !new? && questions_dataset.filter(:question_type => Question::TYPES[:teacher]).count > 1
   end
 end
