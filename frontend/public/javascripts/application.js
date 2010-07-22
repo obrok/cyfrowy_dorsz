@@ -15,7 +15,7 @@ $(document).ready(function() {
       type: 'POST',
       data: $(this).serialize(),
       success: function(html, textStatus) {
-        if (!html.match('form')) {
+        if (!html.match('Treść pytania')) {
           $("#questions").append(html);
           toggleQuestions();
         }
