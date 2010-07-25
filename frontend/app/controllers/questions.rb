@@ -2,7 +2,7 @@ class Questions < Application
   before :ensure_authenticated
   before :load_poll, :exclude => [:new]
   before :load_question, :exclude => [:new, :create, :update_positions]
-  before :ensure_can_manage, :exclude => [:new, :create]
+  before :ensure_can_manage, :exclude => [:new, :create, :update_positions]
 
   # GET /questions/new
   def new
