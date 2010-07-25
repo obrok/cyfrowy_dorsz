@@ -14,4 +14,9 @@ class Exceptions < Merb::Controller
     render :format => :html
   end
 
+  # handle Forbidden exceptions (403)
+  def forbidden
+    render :format => :html
+  end
+
 end
