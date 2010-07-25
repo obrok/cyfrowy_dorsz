@@ -9,7 +9,7 @@ $(document).ready(function() {
     $(this).slideUp("fast");
   });
 
-  $("form#new-question-form").submit(function () {
+  $("form#new-question-form").live('submit', function () {
     var data = $(this).serialize();
     var position = $('ul#questions li').size()+1;
     data += '&position=' + position;

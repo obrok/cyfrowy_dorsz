@@ -19,6 +19,7 @@ class Questions < Application
     rescue Sequel::ValidationFailed
       @status = 'error'
     end
+    @question_types = Question::TYPES.values
     render :layout => false
   end
 
