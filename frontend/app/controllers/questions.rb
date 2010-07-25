@@ -1,7 +1,7 @@
 class Questions < Application
   before :ensure_authenticated
   before :load_poll, :exclude => [:new]
-  before :load_question, :exclude => [:new, :create]
+  before :load_question, :exclude => [:new, :create, :update_positions]
 
   # GET /questions/new
   def new
@@ -10,7 +10,7 @@ class Questions < Application
   end
 
   def create
-    @question = Question.new(params[:question] || {})
+    @question = Question.new(params[:question].merge(:position => params[:position]) || {})
     begin
       @question.poll = @poll
       @question.save
@@ -30,6 +30,12 @@ class Questions < Application
     redirect(resource(@poll, :edit))
   rescue Sequel::ValidationFailed
     render :new
+  end
+
+  def update_positions
+    positions = params[:positions] or return
+    @poll.update_questions_positions(positions)
+    ""
   end
 
   def delete

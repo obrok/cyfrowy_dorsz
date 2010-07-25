@@ -12,6 +12,7 @@ module CreationTestHelper
   QUESTION_HASH = {
     :text => "tresc pytania", 
     :question_type => "Zamknięte",
+    :position => 1
   }
 
   ANSWER_HASH = {

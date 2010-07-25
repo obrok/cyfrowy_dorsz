@@ -30,9 +30,8 @@ class Polls < Application
   def edit    
     @action = resource(@poll, :questions)
     @method = :post
-    @question = Question.new
-    @question.poll = @poll
-    raise NotFound unless @poll
+    @question = Question.new(:poll => @poll)
+    @questions = @poll.questions_dataset.order(:position)
 
     render
   end
@@ -54,7 +53,7 @@ class Polls < Application
   protected
 
   def load_poll
-    @poll = Poll[:id => params[:id]]
+    @poll = Poll[:id => params[:id]] or raise NotFound unless @poll
   end
 
 end

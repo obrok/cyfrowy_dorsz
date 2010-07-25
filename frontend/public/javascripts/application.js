@@ -10,10 +10,14 @@ $(document).ready(function() {
   });
 
   $("form#new-question-form").submit(function () {
+    var data = $(this).serialize();
+    var position = $('ul#questions li').size()+1;
+    data += '&position=' + position;
+    
     $.ajax({
       url: $(this).attr("action"),
       type: 'POST',
-      data: $(this).serialize(),
+      data: data,
       success: function(html, textStatus) {
         if (!html.match('Treść pytania')) {
           $("#questions").append(html);
@@ -33,7 +37,31 @@ $(document).ready(function() {
 
   toggleQuestions();
 
-  $('form#generate-tokens-form #valid_until').datepicker({ dateFormat: 'yy-mm-dd' });
+  $('.sortable').sortable({
+    update: function(event, ui) {
+      var i = 1;
+      var positions = {};
+      var poll_id = $('ul#questions').attr('data-poll-id');
+      $('ul#questions li').each(function() {
+        var id = $(this).recordId();
+        positions[id] = i;
+        i++;
+      });
+      $.ajax({
+        type: 'GET',
+        url: '/questions/update_positions',
+        data: {
+          poll_id: poll_id,
+          positions: positions
+        }
+      });
+    }
+  });
+
+
+  $('form#generate-tokens-form #valid_until').datepicker({
+    dateFormat: 'yy-mm-dd'
+  });
   $('form#generate-tokens-form #value').blur(function() {
     var count = $('form#generate-tokens-form #count');
     if ($(this).attr("value") != "") {
@@ -47,16 +75,18 @@ $(document).ready(function() {
 });
 
 function toggleQuestions() {
-  if($("#questions tbody").children().size()<2) {
-    $("#questions").hide();
+  if($("ul#questions").children().size()<2) {
+    $("#questions-headers").hide();
   }
   else {
-    $("#questions").show();
+    $("#questions-headers").show();
   }
 }
 
 function showFlash() {
   $('#flash').slideDown("fast", function() {
-    setTimeout(function() { $('#flash').slideUp("fast") }, 2000);
+    setTimeout(function() {
+      $('#flash').slideUp("fast")
+    }, 2000);
   });
 }
