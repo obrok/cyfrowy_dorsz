@@ -27,11 +27,11 @@ class Polls < Application
     end
   end
 
-  def edit
+  def edit    
     @action = resource(@poll, :questions)
     @method = :post
-    @question = Question.new
-    @question.poll = @poll
+    @question = Question.new(:poll => @poll)
+    @questions = @poll.questions_dataset.order(:position)
 
     if !@poll.contains_teacher_question
       @question_types = Question::TYPES.values
@@ -39,8 +39,6 @@ class Polls < Application
       @question_types = Array.new(Question::TYPES.values)
       @question_types.delete(Question::TYPES[:teacher])
     end
-
-    raise NotFound unless @poll
 
     render
   end
@@ -64,7 +62,7 @@ class Polls < Application
   protected
 
   def load_poll
-    @poll = Poll[:id => params[:id]]
+    @poll = Poll[:id => params[:id]] or raise NotFound unless @poll
   end
 
 end

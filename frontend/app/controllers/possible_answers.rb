@@ -5,13 +5,13 @@ class PossibleAnswers < Secured
   def create
     @question.add_possible_answer(params[:answer])
     @question.save
-    ""
+    redirect resource(@question.poll, @question, :edit)
   end
 
   def delete
     @question.possible_answers.delete_at(params[:answer_id].to_i)
     @question.save
-    ""
+    redirect resource(@question.poll, @question, :edit)
   end
 
   private

@@ -1,14 +1,6 @@
-%tr
-  %td= h(question.title)
-  %td= h(question.question_type)
-  %td.action= link_to(image_tag('/images/answer.png', :alt => 'odpowiedzi', :title => "Odpowiedzi do pytania #{h(question.text)}"), resource(question.poll, question, :results), :class => 'image-link')
-  %td.action= link_to(image_tag('/images/edit.png', :alt => 'edytuj'), resource(question.poll, question, :edit), :class => 'image-link')
-  %td.action= link_to(image_tag('/images/delete.png', :alt => 'usuń', :title => 'usuń'), resource(question.poll, question, :delete), :class => 'image-link delete-question')
-- if question.choice? || question.teacher?
-  %td
-    = partial("possible_answers/form", :question => question)
-  %td{:colspan => 4}
-    - question.formatted_possible_answers.each_with_index do |answer, index|
-      = h(answer)
-      = link_to(image_tag('/images/delete.png', :alt => 'usuń', :title => "Usuń #{h(answer)}"), url(:controller => :possible_answers, :question_id => question.id, :answer_id => index, :action => :delete), :class => 'image-link delete-question')
-      %br
+%li{ :id => "question-#{question.id}"}
+  %span.title= h(question.title)
+  %span.type= h(question.question_type)
+  %span.action= link_to(image_tag('/images/answer.png', :alt => 'odpowiedzi', :title => "Odpowiedzi do pytania #{h(question.text)}"), resource(question.poll, question, :results), :class => 'image-link')
+  %span.action= link_to(image_tag('/images/edit.png', :alt => 'edytuj'), resource(question.poll, question, :edit), :class => 'image-link')
+  %span.action= link_to(image_tag('/images/delete.png', :alt => 'usuń', :title => 'usuń'), resource(question.poll, question, :delete), :class => 'image-link delete-question')

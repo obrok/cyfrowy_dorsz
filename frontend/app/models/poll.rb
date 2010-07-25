@@ -18,4 +18,12 @@ class Poll < Sequel::Model
     errors[:poll_type] << "niepoprawny typ ankiety" unless Poll::TYPES.include?(poll_type)
     errors[:questions] << "tylko jedno pytanie o prowadzącego" if !new? && questions_dataset.filter(:question_type => Question::TYPES[:teacher]).count > 1
   end
+
+  def update_questions_positions(positions={})
+    questions = questions_dataset.filter(:id => positions.keys)
+    questions.each do |question|
+      question.position = positions[question.id.to_s]
+      question.save
+    end
+  end
 end

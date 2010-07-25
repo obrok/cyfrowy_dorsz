@@ -1,2 +1,5 @@
 = form_for(@question, :action => resource(@poll, @question), :id => "edit-question-form") do
   = partial('questions/form', :poll => @poll)
+
+- if @question.choice?
+  = partial("possible_answers/form", :question => @question)

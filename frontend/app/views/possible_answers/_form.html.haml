@@ -1,9 +1,9 @@
-= form(:action => resource(question.poll, question, :possible_answers), :method => :post) do
+= form(:action => resource(question.poll, question, :possible_answers), :method => :post, :id => 'possible-answers-form') do
   %fieldset
-  .ctrl
-    - if question.choice?
-      = text_field(:text, :label => "Nowa odpowiedź", :name => "answer")
-    - if question.teacher?
-      = select(:name => "answer", :label => "Nowy prowadzący", :collection => question.possible_teachers)
-  .ctrl.buttons
-    = submit("Dodaj odpowiedź")
+    .ctrl
+      - if question.choice?
+        = text_field(:text, :label => "Nowa odpowiedź", :name => "answer")
+      - if question.teacher?
+        = select(:name => "answer", :label => "Nowy prowadzący", :collection => question.possible_teachers)
+    .ctrl.buttons
+      = submit("Dodaj odpowiedź")
