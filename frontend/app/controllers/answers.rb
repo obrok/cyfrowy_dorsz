@@ -36,12 +36,7 @@ class Answers < Application
     qas = []
     
     @token.poll.questions.each do |question|
-      qa = QuestionAnswer.new
-      qa.value = params[question.id.to_s]
-
-      qa.question = question
-
-      qas << qa
+      qas << question.create_question_answer(params[question.id.to_s])
     end
 
     answer.save

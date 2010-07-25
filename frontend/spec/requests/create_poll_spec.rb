@@ -52,7 +52,7 @@ describe Questions, "Creating the poll" do
   it "shows all current answers to a choice question" do
     poll = create_poll(:user => @user)
     question = create_question(:poll => poll, :question_type => "Wyboru", :possible_answers => ["Odpowiedź1", "Odpowiedź2"])
-    visit resource(poll, :edit)
+    visit resource(poll, question, :edit)
     
     question.possible_answers.each do |answer|
       response.should include answer
@@ -62,7 +62,7 @@ describe Questions, "Creating the poll" do
   it "allows to add an answer to a choice question" do
     poll = create_poll(:user => @user)
     question = create_question(:poll => poll, :question_type => "Wyboru", :possible_answers => ["Odpowiedź1", "Odpowiedź2"])
-    visit resource(poll, :edit)
+    visit resource(poll, question, :edit)
 
     fill_in "Nowa odpowiedź", :with => "Odpowiedź3"
     click_button "Dodaj odpowiedź"
@@ -73,10 +73,48 @@ describe Questions, "Creating the poll" do
   it "allows to remove an answer from a choice question" do
     poll = create_poll(:user => @user)
     question = create_question(:poll => poll, :question_type => "Wyboru", :possible_answers => ["Odpowiedź1", "Odpowiedź2"])
-    visit resource(poll, :edit)
+    visit resource(poll, question, :edit)
     
     click_link "Usuń Odpowiedź1"
 
     question.reload.possible_answers.should_not include "Odpowiedź1"
+  end
+
+  it "shows user info as possible answer in teacher choice question" do
+    poll = create_poll(:user => @user)
+    visit resource(poll, :edit)
+    fill_in "Treść pytania", :with => "Jaki prowadzący?"
+    fill_in "Typ pytania", :with => "Prowadzący"
+    click_button "Zapisz pytanie"
+
+    response.should include Question.user_to_teacher(@user)
+  end
+
+  it "allows to add teacher choice question only once" do
+    poll = create_poll(:user => @user)
+    visit resource(poll, :edit)
+    fill_in "Treść pytania", :with => "Jaki prowadzący?"
+    fill_in "Typ pytania", :with => "Prowadzący"
+    click_button "Zapisz pytanie"
+
+    visit resource(poll, :edit)
+    lambda{select "Prowadzący", :from => "Typ pytania"}.should raise_error
+  end
+
+  it "should add user info as possible answer in teacher choice question" do
+    poll = create_poll(:user => @user)
+    user_info = Question.user_to_teacher(@user)
+
+    visit resource(poll, :edit)
+    fill_in "Treść pytania", :with => "Jaki prowadzący?"
+    fill_in "Typ pytania", :with => "Prowadzący"
+    click_button "Zapisz pytanie"
+
+    fill_in "Nowy prowadzący", :with => user_info
+    click_button "Dodaj odpowiedź"
+
+    visit resource(poll, :edit)
+    response.should include user_info
+    lambda{select user_info, :from => "Nowy prowadzący"}.should raise_error
   end
 end

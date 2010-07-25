@@ -22,4 +22,23 @@ describe Poll do
     @poll.poll_type = 'something stupid'
     @poll.should_not be_valid
   end
+
+  it "should update questions' positions properly" do
+    questions = (1..3).map { |i| create_question(:poll => @poll, :position => i) }
+    positions = {
+      questions[2].id.to_s => '1',
+      questions[0].id.to_s => '3'
+    }
+    @poll.update_questions_positions(positions)
+    sorted_questions = @poll.questions_dataset.order(:position).map(&:id)
+    sorted_questions.should == [questions[2].id, questions[1].id, questions[0].id]
+  end
+
+
+  it "should not be valid if contains two teacher choice questions" do
+    q1 = create_question(:question_type => Question::TYPES[:teacher], :poll => @poll)
+    q2 = create_question(:question_type => Question::TYPES[:teacher], :poll => @poll)
+    @poll.should_not be_valid
+  end
+
 end

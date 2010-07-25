@@ -30,7 +30,9 @@ a {
   -moz-border-radius: 5px;
   display: block;
   padding: 2px;
+  height: 28px;
 }
+
 
 h1 {
   font-size: 20px;
@@ -302,7 +304,7 @@ select {
   -moz-border-radius: 5px;
 }
 
-label {
+label, span.label {
   color: #5B7A00;
   font-weight: bold;
   width: 200px;
@@ -364,8 +366,57 @@ form#login-form .buttons input {
   padding: 5px 0;
 }
 
-#content table.custom th, td {
+#content ul.custom {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  clear: both;
+}
+
+#content ul.custom li {
+  clear: both;
+  height: 32px;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+#content ul.custom li span, .custom-headers span {
   padding: 0 10px;
+  text-align: center;
+  background: #C8F0A1;
+  -moz-border-radius: 5px;
+  border: 1px solid #799C57;
+  float: left;
+  height: 32px;
+  line-height: 32px;
+}
+
+#content ul.custom li span.title, .custom-headers span.title {
+  width: 180px;
+}
+
+#content ul.custom li span.type, .custom-headers span.type {
+  width: 120px;
+}
+
+#content .custom-headers span {
+  font-weight: bold;
+  font-size: 13px;
+  background: #ACD980;
+  padding: 5px 10px;
+}
+
+#content ul.custom li span.action {
+  padding: 0 3px;
+}
+
+#content ul.custom li span.action:hover {
+  background: #8FC400;
+}
+
+#content table.custom th, td {
+  padding: 10px;
   text-align: center;
   background: #C8F0A1;
   -moz-border-radius: 5px;

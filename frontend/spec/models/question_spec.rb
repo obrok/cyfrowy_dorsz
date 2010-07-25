@@ -29,6 +29,23 @@ describe Question do
     answer = create_question_answer(:question => @question)
     @question.reload.question_answers.should include answer
   end
+
+  it "should store teachers ids as possible answers in teacher choice question" do
+    user = create_user
+    question = create_question(:question_type => Question::TYPES[:teacher])
+    question.add_possible_answer(Question.user_to_teacher(user))
+    question.possible_answers.should include user.id
+  end
+
+  it "should automatically convert stored user ids to user info in teacher choice question" do
+    user = create_user
+    question = create_question(:question_type => Question::TYPES[:teacher])
+    user_info = Question.user_to_teacher(user)
+
+    question.add_possible_answer(user_info)
+
+    question.formatted_possible_answers.should include user_info
+  end
 end
 
 describe "Closed Question" do

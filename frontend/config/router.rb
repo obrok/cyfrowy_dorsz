@@ -4,6 +4,7 @@ Merb::Router.prepare do
     resources :questions, :controller => :questions do
       resources :results, :controller => :results
       resources :possible_answers, :controller => :possible_answers
+      collection :update_positions, :method => :get
     end
 
     member :stats, :method => :get

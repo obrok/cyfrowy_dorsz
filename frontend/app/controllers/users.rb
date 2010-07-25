@@ -17,10 +17,6 @@ class Users < Application
   end
 
   def update
-    puts "dupa"
-    puts "dupa"
-    puts "dupa"
-
     session.user.update(params[:user])
 
     redirect(resource(:users, :profile), :notice => "Dane zapisane")

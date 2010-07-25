@@ -3,8 +3,8 @@
     = text_field :name => question.id, :label => question.title, :value => h(params[question.id.to_s])
     %span.validation.error
       = question.errors.on(:value)
-  - if question.choice?
-    = select(:name => question.id, :label => question.title, :collection => question.possible_answers.map{|x| h(x)}, :selected => params[question.id], :prompt => "")
+  - if question.choice? || question.teacher?
+    = select(:name => question.id, :label => question.title, :collection => question.formatted_possible_answers.map{|x| h(x)}, :selected => params[question.id], :prompt => "")
     %span.validation.error
       = question.errors.on(:value)
   - if question.closed?
