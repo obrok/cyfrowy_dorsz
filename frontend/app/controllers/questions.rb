@@ -2,6 +2,7 @@ class Questions < Application
   before :ensure_authenticated
   before :load_poll, :exclude => [:new]
   before :load_question, :exclude => [:new, :create, :update_positions]
+  before :ensure_can_manage, :exclude => [:new, :create]
 
   # GET /questions/new
   def new
@@ -54,6 +55,10 @@ class Questions < Application
 
   def load_question
     @question = @poll.questions_dataset.filter(:id => params[:id]).first or raise NotFound
+  end
+
+  def ensure_can_manage
+    raise Forbidden unless @question.question_answers.empty?
   end
 end
 
