@@ -7,5 +7,13 @@
     = select(:question_type, :label => "Typ pytania", :collection => Question::TYPES.values)
     %span.validation.error
       = @question.errors.on(:question_type)
+  %span.custom-headers.label= 'Możliwe odpowiedzi'
+  - if @question.choice?
+    %ul.custom
+      - @question.possible_answers.each_with_index do |answer, index|
+        %li
+          %span.title= h(answer)
+          %span.action= link_to(image_tag('/images/delete.png', :alt => 'usuń', :title => "Usuń #{h(answer)}"), url(:controller => :possible_answers, :question_id => @question.id, :answer_id => index, :action => :delete), :class => 'image-link delete-posiible-answer')
   .ctrl.buttons
     = submit("Zapisz pytanie")
+

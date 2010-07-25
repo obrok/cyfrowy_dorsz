@@ -75,11 +75,11 @@ $(document).ready(function() {
 });
 
 function toggleQuestions() {
-  if($("ul#questions").children().size()<2) {
-    $("#questions-headers").hide();
+  if($("ul.custom").children().size()<1) {
+    $(".custom-headers").hide();
   }
   else {
-    $("#questions-headers").show();
+    $(".custom-headers").show();
   }
 }
 

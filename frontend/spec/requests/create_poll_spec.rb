@@ -52,7 +52,7 @@ describe Questions, "Creating the poll" do
   it "shows all current answers to a choice question" do
     poll = create_poll(:user => @user)
     question = create_question(:poll => poll, :question_type => "Wyboru", :possible_answers => ["Odpowiedź1", "Odpowiedź2"])
-    visit resource(poll, :edit)
+    visit resource(poll, question, :edit)
     
     question.possible_answers.each do |answer|
       response.should include answer
@@ -62,7 +62,7 @@ describe Questions, "Creating the poll" do
   it "allows to add an answer to a choice question" do
     poll = create_poll(:user => @user)
     question = create_question(:poll => poll, :question_type => "Wyboru", :possible_answers => ["Odpowiedź1", "Odpowiedź2"])
-    visit resource(poll, :edit)
+    visit resource(poll, question, :edit)
 
     fill_in "Nowa odpowiedź", :with => "Odpowiedź3"
     click_button "Dodaj odpowiedź"
@@ -73,7 +73,7 @@ describe Questions, "Creating the poll" do
   it "allows to remove an answer from a choice question" do
     poll = create_poll(:user => @user)
     question = create_question(:poll => poll, :question_type => "Wyboru", :possible_answers => ["Odpowiedź1", "Odpowiedź2"])
-    visit resource(poll, :edit)
+    visit resource(poll, question, :edit)
     
     click_link "Usuń Odpowiedź1"
 

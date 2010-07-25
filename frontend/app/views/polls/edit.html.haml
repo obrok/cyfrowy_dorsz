@@ -6,11 +6,10 @@
 = link_to("Drukuj tokeny", resource(@poll, :tokens, :print))
 
 %h3 Pytania
-#questions-headers
+.custom-headers
   %span.title= 'Tekst pytania'
   %span.type= 'Rodzaj pytania'
-%ul.sortable{ :id => 'questions', 'data-poll-id' => "#{@poll.id}"}
-  %span.header.action
+%ul.custom.sortable{ :id => 'questions', 'data-poll-id' => "#{@poll.id}"}
   - @questions.each do |question|
     = partial 'questions/question', :question => question
 
