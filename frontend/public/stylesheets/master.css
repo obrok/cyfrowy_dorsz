@@ -416,7 +416,7 @@ form#login-form .buttons input {
 }
 
 #content table.custom th, td {
-  padding: 0 10px;
+  padding: 10px;
   text-align: center;
   background: #C8F0A1;
   -moz-border-radius: 5px;

@@ -7,8 +7,8 @@
     = select(:question_type, :label => "Typ pytania", :collection => Question::TYPES.values)
     %span.validation.error
       = @question.errors.on(:question_type)
-  %span.custom-headers.label= 'Możliwe odpowiedzi'
   - if @question.choice?
+    %span.custom-headers.label= 'Możliwe odpowiedzi'
     %ul.custom
       - @question.possible_answers.each_with_index do |answer, index|
         %li
