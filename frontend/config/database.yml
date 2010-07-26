@@ -6,10 +6,12 @@
 development: &defaults
   adapter: sqlite
   database: ankieter_development.db
+  timeout: 10000
 
 test:
   adapter: sqlite
   database: ankieter_test.db
+  timeout: 10000
 
 rake:
   <<: *defaults
