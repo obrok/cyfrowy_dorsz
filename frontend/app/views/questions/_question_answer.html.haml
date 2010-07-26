@@ -4,7 +4,7 @@
     %span.validation.error
       = question.errors.on(:value)
   - if question.choice? || question.teacher?
-    = select(:name => question.id, :label => question.title, :collection => question.formatted_possible_answers.map{|x| h(x)}, :selected => params[question.id], :prompt => "")
+    = select(:name => question.id, :label => question.title, :collection => question.formatted_possible_answers.map{|x| h(x)}, :selected => params[question.id], :prompt => "Wybierz odpowiedź")
     %span.validation.error
       = question.errors.on(:value)
   - if question.closed?

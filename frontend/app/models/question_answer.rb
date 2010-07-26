@@ -14,7 +14,7 @@ class QuestionAnswer < Sequel::Model
   end
 
   def value=(v)
-    if question != nil && question.teacher?
+    if question != nil && question.teacher? && question.possible_answers.include?(v.to_i)
       super Question.teacher_to_id(v)
     else
       super v
@@ -22,10 +22,12 @@ class QuestionAnswer < Sequel::Model
   end
 
   def value
-    if question != nil && question.teacher?
-      return Question.id_to_teacher(super)
+    v = super
+
+    if question != nil && question.teacher? && question.possible_answers.include?(v.to_i)
+      return Question.id_to_teacher(v)
     else
-      return super
+      return v
     end
   end
 
