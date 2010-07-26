@@ -2,5 +2,5 @@
   %span.title= h(question.title)
   %span.type= h(question.question_type)
   %span.action= link_to(image_tag('/images/answer.png', :alt => 'odpowiedzi', :title => "Odpowiedzi do pytania #{h(question.text)}"), resource(question.poll, question, :results), :class => 'image-link')
-  %span.action= link_to(image_tag('/images/edit.png', :alt => 'edytuj'), resource(question.poll, question, :edit), :class => 'image-link')
+  %span.action= link_to(image_tag('/images/edit.png', :alt => 'edytuj'), resource(question.poll, question, :edit), :class => 'image-link', :title => "Edytuj #{h(question.text)}")
   %span.action= link_to(image_tag('/images/delete.png', :alt => 'usuń', :title => 'usuń'), resource(question.poll, question, :delete), :class => 'image-link delete-question')

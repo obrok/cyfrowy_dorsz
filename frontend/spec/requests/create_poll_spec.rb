@@ -86,6 +86,7 @@ describe Questions, "Creating the poll" do
     fill_in "Treść pytania", :with => "Jaki prowadzący?"
     fill_in "Typ pytania", :with => "Prowadzący"
     click_button "Zapisz pytanie"
+    click_link "Edytuj Jaki prowadzący?"
 
     response.should include Question.user_to_teacher(@user)
   end
@@ -109,6 +110,7 @@ describe Questions, "Creating the poll" do
     fill_in "Treść pytania", :with => "Jaki prowadzący?"
     fill_in "Typ pytania", :with => "Prowadzący"
     click_button "Zapisz pytanie"
+    click_link "Edytuj Jaki prowadzący?"
 
     fill_in "Nowy prowadzący", :with => user_info
     click_button "Dodaj odpowiedź"
