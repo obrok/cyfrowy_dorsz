@@ -25,7 +25,7 @@ class Answers < Application
 
     if (@token == nil or not @token.is_valid_to_use)
       message[:error] = "Nieważny token"
-      redirect url(:controller => "answers", :action => "index"), :message => message
+      return redirect url(:controller => "answers", :action => "index"), :message => message
     end
 
     answer = Answer.new
