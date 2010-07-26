@@ -6,6 +6,7 @@ describe Questions do
     login_as(@user, CreationTestHelper::USER_HASH[:password])
     @poll = create_poll(:user => @user)
     @question = create_question(:poll => @poll)
+    @teacher_question = create_question(:poll => @poll, :question_type => Question::TYPES[:teacher])
   end
 
   describe "edit" do
@@ -22,6 +23,23 @@ describe Questions do
         visit resource(@poll, @question, :edit)
         response_status.should == 200
       end
+
+      it "shows user info as possible answer in teacher choice question" do
+  	    visit resource(@poll, @teacher_question, :edit)
+   	    response.should include Question.user_to_teacher(@user)
+	    end
+
+			it "should add user info as possible answer in teacher choice question" do
+				user_info = Question.user_to_teacher(@user)
+
+				visit resource(@poll, @teacher_question, :edit)
+				fill_in "Nowy prowadzący", :with => user_info
+				click_button "Dodaj odpowiedź"
+
+				visit resource(@poll, :edit)
+				response.should include user_info
+				lambda{select user_info, :from => "Nowy prowadzący"}.should raise_error
+			end
     end
   end
 

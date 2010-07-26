@@ -24,6 +24,12 @@ class Questions < Application
   end
 
   def edit
+    if !@question.poll.contains_teacher_question
+      @question_types = Question::TYPES.values
+    else 
+      @question_types = Array.new(Question::TYPES.values)
+      @question_types.delete(Question::TYPES[:teacher])
+    end
     render
   end
 

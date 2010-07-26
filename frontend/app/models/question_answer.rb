@@ -6,6 +6,7 @@ class QuestionAnswer < Sequel::Model
 
   def validate
     super
+
     validates_presence :value, :message => 'odpowiedź jest wymagana'
     validates_presence :question
     validates_presence :answer

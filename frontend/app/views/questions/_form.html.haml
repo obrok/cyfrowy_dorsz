@@ -7,10 +7,10 @@
     = select(:question_type, :label => "Typ pytania", :collection => @question_types)
     %span.validation.error
       = @question.errors.on(:question_type)
-  - if @question.choice?
+  - if @question.choice? || @question.teacher?
     %span.custom-headers.label= 'Możliwe odpowiedzi'
     %ul.custom
-      - @question.possible_answers.each_with_index do |answer, index|
+      - @question.formatted_possible_answers.each_with_index do |answer, index|
         %li
           %span.title= h(answer)
           %span.action= link_to(image_tag('/images/delete.png', :alt => 'usuń', :title => "Usuń #{h(answer)}"), url(:controller => :possible_answers, :question_id => @question.id, :answer_id => index, :action => :delete), :class => 'image-link delete-posiible-answer')

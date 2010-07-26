@@ -33,13 +33,6 @@ class Polls < Application
     @question = Question.new(:poll => @poll)
     @questions = @poll.questions_dataset.order(:position)
 
-    if !@poll.contains_teacher_question
-      @question_types = Question::TYPES.values
-    else 
-      @question_types = Array.new(Question::TYPES.values)
-      @question_types.delete(Question::TYPES[:teacher])
-    end
-
     render
   end
 
