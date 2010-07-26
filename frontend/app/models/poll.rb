@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class Poll < Sequel::Model
   TYPES = ['wykład', 'ćwiczenia', 'laboratorium', 'projekt', 'konwersatorium', 'seminarium']
 
@@ -20,7 +21,7 @@ class Poll < Sequel::Model
   end
 
   def update_questions_positions(positions={})
-    questions = questions_dataset.filter(:id => positions.keys)
+    questions = questions_dataset.filter(:id => positions.keys).all
     questions.each do |question|
       question.position = positions[question.id.to_s]
       question.save

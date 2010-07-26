@@ -80,6 +80,17 @@ describe Questions, "Creating the poll" do
     question.reload.possible_answers.should_not include "Odpowiedź1"
   end
 
+  it "shows user info as possible answer in teacher choice question" do
+    poll = create_poll(:user => @user)
+    visit resource(poll, :edit)
+    fill_in "Treść pytania", :with => "Jaki prowadzący?"
+    fill_in "Typ pytania", :with => "Prowadzący"
+    click_button "Zapisz pytanie"
+    click_link "Edytuj Jaki prowadzący?"
+
+    response.should include Question.user_to_teacher(@user)
+  end
+
   it "allows to add teacher choice question only once" do
     poll = create_poll(:user => @user)
     visit resource(poll, :edit)
@@ -91,4 +102,21 @@ describe Questions, "Creating the poll" do
     lambda{select "Prowadzący", :from => "Typ pytania"}.should raise_error
   end
 
+  it "should add user info as possible answer in teacher choice question" do
+    poll = create_poll(:user => @user)
+    user_info = Question.user_to_teacher(@user)
+
+    visit resource(poll, :edit)
+    fill_in "Treść pytania", :with => "Jaki prowadzący?"
+    fill_in "Typ pytania", :with => "Prowadzący"
+    click_button "Zapisz pytanie"
+    click_link "Edytuj Jaki prowadzący?"
+
+    fill_in "Nowy prowadzący", :with => user_info
+    click_button "Dodaj odpowiedź"
+
+    visit resource(poll, :edit)
+    response.should include user_info
+    lambda{select user_info, :from => "Nowy prowadzący"}.should raise_error
+  end
 end

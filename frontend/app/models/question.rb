@@ -82,7 +82,6 @@ class Question < Sequel::Model
     end
   end
 
-
   def self.id_to_teacher(id)
     Question.user_to_teacher(User[:id => id])
   end
