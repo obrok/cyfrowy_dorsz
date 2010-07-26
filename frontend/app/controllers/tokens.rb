@@ -15,7 +15,7 @@ class Tokens < Application
     render
   end
 
-  def create(valid_until, token_type, max_usage, value)
+  def create(valid_until, max_usage, value)
     date = DateTime.parse(valid_until)
 
     token = Token.new
@@ -37,9 +37,11 @@ class Tokens < Application
   end
 
   def save
-    params[:count].to_i.times do
-      value = params[:value].blank? ? Token.generate_random_value : params[:value]
-      create(params[:valid_until], params[:token_type], params[:max_usage].to_i, value)
+    count = params[:count].blank? ? 1 : params[:count].to_i
+
+    count.times do
+      value = params[:value].blank? ? Token.generate_random_value : params[:value]       
+      create(params[:valid_until], params[:max_usage].to_i, value)
     end
 
     redirect(url(:poll_tokens, @poll))

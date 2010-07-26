@@ -39,6 +39,7 @@ describe Tokens do
     value = "#{Time.now.to_f}"
     fill_in "Nazwa", :with => value
     fill_in "Liczba użyć", :with => 20
+    fill_in "Ilość tokenów", :wtih => 1
     valid_until = "2100-01-01"
     fill_in "Data ważności", :with => valid_until
     click_button 'Generuj token'
