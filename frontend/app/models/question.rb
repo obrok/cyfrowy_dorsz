@@ -29,18 +29,13 @@ class Question < Sequel::Model
   end
 
   def add_possible_answer(value)
-    if value == nil
-      return
-    end
-    if teacher?
-      possible_answers << Question.teacher_to_id(value)
-    else
-      possible_answers << value
-    end
+    return unless value
+    value = value.to_i if teacher?
+    possible_answers << value
   end
 
   def possible_teachers
-    return User.filter(~{:id => possible_answers}).map{|u| Question.user_to_teacher(u)}
+    return User.filter(~{:id => possible_answers}).map{|u| [u.id, Question.user_to_teacher(u)]}
   end
 
   def create_question_answer(value)

@@ -4,6 +4,8 @@ module CreationTestHelper
     :email => "example@example.com",
     :password => "123",
     :password_confirmation => "123",
+    :name => "Mietek",
+    :surname => "Bogumila"
   }
 
   POLL_HASH = {    
