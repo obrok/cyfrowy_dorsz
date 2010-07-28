@@ -73,16 +73,20 @@ describe "Student" do
     response.should include "Dziękujemy za wypełnienie ankiety"
   end
 
-  it "should not allow not to answer teacher choice question" do
+  it "should properly display teacher question" do
     poll = create_poll
     user = create_user
-    question = create_question(:poll => poll, :question_type => Question::TYPES[:teacher])
+    question = create_question(:poll => poll, :question_type => Question::TYPES[:teacher], :text => "Prowadzacy")
+    question.add_possible_answer(user.id)
+    question.save
     token = create_token(:poll => poll)
     
     fill_in("Token", :with => token.value)
     click_button("Wypełnij ankietę")
+
+    select Question.user_to_teacher(user), :from => "Prowadzacy"
     click_button("Wyślij odpowiedzi")
-    
-    response_status.should == 200
+
+    poll.answers.first.question_answers.first.value.should == Question.user_to_teacher(user)
   end
 end

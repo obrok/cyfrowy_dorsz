@@ -28,6 +28,14 @@ class Question < Sequel::Model
     possible_answers
   end
 
+  def selectable_possible_answers
+    if teacher?
+      User.filter(:id => possible_answers).map{|x| [x.id, Question.user_to_teacher(x)]}
+    else
+      possible_answers
+    end
+  end
+
   def add_possible_answer(value)
     return unless value
     value = value.to_i if teacher?

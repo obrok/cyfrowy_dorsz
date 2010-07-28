@@ -13,18 +13,10 @@ class QuestionAnswer < Sequel::Model
     validate_answer
   end
 
-  def value=(v)
-    if question != nil && question.teacher? && question.possible_answers.include?(v.to_i)
-      super Question.teacher_to_id(v)
-    else
-      super v
-    end
-  end
-
   def value
     v = super
 
-    if question != nil && question.teacher? && question.possible_answers.include?(v.to_i)
+    if question != nil && question.teacher?
       return Question.id_to_teacher(v)
     else
       return v
@@ -33,7 +25,9 @@ class QuestionAnswer < Sequel::Model
 
   private
   def validate_answer
-    if question && question.choice? && !question.possible_answers.include?(value)
+    temp = values[:value]
+    temp = temp.to_i if question && question.teacher?
+    if question && (question.choice? || question.teacher?) && !question.possible_answers.include?(temp)
       errors[:value] << 'musisz wybrać jedną z odpowiedzi'
     end
   end

@@ -3,7 +3,7 @@
 %h3= "Typ zajęć: #{@token.poll.poll_type}"
 = form :action => url(:controller => "answers", :action => "save_answer") do
   %fieldset
-    -@token.poll.questions.each do |question|
+    - @token.poll.questions.each do |question|
       = partial 'questions/question_answer', :question => question
     = hidden_field :name => "token", :value => @token.value
     .ctrl.buttons

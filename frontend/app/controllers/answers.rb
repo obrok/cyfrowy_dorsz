@@ -40,7 +40,7 @@ class Answers < Application
     end
 
     answer.save
-    qas.each do |qa| 
+    qas.each do |qa|
       qa.answer = answer
       qa.save 
     end
@@ -48,7 +48,7 @@ class Answers < Application
     @token.save
 
     render
-  rescue Sequel::ValidationFailed
+  rescue Sequel::ValidationFailed => e
     render :show
   end
 end
