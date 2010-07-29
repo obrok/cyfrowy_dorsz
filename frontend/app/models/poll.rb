@@ -8,8 +8,20 @@ class Poll < Sequel::Model
   one_to_many :tokens
   one_to_many :answers
 
+  def teacher_question
+    questions_dataset[:question_type => Question::TYPES[:teacher]]
+  end
+
   def contains_teacher_question
-    questions_dataset.filter(:question_type => Question::TYPES[:teacher]).count != 0
+    !!teacher_question
+  end
+  
+  def answers_for_user(user)
+    return unless teacher_question
+    answer_ids = QuestionAnswer.
+      filter(:question_id => teacher_question.id, :value => user.id.to_s).
+      select(:answer_id).map{|x| x.answer_id}.uniq
+    Answer.filter(:id => answer_ids)
   end
 
   def validate

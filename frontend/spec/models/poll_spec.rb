@@ -40,5 +40,21 @@ describe Poll do
     q2 = create_question(:question_type => Question::TYPES[:teacher], :poll => @poll)
     @poll.should_not be_valid
   end
+  
+  it "should filter answers per user" do
+    q1 = create_question(:question_type => Question::TYPES[:teacher], :poll => @poll)
+    u1 = create_user
+    u2 = create_user
 
+    q1.add_possible_answer(u1.id)
+    q1.add_possible_answer(u2.id)
+    q1.save
+
+    a1 = create_question_answer(:question => q1, :value => u1.id)
+    a2 = create_question_answer(:question => q1, :value => u2.id)
+
+    @poll.reload.answers_for_user(u1).should include a1.answer
+    @poll.answers_for_user(u1).should_not include a2.answer
+  end
+ 
 end
