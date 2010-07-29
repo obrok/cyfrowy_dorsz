@@ -52,6 +52,11 @@ class Question < Sequel::Model
     qa.value = value
     qa
   end
+  
+  def question_answers_for_user(user)
+    answer_ids = poll.answers_for_user(user).map{|x| x.id}
+    return question_answers_dataset.filter(:answer_id => answer_ids)
+  end
 
   def validate
     super

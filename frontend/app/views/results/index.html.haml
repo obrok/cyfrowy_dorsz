@@ -1,5 +1,5 @@
 %h1= "Odpowiedzi na pytanie <span class='name'>'#{h(@question.text)}'</span>"
-
+= partial("teacher_filter_form", :action => resource(@question.poll, @question, :results), :poll => @question.poll)
 %ul.answers
-  - @question.question_answers.each do |answer|
+  - @answers.each do |answer|
     %li= h(answer.formatted_value)

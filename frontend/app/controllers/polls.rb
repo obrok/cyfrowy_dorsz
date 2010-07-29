@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class Polls < Application
   before :ensure_authenticated
   before :load_poll, :only => [:edit, :stats]
@@ -44,10 +45,12 @@ class Polls < Application
   end
 
   def stats
+    user = User[params[:teacher_id]]
     @questions = @poll.questions_dataset.filter(:question_type => Question::TYPES[:closed])
     @answers = []
     @questions.each_with_index do |question, i|
-      question.question_answers.each_with_index do |answer, j|
+      collection = user ? question.question_answers_for_user(user) : question.question_answers
+      collection.each_with_index do |answer, j|
         unless @answers[j]
           @answers[j] = []
         end

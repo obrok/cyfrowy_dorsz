@@ -1,5 +1,5 @@
 %h3= "Statystyki pytań zamkniętych dla ankiety '<span class='name'>#{@poll.name}</span>':"
-
+= partial("results/teacher_filter_form", :action => resource(@poll, :stats), :poll => @poll)
 #stats-content
   %table#stats.custom
     %thead
