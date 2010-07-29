@@ -12,15 +12,9 @@ class QuestionAnswer < Sequel::Model
     validates_presence :answer
     validate_answer
   end
-
-  def value
-    v = super
-
-    if question != nil && question.teacher?
-      return Question.id_to_teacher(v)
-    else
-      return v
-    end
+  
+  def formatted_value
+    question.teacher? ? Question.id_to_teacher(value.to_i) : value
   end
 
   private

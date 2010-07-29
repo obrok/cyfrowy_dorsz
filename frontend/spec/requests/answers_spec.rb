@@ -87,6 +87,6 @@ describe "Student" do
     select Question.user_to_teacher(user), :from => "Prowadzacy"
     click_button("Wyślij odpowiedzi")
 
-    poll.answers.first.question_answers.first.value.should == Question.user_to_teacher(user)
+    poll.answers.first.question_answers.first.value.should == user.id.to_s
   end
 end

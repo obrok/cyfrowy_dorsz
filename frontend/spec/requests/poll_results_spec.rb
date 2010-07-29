@@ -1,14 +1,19 @@
+# -*- coding: utf-8 -*-
 require 'spec/spec_helper'
 
 describe "Per question results" do
   before(:each) do
     @poll = create_poll
     @user = @poll.user
-    @q1 = create_question(:text => "Pytanie 1", :poll => @poll, :question_type => "Otwarte")
-    @q2 = create_question(:text => "Pytanie 2", :poll => @poll, :question_type => "Otwarte")
+    @q1 = create_question(:text => "Pytanie 1", :poll => @poll, :question_type => Question::TYPES[:open])
+    @q2 = create_question(:text => "Pytanie 2", :poll => @poll, :question_type => Question::TYPES[:open])
+    @q3 = create_question(:text => "Pytanie 3", :poll => @poll, :question_type => Question::TYPES[:teacher])
+    @q3.add_possible_answer(@user.id)
+    @q3.save
     @a1 = create_question_answer(:question => @q1, :value => "Odpowiedź 1")
     @a2 = create_question_answer(:question => @q1, :value => "Odpowiedź 2")
-    @a1 = create_question_answer(:question => @q2, :value => "Odpowiedź 3")
+    @a3 = create_question_answer(:question => @q2, :value => "Odpowiedź 3")
+    @a4 = create_question_answer(:question => @q3, :value => @user.id)
     login_as(@user, CreationTestHelper::USER_HASH[:password])
     visit resource(@poll, :edit)
   end
@@ -31,5 +36,10 @@ describe "Per question results" do
     response.should include "Statystyki pytań zamkniętych dla ankiety"
     response.should include @poll.name
     response.should include "visualize"
+  end
+
+  it "should display teacher question ansewers properly" do
+    click_link "Odpowiedzi do pytania Pytanie 3"
+    response.should include Question.user_to_teacher(@user)
   end
 end
