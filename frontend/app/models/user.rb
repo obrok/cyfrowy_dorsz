@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'digest/sha1'
 
 class User < Sequel::Model
@@ -25,32 +26,8 @@ class User < Sequel::Model
   end
 
   def ranking
-
     count = 0
     sum = 0
-
-=begin
-    poll_ids = Poll.filter(:user_id => id).select(:poll_id)
-
-    puts id
-    puts poll_ids.sql
-
-    question_ids = Question.filter(:poll_id => poll_ids, :question_type => Question::TYPES[:closed]).select(:question_id)
-    puts question_ids.sql
-
-    question_answers = QuestionAnswer.filter(:question_id => question_ids)
-    puts question_answers.sql
-
-    question_answers.each do |qa|
-      puts qa.value
-      puts qa.answer.poll.user_id
-      puts "k"
-    end
-
-    return question_answers.select(:avg.sql_function(:value.cast(:integer))).first[:"avg(CAST(`value` AS integer))"].to_f unless question_answers.count == 0
-
-    return "-"
-=end
 
     polls.each do |poll|
       poll.questions_dataset.where(:question_type => Question::TYPES[:closed]).each do |question|
