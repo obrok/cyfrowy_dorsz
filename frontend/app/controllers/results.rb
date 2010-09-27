@@ -7,6 +7,8 @@ class Results < Secured
     else
       @answers = @question.question_answers
     end
+    @teachers = @question.selectable_possible_answers || []
+
     render
   end
 end
