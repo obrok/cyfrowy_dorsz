@@ -1,4 +1,5 @@
 %h1= "Odpowiedzi na pytanie <span class='name'>'#{h(@question.text)}'</span>"
+= link_to 'Powrot do ankiety', resource(@question.poll, :edit)
 = partial("teacher_filter_form", :action => resource(@question.poll, @question, :results), :poll => @question.poll)
 %ul.answers
   - @answers.each do |answer|
