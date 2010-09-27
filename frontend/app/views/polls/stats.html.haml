@@ -1,20 +1,22 @@
 %h3= "Statystyki pytań zamkniętych dla ankiety '<span class='name'>#{@poll.name}</span>':"
 = partial("results/teacher_filter_form", :action => resource(@poll, :stats), :poll => @poll)
-#stats-content
-  %table#stats.custom
-    %thead
-      %tr
-        %td
-        - @questions.each do |question|
-          %th= question.title
-    %tbody
-      - @answers.each_with_index do |answer_set, i|
-        %tr
-          %th= i
-          - answer_set.each do |answer|
-            %td= answer.value
 
-%script{:type=>"text/javascript"}
-  //<![CDATA[
-  $('#stats').visualize({type: 'bar', title: 'Zestawienie wyników pytań zamkniętych'});
-  //]]>
+- unless @teachers.empty?
+  #stats-content
+    %table#stats.custom
+      %thead
+        %tr
+          %td
+          - @questions.each do |question|
+            %th= question.title
+      %tbody
+        - @answers.each_with_index do |answer_set, i|
+          %tr
+            %th= i
+            - answer_set.each do |answer|
+              %td= answer.value
+
+  %script{:type=>"text/javascript"}
+    //<![CDATA[
+    $('#stats').visualize({type: 'bar', title: 'Zestawienie wyników pytań zamkniętych'});
+    //]]>

@@ -7,6 +7,7 @@ class Polls < Application
 
   # GET /polls/new
   def new
+    @polls = session.user.polls
     @poll = Poll.new
     render
   end
@@ -57,6 +58,8 @@ class Polls < Application
         @answers[j][i] = answer
       end
     end
+    @teachers = (@poll.teacher_question &&  @poll.teacher_question.selectable_possible_answers) || []
+
     render
   end
 
