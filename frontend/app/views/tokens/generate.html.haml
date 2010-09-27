@@ -1,4 +1,5 @@
 %h3= "Generacja tokenów dla ankiety '<span class='name'>#{@poll.name}</span>':"
+= link_to 'Powrot do ankiety', resource(@poll, :edit)
 %p= '<strong>Nazwa</strong> tokenu jest <strong>opcjonalna</strong>, jeżeli jej nie podasz, zostanie wygenerowana unikalna nazwa.'
 %p= 'Możesz utworzyć tylko <strong>jeden token</strong> o <strong>podanej</strong> przez ciebie nazwie.'
 

@@ -1,4 +1,5 @@
 %h3= "Statystyki pytań zamkniętych dla ankiety '<span class='name'>#{@poll.name}</span>':"
+= link_to 'Powrot do ankiety', resource(@poll, :edit)
 = partial("results/teacher_filter_form", :action => resource(@poll, :stats), :poll => @poll)
 
 - unless @teachers.empty?
