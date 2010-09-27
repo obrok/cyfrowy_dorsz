@@ -15,15 +15,12 @@
           = partial 'shared/login'
       #main
         %ul#menu
+          %li.active
+            =link_to('Prowadzący', '/')
           %li
-            %a{ :href => "/" }
-              Prowadzący
+            =link_to('Student', '/answers')
           %li
-            %a{ :href => "/answers" }
-              Student
-          %li
-            %a{ :href => "/rankings" }
-              Ranking
+            =link_to('Ranking', '/rankings')
         #content.anonymous
           = catch_content :for_layout
       #footer
