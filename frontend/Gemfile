@@ -23,7 +23,6 @@ gem "merb-param-protection", merb_gems_version
 gem "merb-slices", merb_gems_version
 
 gem "merb_sequel"
-gem "merb-haml"
 
 gem "sqlite3-ruby", "1.2.5"
 
@@ -31,5 +30,5 @@ gem "mongrel"
 gem "webrat"
 
 gem "ruby-debug"
+gem "rspec", "<2.0.0"
 
-gem "rspec", '<2.0.0'

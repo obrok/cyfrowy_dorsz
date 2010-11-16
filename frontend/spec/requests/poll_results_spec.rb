@@ -50,7 +50,7 @@ describe "Per question results" do
 
   it "should filter results per teacher" do
     click_link "Odpowiedzi do pytania Pytanie 1"
-    select Question.user_to_teacher(@user), :from => "Pokaż odpowiedzi dla tego prowadzącego"
+    select Question.user_to_teacher(@user), :from => "Pokaż odpowiedzi dla"
     click_button "Pokaż"
     response.should include @a1.value
     response.should_not include @a2.value
