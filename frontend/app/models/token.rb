@@ -18,7 +18,7 @@ class Token < Sequel::Model
     (0...size).map{ charset.to_a[rand(charset.size)] }.join
   end
 
-  def is_valid_to_use
+  def valid_to_use?
     remaining_count>0 && valid_until>DateTime::now
   end
 

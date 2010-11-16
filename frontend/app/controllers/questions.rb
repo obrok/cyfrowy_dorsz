@@ -1,43 +1,36 @@
 class Questions < Application
+
   before :ensure_authenticated
   before :load_poll, :exclude => [:new]
   before :load_question, :exclude => [:new, :create, :update_positions]
   before :ensure_can_manage, :exclude => [:new, :create, :update_positions]
 
-  # GET /questions/new
   def new
     @question = Question.new
     render
   end
 
   def create
-    @question = Question.new(params[:question].merge(:position => params[:position]) || {})
-    begin
-      @question.poll = @poll
-      @question.save
-      @status = 'succes'
-    rescue Sequel::ValidationFailed
-      @status = 'error'
-    end
+    question = question =params[:question].merge(:position => params[:position], :poll => @poll) || {}
+    @question = Question.create(question)
     @question_types = Question::TYPES.values
-    render :layout => false
+
+    render partial('question', :question => @question, :poll => @poll), :layout => false
+  rescue Sequel::ValidationFailed
+    render partial('new', :question => @question, :poll => @poll)
   end
 
   def edit
-    if !@question.poll.contains_teacher_question
-      @question_types = Question::TYPES.values
-    else 
-      @question_types = Array.new(Question::TYPES.values)
-      @question_types.delete(Question::TYPES[:teacher])
-    end
+    @question_types = @question.poll.load_question_types
     render
   end
 
   def update
     @question.update(params[:question])
-    redirect(resource(@poll, :edit))
+    redirect resource(@poll, :edit)
   rescue Sequel::ValidationFailed
-    render :new
+    @question_types = @question.poll.load_question_types
+    render :edit
   end
 
   def update_positions
@@ -47,11 +40,8 @@ class Questions < Application
   end
 
   def delete
-    if @question.destroy
-      redirect resource(@poll, :edit)
-    else
-      raise InternalServerError
-    end
+    @question.destroy
+    redirect resource(@poll, :edit)
   end
 
   protected

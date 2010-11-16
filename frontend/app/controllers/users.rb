@@ -1,6 +1,6 @@
 class Users < Application
   layout :anonymous
-
+  
   before :ensure_anonymous, :only => [:reset_password,
                                       :perform_reset_password,
                                       :request_reset_password,
@@ -13,12 +13,11 @@ class Users < Application
 
   def profile
     @user = session.user
-    render(:layout => :application)
+    render :layout => :application
   end
 
   def update
     session.user.update(params[:user])
-
     redirect(resource(:users, :profile), :notice => "Dane zapisane")
   end
 
@@ -33,6 +32,7 @@ class Users < Application
     @user.login_token = nil
     @user.save
     redirect(url(:login), :notice => "Hasło zmienione")
+
   rescue Sequel::ValidationFailed
     message[:notice] = "Hasła różnią się"
     render :reset_password
@@ -49,6 +49,7 @@ class Users < Application
   end
 
   private
+  
   def prepare_token
     @token = params[:token]
     @user = User[:login_token => @token]

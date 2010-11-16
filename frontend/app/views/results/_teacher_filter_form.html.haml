@@ -1,7 +1,7 @@
 = form(:action => action, :method => :get) do
   %fieldset
     .ctrl
-      = select(:name => "teacher_id", :label => "Pokaż odpowiedzi dla", :collection => @teachers, :prompt => "Wszyscy")
+      = select(:name => "teacher_id", :label => "Pokaż odpowiedzi dla tego prowadzącego", :collection => @teachers, :prompt => "Wszyscy")
     .ctrl.buttons
       = submit("Pokaż")
     

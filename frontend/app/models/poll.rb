@@ -12,7 +12,7 @@ class Poll < Sequel::Model
     questions_dataset[:question_type => Question::TYPES[:teacher]]
   end
 
-  def contains_teacher_question
+  def contains_teacher_question?
     !!teacher_question
   end
   
@@ -22,6 +22,14 @@ class Poll < Sequel::Model
       filter(:question_id => teacher_question.id, :value => user.id.to_s).
       select(:answer_id).map{|x| x.answer_id}.uniq
     Answer.filter(:id => answer_ids)
+  end
+
+  def load_question_types
+    if self.contains_teacher_question?
+      Question::TYPES.values.reject { |qt| qt == Question::TYPES[:teacher] }
+    else
+      Question::TYPES.values
+    end
   end
 
   def validate
@@ -38,5 +46,19 @@ class Poll < Sequel::Model
       question.position = positions[question.id.to_s]
       question.save
     end
+  end
+
+  def setup_answers_for_stats(questions, user)
+    answers = []
+    questions.each_with_index do |question, i|
+      collection = user ? question.question_answers_for_user(user) : question.question_answers
+      collection.each_with_index do |answer, j|
+        unless answers[j]
+          answers[j] = []
+        end
+        answers[j][i] = answer
+      end
+    end
+    answers
   end
 end

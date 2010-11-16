@@ -1,10 +1,8 @@
 class Tokens < Application
+
   before :ensure_authenticated
   before :load_poll, :only => [:index, :generate, :save, :print]
 
-  # provides :xml, :yaml, :js
-
-  # GET /questions/new
   def new
     @token = Token.new
     render
@@ -17,19 +15,9 @@ class Tokens < Application
 
   def create(valid_until, max_usage, value)
     date = DateTime.parse(valid_until)
-
-    token = Token.new
-    token.poll = @poll
-    token.valid_until = date
-    token.max_usage = max_usage
-    token.value = value
-    begin
-      token.save
-
-      redirect(resource(@poll, :edit))
-    rescue Sequel::ValidationFailed
-      render :generate
-    end
+    @token = Token.create(:poll => @poll, :valid_until => date, :max_usage => max_usage, :value => value)
+  rescue Sequel::ValidationFailed
+    render :generate
   end
 
   def generate
@@ -51,12 +39,8 @@ class Tokens < Application
     @token = Token[:id =>id]    
     poll = @token.poll
 
-    raise NotFound unless @token
-    if @token.destroy
-      redirect resource(poll, :tokens)
-    else
-      raise InternalServerError
-    end
+    @token.destroy
+    redirect resource(poll, :tokens)
   end
 
   def print

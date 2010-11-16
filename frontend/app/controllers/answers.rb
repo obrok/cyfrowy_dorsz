@@ -6,11 +6,11 @@ class Answers < Application
     render
   end
 
-  def show(values = nil)
+  def show
     @token = Token[:value => params[:token]] unless params[:token] == nil
     @token = Token[:value => params[:id]] unless params[:id] == nil
 
-    if (@token !=nil and @token.is_valid_to_use)
+    if (@token.present? && @token.valid_to_use?)
       message[:notice] = "Witamy w sesji"
     else
       message[:error] = "Nieważny token"
@@ -23,32 +23,19 @@ class Answers < Application
   def save_answer
     @token = Token[:value => params[:token]]
 
-    if (@token == nil or not @token.is_valid_to_use)
+    if (@token.blank? || !@token.valid_to_use?)
       message[:error] = "Nieważny token"
-      return redirect url(:controller => "answers", :action => "index"), :message => message
+      return redirect url(:controller => "answers", :action => "index")
     end
 
-    answer = Answer.new
-    answer.token = @token
-    answer.date = DateTime.now
-    answer.poll = @token.poll
-
-    qas = []
-    
-    @token.poll.questions.each do |question|
-      qas << question.create_question_answer(params[question.id.to_s])
+    @answer = Answer.create(:token => @token, :date => DateTime.now, :poll => @token.poll)
+    @qestion_answers = @token.poll.questions.map do |question|
+      value = params[question.id.to_s]
+      QuestionAnswer.create(:question => question, :value => value, :answer => @answer)
     end
-
-    answer.save
-    qas.each do |qa|
-      qa.answer = answer
-      qa.save 
-    end
-
-    @token.save
 
     render
-  rescue Sequel::ValidationFailed => e
+  rescue Sequel::ValidationFailed
     render :show
   end
 end

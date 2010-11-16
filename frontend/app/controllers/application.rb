@@ -5,6 +5,7 @@ class Application < Merb::Controller
   before :ensure_csrf_valid
 
   protected
+
   def ensure_anonymous
     raise Forbidden if session.user
   end

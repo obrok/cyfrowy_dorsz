@@ -41,7 +41,18 @@ class User < Sequel::Model
     return "-"
   end
 
+  def self.all_by_rankings
+    rankings = Hash.new
+
+    User.all.each do |user|
+      rankings[user] = user.ranking == "-" ? -1 : user.ranking
+    end
+
+    User.all.sort_by{|u| rankings[u] }.reverse
+  end
+
   private
+
   def random_string
     Digest::SHA1.hexdigest(SALT + Time.now.to_f.to_s)
   end

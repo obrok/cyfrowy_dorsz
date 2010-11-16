@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
-class PossibleAnswers < Secured
+class PossibleAnswers < Application
+  
+  before :ensure_authenticated
   before :load_question
+  before :ensure_can_manage
 
   def create
     @question.add_possible_answer(params[:answer])
@@ -15,10 +18,12 @@ class PossibleAnswers < Secured
   end
 
   private
-  def load_question
-    @question = Question[params[:question_id]]
 
-    raise NotFound unless @question
+  def load_question
+    @question = Question[params[:question_id]] or raise NotFound
+  end
+
+  def ensure_can_manage
     raise Forbidden unless @question.poll.user == session.user
   end
 end

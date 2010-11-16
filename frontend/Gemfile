@@ -1,4 +1,4 @@
-source :gemcutter
+source 'http://rubygems.org'
 
 # dependencies are generated using a strict version, don't forget to edit the dependency versions when upgrading.
 merb_gems_version = "1.1.0"
@@ -31,3 +31,5 @@ gem "mongrel"
 gem "webrat"
 
 gem "ruby-debug"
+
+gem "rspec", '<2.0.0'

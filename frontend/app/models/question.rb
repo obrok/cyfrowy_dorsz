@@ -102,4 +102,5 @@ class Question < Sequel::Model
   def self.user_to_teacher(u)
     "#{u.name} #{u.surname} #{u.email}"
   end
+
 end
