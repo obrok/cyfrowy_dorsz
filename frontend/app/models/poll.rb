@@ -49,14 +49,18 @@ class Poll < Sequel::Model
   end
 
   def setup_answers_for_stats(questions, user)
-    answers = []
-    questions.each_with_index do |question, i|
+    answers = {}
+    questions.each do |question|
       collection = user ? question.question_answers_for_user(user) : question.question_answers
-      collection.each_with_index do |answer, j|
-        unless answers[j]
-          answers[j] = []
+      collection.each do |answer|
+        value = answer.value
+        unless answers[value]
+          answers[value] = {}
         end
-        answers[j][i] = answer
+        unless answers[value][question]
+          answers[value][question] = 0
+        end
+        answers[value][question] += 1
       end
     end
     answers

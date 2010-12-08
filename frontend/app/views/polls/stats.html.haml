@@ -10,12 +10,12 @@
           %td
           - @questions.each do |question|
             %th= question.title
-      %tbody
-        - @answers.each_with_index do |answer_set, i|
+      %tbody        
+        - @answers.keys.each do |answer|
           %tr
-            %th= i
-            - answer_set.each do |answer|
-              %td= answer.value
+            %th= answer            
+            - @questions.each do |question|
+              %td= @answers[answer][question] ? @answers[answer][question] : 0
 
   %script{:type=>"text/javascript"}
     //<![CDATA[
