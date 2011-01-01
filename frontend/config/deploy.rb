@@ -5,9 +5,9 @@ set :repository,  "git@codegarden.icsadl.agh.edu.pl:cyfrowy_dorsz"
 set :scm, :git
 set :deploy_to, "/home/ankieter/#{application}/frontend/"
 
-role :web, "codegarden.icsadl.agh.edu.pl:4000"
-role :app, "codegarden.icsadl.agh.edu.pl:4000"
-role :db,  "codegarden.icsadl.agh.edu.pl:4000", :primary => true
+role :web, "codegarden.icsadl.agh.edu.pl"
+role :app, "codegarden.icsadl.agh.edu.pl"
+role :db,  "codegarden.icsadl.agh.edu.pl", :primary => true
 
 after 'deploy:update_code', 'deploy:copy_configuration'
 
@@ -18,7 +18,6 @@ namespace :deploy do
   desc "Link in the production extras and Migrate the Database"
   task :copy_configuration do
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-    run "ln -nfs #{shared_path}/config/merb.yml #{release_path}/config/merb.yml"
     run "ln -nfs #{shared_path}/log #{release_path}/log"
     deploy.migrate
   end
@@ -30,6 +29,6 @@ namespace :deploy do
 
   desc "Migrate database"
   deploy.task :migrate do
-    run "cd #{release_path}; rake sequel:db:migrate MERB_ENV=production"
+    run "cd #{release_path}; bundle exec rake sequel:db:migrate MERB_ENV=production"
   end
 end
