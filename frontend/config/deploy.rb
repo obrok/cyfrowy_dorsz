@@ -9,12 +9,14 @@ role :web, "codegarden.icsadl.agh.edu.pl:4000"
 role :app, "codegarden.icsadl.agh.edu.pl:4000"
 role :db,  "codegarden.icsadl.agh.edu.pl:4000", :primary => true
 
+after 'deploy:update_code', 'deploy:copy_configuration'
+
 namespace :deploy do
   task :start do ; end
   task :stop do ; end
 
   desc "Link in the production extras and Migrate the Database"
-  task :after_update_code do
+  task :copy_configuration do
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
     run "ln -nfs #{shared_path}/config/merb.yml #{release_path}/config/merb.yml"
     run "ln -nfs #{shared_path}/log #{release_path}/log"
