@@ -5,6 +5,7 @@ set :repository,  "git@codegarden.icsadl.agh.edu.pl:cyfrowy_dorsz"
 set :scm, :git
 set :deploy_to, "/home/ankieter/#{application}/frontend/"
 set :use_sudo, false
+set :user, "ankieter"
 
 role :web, "codegarden.icsadl.agh.edu.pl"
 role :app, "codegarden.icsadl.agh.edu.pl"
