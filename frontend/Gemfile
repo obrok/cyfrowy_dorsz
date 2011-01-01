@@ -24,12 +24,15 @@ gem "merb-param-protection", merb_gems_version
 gem "merb-slices", merb_gems_version
 
 gem "merb_sequel"
-
 gem "sqlite3-ruby", "1.2.5"
-
 gem "mongrel"
-gem "webrat"
+gem 'capistrano', :require => nil
+gem 'capistrano-ext', :require => nil
 
-gem "ruby-debug"
-gem "rspec", "<2.0.0"
+group :development, :test do
+  gem "webrat"
+  gem "ruby-debug"
+  gem "rspec", "<2.0.0"
+end
+
 
