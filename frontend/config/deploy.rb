@@ -3,7 +3,7 @@ require 'bundler/capistrano'
 set :application, "cyfrowy_dorsz"
 set :repository,  "git@codegarden.icsadl.agh.edu.pl:cyfrowy_dorsz"
 set :scm, :git
-set :deploy_to, "/home/ankieter/#{application}/frontend/"
+set :deploy_to, "/home/ankieter/#{application}"
 set :use_sudo, false
 set :user, "ankieter"
 
