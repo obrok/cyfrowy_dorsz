@@ -25,14 +25,14 @@ gem "merb-slices", merb_gems_version
 
 gem "merb_sequel"
 gem "sqlite3-ruby", "1.2.5"
-gem "mongrel"
-gem 'capistrano', :require => nil
-gem 'capistrano-ext', :require => nil
 
 group :development, :test do
   gem "webrat"
   gem "ruby-debug"
   gem "rspec", "<2.0.0"
+  gem "mongrel"
+  gem 'capistrano', :require => nil
+  gem 'capistrano-ext', :require => nil
 end
 
 
