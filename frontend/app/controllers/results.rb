@@ -9,7 +9,12 @@ class Results < Application
     else
       @answers = @question.question_answers
     end
-    @teachers = @question.poll.teacher_question.selectable_possible_answers || []
+
+    if (@question.poll.contains_teacher_question?)
+      @teachers = @question.poll.teacher_question.selectable_possible_answers
+    else
+      @teachers = []
+    end
 
     render
   end

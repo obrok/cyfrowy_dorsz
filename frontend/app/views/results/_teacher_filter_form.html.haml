@@ -1,7 +1,11 @@
 = form(:action => action, :method => :get) do
-  %fieldset
-    .ctrl
-      = select(:name => "teacher_id", :label => "Pokaż odpowiedzi dla tego prowadzącego", :collection => @teachers, :prompt => "Wszyscy")
-    .ctrl.buttons
-      = submit("Pokaż")
+  - if @teachers.empty?
+    %p Możesz dodać pytanie o prowadzącego aby filtrować wyniki.
+  - else
+    %fieldset
+      .ctrl
+        = select(:name => "teacher_id", :label => "Pokaż odpowiedzi dla tego prowadzącego", :collection => @teachers, :prompt => "Wszyscy")
+      .ctrl.buttons
+        = submit("Pokaż")
+
     
