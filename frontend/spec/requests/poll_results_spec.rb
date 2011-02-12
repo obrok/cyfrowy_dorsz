@@ -56,3 +56,55 @@ describe "Per question results" do
     response.should_not include @a2.value
   end
 end
+
+describe "Per question results from poll without teacher question" do
+  before(:each) do
+    @poll = create_poll
+    @user = @poll.user
+    @q1 = create_question(:text => "Pytanie 1", :poll => @poll, :question_type => Question::TYPES[:open])
+    @q2 = create_question(:text => "Pytanie 2", :poll => @poll, :question_type => Question::TYPES[:open])
+
+    @a1 = create_question_answer(:question => @q1, :value => "Odpowiedź 1")
+    @a2 = create_question_answer(:question => @q1, :value => "Odpowiedź 2")
+    @a3 = create_question_answer(:question => @q2, :value => "Odpowiedź 3")
+
+    login_as(@user, CreationTestHelper::USER_HASH[:password])
+    visit resource(@poll, :edit)
+  end
+
+  it "should be possible to navigate to a question's answers" do
+    click_link "Odpowiedzi do pytania Pytanie 1"
+    response.should include "Pytanie 1"
+    response.should_not include "Pytanie 2"
+  end
+
+  it "should contain the correct answers" do
+    click_link "Odpowiedzi do pytania Pytanie 1"
+    response.should include "Odpowiedź 1"
+    response.should include "Odpowiedź 2"
+    response.should_not include "Odpowiedź 3"
+  end
+
+  it "should display charts page correctly without teacher filter" do
+    click_link "Statystyki"
+    response.should include "Statystyki pytań zamkniętych dla ankiety"
+    response.should include @poll.name
+    response.should include "visualize"
+    response.should_not include "Pokaż odpowiedzi dla"
+  end
+
+  it "should not display teacher filter" do
+    click_link "Odpowiedzi do pytania Pytanie 1"
+    response.should_not include "Pokaż odpowiedzi dla"
+  end
+
+  it "should inform about filtering possiblity" do
+    click_link "Odpowiedzi do pytania Pytanie 1"
+    response.should include "Możesz dodać pytanie o prowadzącego aby filtrować wyniki."
+  end
+
+  it "should inform about filtering possiblity on charts page" do
+    click_link "Statystyki"
+    response.should include "Możesz dodać pytanie o prowadzącego aby filtrować wyniki."
+  end
+end
