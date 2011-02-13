@@ -18,6 +18,11 @@ class Tokens < Application
   end
 
   def save
+    if (params[:max_usage].to_i < 1 || params[:count].to_i < 1)
+      message[:error] = "Niepoprawna wartość"
+      return redirect(resource(@poll, :tokens), :message => message)
+    end
+
     valid_until = DateTime.parse(params[:valid_until])
     if (params[:value].blank?)
       params[:count].to_i.times do

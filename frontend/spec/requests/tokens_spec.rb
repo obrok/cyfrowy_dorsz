@@ -45,4 +45,11 @@ describe Tokens do
     response.should include("Nazwa musi być unikatowa")
     response.should include(@poll.name)
   end
+
+  it "shuld inform about incorrect tokens count" do
+    onetime_token("Ilość tokenów" => -5)
+
+    response.should include("Niepoprawna wartość")
+    response.should include(@poll.name)
+  end
 end
