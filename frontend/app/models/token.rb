@@ -5,11 +5,11 @@ class Token < Sequel::Model
 
   def validate
     super
-    validates_presence :value
-    validates_presence :valid_until
+    validates_presence :value, :message => "Musisz podać nazwę"
+    validates_presence :valid_until 
     validates_presence :poll
     validates_presence :max_usage
-    validates_unique :value
+    validates_unique :value, :message => "Nazwa musi być unikatowa [#{value}]"
     errors[:max_usage] << "niepoprawna liczba użyć" if max_usage!=nil and max_usage<1
   end
 

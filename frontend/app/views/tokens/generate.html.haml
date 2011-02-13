@@ -4,6 +4,8 @@
 %p= 'Możesz utworzyć tylko <strong>jeden token</strong> o <strong>podanej</strong> przez ciebie nazwie.'
 
 = form(:action => resource(@poll, :tokens, :save), :id => 'generate-tokens-form') do
+  .error
+    = error_messages_for(@token)
   %fieldset
     .ctrl
       = text_field(:value, :label => "Nazwa", :id => 'value')

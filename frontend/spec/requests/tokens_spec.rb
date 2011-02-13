@@ -39,9 +39,10 @@ describe Tokens do
   it "should warn user if token name was not unique" do
     value = Time.now.to_f.to_s
     reusable_token("Nazwa" => value)
+    visit resource(@poll, :edit)
     reusable_token("Nazwa" => value)
 
-    response.should include('Podana nazwa nie jest już zajęta. Spróbuj ponownie')
+    response.should include("Nazwa musi być unikatowa")
     response.should include(@poll.name)
   end
 end

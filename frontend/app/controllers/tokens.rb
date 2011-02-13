@@ -13,26 +13,23 @@ class Tokens < Application
     render
   end
 
-  def create(valid_until, max_usage, value)
-    date = DateTime.parse(valid_until)
-    @token = Token.create(:poll => @poll, :valid_until => date, :max_usage => max_usage, :value => value)
-  rescue Sequel::ValidationFailed
-    render :generate
-  end
-
   def generate
     render
   end
 
   def save
-    count = params[:count].blank? ? 1 : params[:count].to_i
-
-    count.times do
-      value = params[:value].blank? ? Token.generate_random_value : params[:value]       
-      create(params[:valid_until], params[:max_usage].to_i, value)
+    valid_until = DateTime.parse(params[:valid_until])
+    if (params[:value].blank?)
+      params[:count].to_i.times do
+        create(valid_until, 1, Token.generate_random_value)
+      end
+    else
+      create(valid_until, params[:max_usage].to_i, params[:value])
     end
 
-    redirect(url(:poll_tokens, @poll))
+    redirect resource(@poll, :tokens)
+  rescue Sequel::ValidationFailed
+    render :generate
   end
 
   def delete(id)
@@ -52,5 +49,11 @@ class Tokens < Application
   def load_poll
     @poll = Poll[params[:poll_id]]
   end
+
+  def create(valid_until, max_usage, value)
+    @token = Token.new(:poll => @poll, :valid_until => valid_until, :max_usage => max_usage, :value => value)
+    @token.save
+  end
+
 end
 
