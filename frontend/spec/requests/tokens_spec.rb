@@ -52,4 +52,11 @@ describe Tokens do
     response.should include("Niepoprawna wartość")
     response.should include(@poll.name)
   end
+
+  it "should be forbidden to delete other users tokens" do
+    token = create_token
+    visit "/polls/#{@poll.id}/tokens/#{token.id}/delete"
+    Token[:id => token.id].should_not equal nil
+    response.should include "Błąd dostępu"
+  end 
 end

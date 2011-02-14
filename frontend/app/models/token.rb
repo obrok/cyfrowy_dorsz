@@ -9,7 +9,7 @@ class Token < Sequel::Model
     validates_presence :valid_until 
     validates_presence :poll
     validates_presence :max_usage
-    validates_unique :value, :message => "Nazwa musi być unikatowa [#{value}]"
+    validates_unique :value, :message => "Nazwa musi być unikatowa" 
     errors[:max_usage] << "niepoprawna liczba użyć" if max_usage!=nil and max_usage<1
   end
 

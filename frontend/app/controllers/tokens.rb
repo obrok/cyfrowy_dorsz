@@ -1,10 +1,9 @@
 class Tokens < Application
 
   before :ensure_authenticated
-  before :load_poll, :only => [:index, :generate, :save, :print]
+  before :load_poll, :only => [:delete, :index, :generate, :save, :print]
 
   def new
-    @token = Token.new
     render
   end
 
@@ -14,14 +13,15 @@ class Tokens < Application
   end
 
   def generate
+    @errors = {}
     render
   end
 
   def save
-    if (params[:max_usage].to_i < 1 || params[:count].to_i < 1)
-      message[:error] = "Niepoprawna wartość"
-      return redirect(resource(@poll, :tokens), :message => message)
-    end
+    @errors = {}
+    @errors[:max_usage] = "Niepoprawna wartość" if params[:max_usage].to_i < 1
+    @errors[:count] = "Niepoprawna wartość" if params[:count].to_i < 1 and params[:value].blank?
+    return render :generate unless @errors.empty?
 
     valid_until = DateTime.parse(params[:valid_until])
     if (params[:value].blank?)
@@ -34,15 +34,20 @@ class Tokens < Application
 
     redirect resource(@poll, :tokens)
   rescue Sequel::ValidationFailed
+    Token.columns.each { |c| @errors[c] = @token.errors.on(c) }
     render :generate
   end
 
-  def delete(id)
-    @token = Token[:id =>id]    
-    poll = @token.poll
-
-    @token.destroy
-    redirect resource(poll, :tokens)
+  def delete
+    token = Token[:poll_id => @poll.id, :id => params[:id]]    
+     
+    if token
+      token.destroy
+    else
+      message[:error] = "Błąd dostępu"
+    end
+ 
+    redirect(resource(@poll, :tokens), :message => message)
   end
 
   def print

@@ -4,16 +4,22 @@
 %p= 'Możesz utworzyć tylko <strong>jeden token</strong> o <strong>podanej</strong> przez ciebie nazwie.'
 
 = form(:action => resource(@poll, :tokens, :save), :id => 'generate-tokens-form') do
-  .error
-    = error_messages_for(@token)
   %fieldset
     .ctrl
       = text_field(:value, :label => "Nazwa", :id => 'value')
+      %span.validation.error
+        = @errors[:value]
     .ctrl
       = text_field(:count, :label => "Ilość tokenów", :value => 10, :id => 'count')
+      %span.validation.error
+        = @errors[:count]
     .ctrl
       = text_field(:max_usage, :label => "Liczba użyć", :value => 1)
+      %span.validation.error
+        = @errors[:max_usage]
     .ctrl
       = text_field(:valid_until, :id=>"valid_until", :label => "Data ważności tokenów", :value=> (DateTime::now()+20).strftime("%Y-%m-%d"))
+      %span.validation.error
+        = @errors[:valid_until]
     .ctrl.buttons
       = submit("Generuj tokeny")
