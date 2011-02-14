@@ -60,7 +60,7 @@ class Question < Sequel::Model
 
   def validate
     super
-    
+    validates_unique [:poll_id, :text], :message => "Pytanie o takiej nazwie już istnieje"
     validates_presence :text, :message => "treść pytania jest wymagana"
     validates_presence :poll
     errors[:question_type] << "niepoprawny typ pytania" unless TYPES.values.include?(question_type)

@@ -12,7 +12,6 @@ module CreationTestHelper
   }
 
   QUESTION_HASH = {
-    :text => "tresc pytania", 
     :question_type => "Zamknięte",
     :position => 1
   }
@@ -42,7 +41,7 @@ module CreationTestHelper
   end
 
   def question_hash
-    QUESTION_HASH.merge(:poll => create_poll)
+    QUESTION_HASH.merge(:text => Time.now.to_f, :poll => create_poll)
   end
 
   def question_answer_hash
@@ -66,6 +65,10 @@ module CreationTestHelper
     Question.create(question_hash.merge(values))
   end
                 
+  def new_question(values = {})
+    Question.new(question_hash.merge(values))
+  end
+
   def create_answer(values = {})
     Answer.create(answer_hash.merge(values))
   end

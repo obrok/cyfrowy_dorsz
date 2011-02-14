@@ -45,6 +45,10 @@ describe Question do
 
     question.formatted_possible_answers.should include user_info
   end
+  it "should not be valid if there is another questions with the same name in parent poll" do
+    question = new_question(:poll => @question.poll, :text => @question.text)
+    question.should_not be_valid
+  end
 end
 
 describe "Closed Question" do

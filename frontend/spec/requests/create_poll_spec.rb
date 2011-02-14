@@ -4,6 +4,7 @@ require 'spec/spec_helper'
 describe Questions, "Creating the poll" do
   before(:each) do
     @user = create_user
+    @poll = create_poll(:user => @user)
     login_as(@user, CreationTestHelper::USER_HASH[:password])
   end
 
@@ -26,21 +27,18 @@ describe Questions, "Creating the poll" do
   end
 
   it "shows edit poll form correctly" do
-    @poll = create_poll
     visit resource(@poll, :edit)
     response.should include "Dodaj nowe pytanie"
   end
 
   it "shows edit question form correctly" do
-    poll = create_poll(:user => @user)
-    question = create_question(:poll => poll)
-    visit resource(poll, question, :edit)
+    question = create_question(:poll => @poll)
+    visit resource(@poll, question, :edit)
     response.should include question.text
   end
 
   it "adds new question correctly" do
-    poll = create_poll(:user => @user)
-    visit resource(poll, :edit)
+    visit resource(@poll, :edit)
     question = create_question
     fill_in "Treść pytania", :with => question.text
     fill_in "Typ pytania", :with => question.question_type
@@ -50,9 +48,8 @@ describe Questions, "Creating the poll" do
   end
 
   it "shows all current answers to a choice question" do
-    poll = create_poll(:user => @user)
-    question = create_question(:poll => poll, :question_type => "Wyboru", :possible_answers => ["Odpowiedź1", "Odpowiedź2"])
-    visit resource(poll, question, :edit)
+    question = create_question(:poll => @poll, :question_type => "Wyboru", :possible_answers => ["Odpowiedź1", "Odpowiedź2"])
+    visit resource(@poll, question, :edit)
     
     question.possible_answers.each do |answer|
       response.should include answer
@@ -60,9 +57,8 @@ describe Questions, "Creating the poll" do
   end
 
   it "allows to add an answer to a choice question" do
-    poll = create_poll(:user => @user)
-    question = create_question(:poll => poll, :question_type => "Wyboru", :possible_answers => ["Odpowiedź1", "Odpowiedź2"])
-    visit resource(poll, question, :edit)
+    question = create_question(:poll => @poll, :question_type => "Wyboru", :possible_answers => ["Odpowiedź1", "Odpowiedź2"])
+    visit resource(@poll, question, :edit)
 
     fill_in "Nowa odpowiedź", :with => "Odpowiedź3"
     click_button "Dodaj odpowiedź"
@@ -71,9 +67,8 @@ describe Questions, "Creating the poll" do
   end
 
   it "allows to remove an answer from a choice question" do
-    poll = create_poll(:user => @user)
-    question = create_question(:poll => poll, :question_type => "Wyboru", :possible_answers => ["Odpowiedź1", "Odpowiedź2"])
-    visit resource(poll, question, :edit)
+    question = create_question(:poll => @poll, :question_type => "Wyboru", :possible_answers => ["Odpowiedź1", "Odpowiedź2"])
+    visit resource(@poll, question, :edit)
     
     click_link "Usuń Odpowiedź1"
 
@@ -81,8 +76,7 @@ describe Questions, "Creating the poll" do
   end
 
   it "shows user info as possible answer in teacher choice question" do
-    poll = create_poll(:user => @user)
-    visit resource(poll, :edit)
+    visit resource(@poll, :edit)
     fill_in "Treść pytania", :with => "Jaki prowadzący?"
     fill_in "Typ pytania", :with => "Prowadzący"
     click_button "Zapisz pytanie"
@@ -92,14 +86,28 @@ describe Questions, "Creating the poll" do
   end
 
   it "allows to add teacher choice question only once" do
-    poll = create_poll(:user => @user)
-    visit resource(poll, :edit)
+    visit resource(@poll, :edit)
     fill_in "Treść pytania", :with => "Jaki prowadzący?"
     fill_in "Typ pytania", :with => "Prowadzący"
     click_button "Zapisz pytanie"
 
-    visit resource(poll, :edit)
+    visit resource(@poll, :edit)
     lambda{select "Prowadzący", :from => "Typ pytania"}.should raise_error
   end
 
+  it "shows error message if poll already contains a question with given name" do
+    question = create_question
+
+    visit resource(@poll, :edit)
+    fill_in "Treść pytania", :with => question.text
+    fill_in "Typ pytania", :with => question.question_type
+    click_button "Zapisz pytanie"
+
+    visit resource(@poll, :edit)
+    fill_in "Treść pytania", :with => question.text
+    fill_in "Typ pytania", :with => question.question_type
+    click_button "Zapisz pytanie"
+
+    response.should include "Pytanie o takiej nazwie już istnieje"
+  end
 end

@@ -12,12 +12,12 @@ class Questions < Application
 
   def create
     question = question =params[:question].merge(:position => params[:position], :poll => @poll) || {}
-    @question = Question.create(question)
+    @question = Question.new(question)
     @question_types = Question::TYPES.values
-
+    @question.save
     render partial('question', :question => @question, :poll => @poll), :layout => false
-  rescue Sequel::ValidationFailed
-    render partial('new', :question => @question, :poll => @poll)
+    rescue Sequel::ValidationFailed
+      render partial('new', :question => @question, :poll => @poll), :layout => false
   end
 
   def edit

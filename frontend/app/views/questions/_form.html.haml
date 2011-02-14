@@ -3,6 +3,7 @@
     = text_field(:text, :label => "Treść pytania")
     %span.validation.error
       = @question.errors.on(:text)
+      = @question.errors.on([:poll_id, :text])
   .ctrl
     = select(:question_type, :label => "Typ pytania", :collection => @question_types)
     %span.validation.error
