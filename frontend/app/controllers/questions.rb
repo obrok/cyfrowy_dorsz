@@ -11,7 +11,7 @@ class Questions < Application
   end
 
   def create
-    question = question =params[:question].merge(:position => params[:position], :poll => @poll) || {}
+    question = params[:question].merge(:position => params[:position], :poll => @poll) || {}
     @question = Question.new(question)
     @question_types = Question::TYPES.values
     @question.save

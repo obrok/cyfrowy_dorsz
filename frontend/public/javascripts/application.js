@@ -19,6 +19,7 @@ $(document).ready(function() {
       type: 'POST',
       data: data,
       success: function(html, textStatus) {
+        $('span.validation.error').remove();
         if (!html.match('Treść pytania')) {
           $("#questions").append(html);
           toggleQuestions();
