@@ -17,6 +17,16 @@ class QuestionAnswer < Sequel::Model
     question.teacher? ? Question.id_to_teacher(value.to_i) : value
   end
 
+  def validate_without_answer
+    validate
+    errors.delete(:answer)
+  end
+
+  def valid_without_answer?
+    validate_without_answer
+    errors.size == 0
+  end
+
   private
   def validate_answer
     temp = values[:value]

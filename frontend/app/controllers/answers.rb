@@ -17,6 +17,8 @@ class Answers < Application
       return redirect url(:controller => "answers", :action => "index"), :message => message
     end
 
+    @question_answers = @token.poll.questions.map { |q| [q, QuestionAnswer.new] }
+
     render
   end
 
@@ -25,15 +27,30 @@ class Answers < Application
 
     if (@token.blank? || !@token.valid_to_use?)
       message[:error] = "Nieważny token"
-      return redirect url(:controller => "answers", :action => "index")
+      return redirect url(:controller => "answers", :action => "index"), :message => message
     end
 
-    @answer = Answer.create(:token => @token, :date => DateTime.now, :poll => @token.poll)
-    @qestion_answers = @token.poll.questions.map do |question|
+    @answer = Answer.new(:token => @token, :date => DateTime.now, :poll => @token.poll)
+    @question_answers = @token.poll.questions.map do |question|
       value = params[question.id.to_s]
-      QuestionAnswer.create(:question => question, :value => value, :answer => @answer)
+      question_answer = QuestionAnswer.new(:question => question, :value => value)
+      @answer.question_answers << question_answer
+      [question, question_answer]
     end
 
+    if @answer.valid?
+      unless @answer.question_answers.map(&:valid_without_answer?).all?
+        raise Sequel::ValidationFailed.new(@answer.question_answers.map(&:errors))
+      end
+    else
+      raise Sequel::ValidationFailed.new(@answer.errors)
+    end
+
+    @answer.save
+    @question_answers.each do |question, question_answer|
+      question_answer.answer = @answer
+      question_answer.save
+    end
     render
   rescue Sequel::ValidationFailed
     render :show
