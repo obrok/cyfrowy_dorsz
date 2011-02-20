@@ -72,7 +72,7 @@ describe "Closed Question" do
 
   it "should have no possible answers by default" do
     @question.possible_answers.class.should == Array
-    @question.possible_answers.should be_empty
+    @question.possible_answers.should_not be_empty
   end
 
   it "should properly serialize an array of strings" do

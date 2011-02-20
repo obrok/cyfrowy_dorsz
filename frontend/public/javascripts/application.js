@@ -29,6 +29,7 @@ $(document).ready(function() {
         }
       },
       error: function(form, textStatus){
+        $("form#new-question-form").replaceWith(form.responseText);
         $('#flash').html('<div class="error">Przepraszamy, wystąpił błąd podczas dodawania pytania.</div>');
         showFlash();
       }
@@ -73,6 +74,15 @@ $(document).ready(function() {
       count.removeAttr("disabled");
     }
   })
+
+  $("#question_question_type").change(function() {
+    if ($(this).val() == "Wyboru") {
+        $("#question_possible_answer").val("");
+        $("#possible_answer_ctrl").show();
+    } else {
+        $("#possible_answer_ctrl").hide();
+    }
+  });
 });
 
 function toggleQuestions() {

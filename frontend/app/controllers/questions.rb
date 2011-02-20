@@ -16,8 +16,8 @@ class Questions < Application
     @question_types = Question::TYPES.values
     @question.save
     render partial('question', :question => @question, :poll => @poll), :layout => false
-    rescue Sequel::ValidationFailed
-      render partial('new', :question => @question, :poll => @poll), :layout => false
+  rescue Sequel::ValidationFailed
+    render partial('new', :question => @question, :poll => @poll), :layout => false, :status => 409
   end
 
   def edit

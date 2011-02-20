@@ -7,6 +7,8 @@ class Question < Sequel::Model
   many_to_one :poll
   one_to_many :question_answers
 
+  attr_accessor :possible_answer
+
   TYPES = {
     :open => "Otwarte",
     :closed => "Zamknięte",
@@ -14,9 +16,13 @@ class Question < Sequel::Model
     :teacher => "Prowadzący"
   }
 
-  def before_save
-    if (choice? || teacher?) && possible_answers == nil
+  def before_validation
+    if (choice? || teacher?) && possible_answers.blank?
       self.possible_answers = []
+      unless possible_answer.blank?
+        self.add_possible_answer(possible_answer)
+        self.possible_answer = nil
+      end
     end
     super
   end
@@ -63,6 +69,7 @@ class Question < Sequel::Model
     validates_unique [:poll_id, :text], :message => "Pytanie o takiej nazwie już istnieje"
     validates_presence :text, :message => "treść pytania jest wymagana"
     validates_presence :poll
+    errors[:possible_answer] << "Wymagana przynajmniej jedna mozliwa odpowiedz" if choice? && (possible_answers.blank? || possible_answers.empty?)
     errors[:question_type] << "niepoprawny typ pytania" unless TYPES.values.include?(question_type)
   end
 

@@ -13,7 +13,8 @@ module CreationTestHelper
 
   QUESTION_HASH = {
     :question_type => "Zamknięte",
-    :position => 1
+    :position => 1,
+    :possible_answers => ["ania123"]
   }
 
   ANSWER_HASH = {
