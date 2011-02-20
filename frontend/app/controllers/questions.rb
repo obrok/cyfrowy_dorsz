@@ -1,4 +1,7 @@
+require 'lib/load_helper'
+
 class Questions < Application
+  include LoadHelper
 
   before :ensure_authenticated
   before :load_poll, :exclude => [:new]
@@ -45,10 +48,6 @@ class Questions < Application
   end
 
   protected
-
-  def load_poll
-    @poll = session.user.polls_dataset.filter(:id => params[:poll_id]).first or raise NotFound
-  end
 
   def load_question
     @question = @poll.questions_dataset.filter(:id => params[:id]).first or raise NotFound

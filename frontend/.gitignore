@@ -24,3 +24,4 @@ nbproject
 config/database.yml
 .rvmrc
 .bundle
+*.swp
