@@ -1,8 +1,11 @@
+require 'lib/load_helper'
+
 class Tokens < Application
+  include LoadHelper
 
   before :ensure_authenticated
   before :load_poll, :only => [:delete, :index, :generate, :save, :print]
-
+  before :load_token, :only => [:delete]
   def new
     render
   end
@@ -39,14 +42,7 @@ class Tokens < Application
   end
 
   def delete
-    token = Token[:poll_id => @poll.id, :id => params[:id]]    
-     
-    if token
-      token.destroy
-    else
-      message[:error] = "Błąd dostępu"
-    end
- 
+    @token.destroy 
     redirect(resource(@poll, :tokens), :message => message)
   end
 
@@ -55,10 +51,6 @@ class Tokens < Application
   end
 
   protected
-
-  def load_poll
-    @poll = Poll[params[:poll_id]]
-  end
 
   def create(valid_until, max_usage, value)
     @token = Token.new(:poll => @poll, :valid_until => valid_until, :max_usage => max_usage, :value => value)

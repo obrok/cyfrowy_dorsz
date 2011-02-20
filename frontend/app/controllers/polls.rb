@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
+require 'lib/load_helper'
+
 class Polls < Application
-  
+  include LoadHelper  
   before :ensure_authenticated
   before :load_poll, :only => [:edit, :stats]
   before :load_polls, :only => [:new, :index, :create]
@@ -39,16 +41,5 @@ class Polls < Application
 
     render
   end
-
-  protected
-
-  def load_poll
-    @poll = session.user.polls_dataset[:id => params[:id]] or raise NotFound unless @poll
-  end
-
-  def load_polls
-    @polls = session.user.polls
-  end
-
 end
 

@@ -55,8 +55,8 @@ describe Tokens do
 
   it "should be forbidden to delete other users tokens" do
     token = create_token
-    visit "/polls/#{@poll.id}/tokens/#{token.id}/delete"
-    Token[:id => token.id].should_not equal nil
-    response.should include "Błąd dostępu"
+    visit resource(@poll, token, :delete)
+
+    response_status.should == 404
   end 
 end
