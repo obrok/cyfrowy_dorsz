@@ -115,7 +115,6 @@ describe Questions, "Creating the poll" do
     poll = create_poll
     visit resource(poll, :edit)
 
-    response.should include "Błąd dostępu"
-    response.should_not include poll.name
+    response_status.should == 404
   end
 end

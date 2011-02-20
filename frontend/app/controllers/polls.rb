@@ -43,7 +43,7 @@ class Polls < Application
   protected
 
   def load_poll
-    @poll = Poll[:id => params[:id]] or raise NotFound unless @poll
+    @poll = session.user.polls_dataset[:id => params[:id]] or raise NotFound unless @poll
   end
 
   def load_polls
