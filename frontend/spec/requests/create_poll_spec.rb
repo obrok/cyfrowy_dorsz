@@ -110,4 +110,12 @@ describe Questions, "Creating the poll" do
 
     response.should include "Pytanie o takiej nazwie już istnieje"
   end
+
+  it "should be forbidden to edit someones else poll" do
+    poll = create_poll
+    visit resource(poll, :edit)
+
+    response.should include "Błąd dostępu"
+    response.should_not include poll.name
+  end
 end
