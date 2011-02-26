@@ -22,6 +22,7 @@ Merb::Router.prepare do
     collection :request_reset_password, :method => :get
     collection :send_reset_password, :method => :post
     collection :profile, :method => :get
+    collection :change_password, :method => :post
   end
 
   resources :answers

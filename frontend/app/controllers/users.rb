@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class Users < Application
   layout :anonymous
   
@@ -46,6 +47,20 @@ class Users < Application
     @user = User[:email => params[:email]]
     @user.reset_password! if @user
     redirect(url(:login), :notice => "Wysłano email")
+  end
+
+  def change_password
+    @user = session.user
+    if @user.authenticated?(params[:old_password])
+      @user.password = params[:new_password]
+      @user.password_confirmation = params[:new_password_confirmation]
+      @user.save
+      redirect(resource(:users, :profile), :notice => "Zmieniono hasło")
+    else
+      redirect(resource(:users, :profile), :error => "Niepoprawne hasło")
+    end
+  rescue Sequel::ValidationFailed
+    redirect(resource(:users, :profile), :error => "Hasła różnią się")
   end
 
   private

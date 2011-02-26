@@ -9,3 +9,14 @@
       = text_field :surname, :label => "Nazwisko"
     .ctrl.buttons
       = submit "Zapisz zmiany"
+%h3 Zmień hasło
+= form(:method => :post, :action => resource(:users, :change_password)) do
+  %fieldset
+    .ctrl
+      = password_field(:name => "old_password", :value => "", :label => "Stare hasło")
+    .ctrl
+      = password_field(:name => "new_password", :value => "", :label => "Nowe hasło")
+    .ctrl
+      = password_field(:name => "new_password_confirmation", :value => "", :label => "Powtórz nowe hasło")
+    .ctrl.buttons
+      = submit "Zmień"
