@@ -16,29 +16,24 @@ describe Rankings do
     create_question_answer(:question => question2, :value => 4)
 
     @admin = create_user(:name => "Jolka", :surname => "Bukowska", :admin => true)
+
+    visit '/rankings'
   end
 
   it "should contain user's name and surname" do
-    visit '/rankings'
     response.should include(@user.name)
     response.should include(@user.surname)
   end
 
   it "should not contain user's e-mail" do
-    visit '/rankings'
-
     response.should_not include(@user.email)
   end
 
   it "should contain user's ranking" do
-    visit '/rankings'
-
     response.should include(@user.ranking.to_s)
   end
 
   it "should display users in correct order" do
-    visit '/rankings'
-
     response.index(@user2.name).should < response.index(@user.name)
   end
 
