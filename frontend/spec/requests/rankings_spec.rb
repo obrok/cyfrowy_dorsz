@@ -39,4 +39,10 @@ describe Rankings do
 
     response.index(@user2.name).should < response.index(@user.name)
   end
+
+  it "should not include admin account" do
+    @user.admin = true
+    response.should_not include(@user.name)
+    response.should_not include(@user.surname)
+  end
 end

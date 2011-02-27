@@ -3,6 +3,10 @@ require 'spec/spec_helper'
 describe User do
   before(:each) do
     @user = create_user
+    @poll = create_poll(:user => @user)
+    question = create_question(:poll => @poll, :question_type => Question::TYPES[:closed])
+    create_question_answer(:question => question, :value => 1)
+    create_question_answer(:question => question, :value => 4)
   end
 
   after(:each) do
@@ -20,7 +24,7 @@ describe User do
     user.should_not be_valid
   end
 
-  [:email, :password, :password_confirmation].each do |field|
+  [:email, :password, :password_confirmation, :admin].each do |field|
     it "should validate presence of #{field}" do
       @user.send("#{field}=", nil)
       @user.should_not be_valid
@@ -46,11 +50,19 @@ describe User do
   end
 
   it "should count correct ranking" do
-    poll = create_poll(:user => @user)
-    question = create_question(:poll => poll, :question_type => Question::TYPES[:closed])
-    create_question_answer(:question => question, :value => 1)
-    create_question_answer(:question => question, :value => 4)
-
     @user.ranking.should == 2.5
+  end
+
+  it "shoud not count ranking for admin" do
+    @user.admin = true
+    @user.ranking.should be_nil
+  end
+
+  it "should provide information about user type" do
+    @user.teacher?.should be_true
+    @user.admin?.should be_false
+    @user.admin = true
+    @user.teacher?.should be_false
+    @user.admin?.should be_true
   end
 end
