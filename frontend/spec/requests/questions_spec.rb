@@ -12,14 +12,22 @@ describe Questions do
 
   describe "edit" do
     context "question has some answers" do
-      it "should be forbidden" do
+      before(:each) do
         create_question_answer(:question => @question)
+      end
+
+      it "should be forbidden" do
         visit resource(@poll, @question, :edit)
         response_status.should == 403
       end
+
+      it "should display gray edit icon" do
+        visit resource(@poll, :questions)
+        reponse.should include "edit_gray.png"
+      end
     end
     
-    context "question has some answers" do
+    context "question has no answers" do
       it "should render edit properly" do
         visit resource(@poll, @question, :edit)
         response_status.should == 200
@@ -61,7 +69,7 @@ describe Questions do
       end
     end
     
-    context "question has some answers" do
+    context "question has no answers" do
       it "should render edit properly" do
         visit resource(@poll, :edit)
         click_link 'usuń'

@@ -54,6 +54,11 @@ describe Question do
     create_question(:poll => @question.poll, :question_type => Question::TYPES[:teacher])
     lambda { create_question(:poll => @question.poll, :question_type => Question::TYPES[:teacher]) }.should raise_error Sequel::ValidationFailed
   end
+
+  it "should be locked when has answers" do
+    create_question_answer(:question => @question)
+    @question.locked?.should be_true
+  end
 end
 
 describe "Closed Question" do
