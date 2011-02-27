@@ -67,8 +67,12 @@ class Users < Application
 
   def send_reset_password
     @user = User[:email => params[:email]]
-    @user.reset_password! if @user
-    redirect(url(:login), :notice => "Wysłano email")
+    if @user
+      @user.reset_password!
+      redirect(url(:login), :notice => "Wysłano email")
+    else
+      redirect(resource(:users, :request_reset_password), :error => "Nie ma takiego użytkownika")
+    end      
   end
 
   def change_password

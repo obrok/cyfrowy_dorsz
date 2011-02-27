@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'spec/spec_helper'
 
 describe Poll do
@@ -11,6 +12,15 @@ describe Poll do
 
   it "should be valid" do
     @poll.should be_valid
+  end
+
+  it "should have a default thankyou text" do
+    Poll.new.thankyou.should == "Dziękujemy za wypełnienie ankiety"
+  end
+
+  it "should validate presence of thankyou text" do
+    @poll.thankyou = ""
+    @poll.should_not be_valid
   end
 
   it "should validate presence of name" do

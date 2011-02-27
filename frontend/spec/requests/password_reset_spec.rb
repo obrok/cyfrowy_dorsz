@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'spec/spec_helper'
 
 describe "Logged in user" do
@@ -29,6 +30,7 @@ describe "Resetting the password" do
     @token = "123"
     @user = create_user(:login_token => @token)
     Merb::Config[:disable_csrf] = true
+    Merb::Mailer.deliveries.clear
   end
 
   after(:each) do
@@ -80,5 +82,18 @@ describe "Resetting the password" do
     response.should include "Wysłano email"
     last_email.to.should include @user.email
     last_email.text.should include @user.reload.login_token
+  end
+
+  it "shows an error message if email is incorrect" do
+    visit url(:login)
+    click_link "Zapomniałem hasła"
+
+    User.filter(:email => "no.such@email.com").destroy
+    fill_in("Email", :with => "no.such@email.com")
+    click_button("Wyślij")
+
+    response.should include "Nie ma takiego użytkownika"
+    response.should include "Zmiana hasła"
+    last_email.should be_nil
   end
 end

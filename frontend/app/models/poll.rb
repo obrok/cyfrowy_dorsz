@@ -8,6 +8,11 @@ class Poll < Sequel::Model
   one_to_many :tokens
   one_to_many :answers
 
+  def initialize(*args)
+    super(*args)
+    self.thankyou = "Dziękujemy za wypełnienie ankiety" unless self.thankyou
+  end
+
   def teacher_question
     questions_dataset[:question_type => Question::TYPES[:teacher]]
   end
@@ -35,6 +40,7 @@ class Poll < Sequel::Model
   def validate
     super
     validates_presence :name
+    validates_presence :thankyou
 
     errors[:poll_type] << "niepoprawny typ ankiety" unless Poll::TYPES.include?(poll_type)
     errors[:questions] << "tylko jedno pytanie o prowadzącego" if !new? && questions_dataset.filter(:question_type => Question::TYPES[:teacher]).count > 1

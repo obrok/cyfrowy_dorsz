@@ -1,5 +1,12 @@
 %h1= "Edycja ankiety <span class='name'>'#{h(@poll.name)}'</span>"
 
+= form_for(@poll, :action => resource(@poll), :method => :put) do
+  %fieldset
+    .ctrl_textarea
+      = text_area :thankyou, :label => "Tekst podziękowania"
+    .ctrl.buttons
+      = submit "Zmień"
+
 = link_to 'Statystyki', resource(@poll, :stats)
 = link_to("Generuj tokeny", resource(@poll, :tokens, :generate), "method" => "post")
 = link_to("Pokaż tokeny", resource(@poll, :tokens))

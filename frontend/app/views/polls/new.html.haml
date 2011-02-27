@@ -8,5 +8,7 @@
       = text_field :name, :label => "Nazwa"
     .ctrl
       = select :poll_type, :label => 'Typ zajęć', :collection => Poll::TYPES
+    .ctrl_textarea
+      = text_area :thankyou, :label => "Tekst podziękowania"
     .ctrl.buttons
       = submit "Stwórz"

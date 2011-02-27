@@ -295,6 +295,15 @@ input[type="text"], input[type="password"] {
   -moz-border-radius: 5px;
 }
 
+form textarea {
+  width: 200px;
+  height: 100px;
+  padding: 3px;
+  font-size: 16px;
+  border: 1px solid #5B7A00;
+  -moz-border-radius: 5px;
+}
+
 select {
   width: 208px;
   height: 30px;
@@ -335,7 +344,7 @@ form#login-form {
   left: 0px;
 }
 
-.ctrl input, select {
+.ctrl input, select, textarea {
   position: absolute;
   top: 20px;
   left: 0px;
@@ -346,6 +355,13 @@ form#login-form {
   position: relative;
   width: 450px;
   height: 48px;
+}
+
+.ctrl_textarea {
+  margin: 10px 0px;
+  position: relative;
+  width: 450px;
+  height: 128px;
 }
 
 form#login-form .buttons {

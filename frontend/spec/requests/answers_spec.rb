@@ -35,7 +35,7 @@ describe "Student" do
   end
 
   it "should save after student's submission" do
-    poll = create_poll
+    poll = create_poll(:thankyou => "Dziękujemy bardzo")
     token = create_token(:poll => poll)
     question = create_question(:poll => poll)
     fill_in "Token", :with => token.value
@@ -43,7 +43,7 @@ describe "Student" do
 
     fill_in question.text, :with => "3"
     click_button "Wyślij odpowiedzi"
-    response.should include "Dziękujemy za wypełnienie ankiety"
+    response.should include "Dziękujemy bardzo"
   end
 
   it "should see his answers if something is wrong" do
