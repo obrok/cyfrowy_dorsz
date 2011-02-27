@@ -45,9 +45,14 @@ describe Question do
 
     question.formatted_possible_answers.should include user_info
   end
+
   it "should not be valid if there is another questions with the same name in parent poll" do
-    question = new_question(:poll => @question.poll, :text => @question.text)
-    question.should_not be_valid
+    lambda { create_question(:poll => @question.poll, :text => @question.text) }.should raise_error Sequel::ValidationFailed
+  end
+
+  it "should not be valid if there is another teacher question in parent poll" do
+    create_question(:poll => @question.poll, :question_type => Question::TYPES[:teacher])
+    lambda { create_question(:poll => @question.poll, :question_type => Question::TYPES[:teacher]) }.should raise_error Sequel::ValidationFailed
   end
 end
 
