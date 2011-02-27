@@ -90,6 +90,10 @@ class Question < Sequel::Model
     question_type == TYPES[:teacher]
   end
 
+  def locked?
+    not question_answers.empty?
+  end
+
   def title
     if text.size>20
       "#{text[0..20]}..."

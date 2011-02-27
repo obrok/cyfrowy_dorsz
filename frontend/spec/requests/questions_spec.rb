@@ -21,9 +21,10 @@ describe Questions do
         response_status.should == 403
       end
 
-      it "should display gray edit icon" do
-        visit resource(@poll, :questions)
-        reponse.should include "edit_gray.png"
+      it "should display disabled edit icon" do
+        visit resource(@poll, :edit)
+        response.should include "edit_gray.png"
+        response.should include "Edycja jest niemożliwa"
       end
     end
     
