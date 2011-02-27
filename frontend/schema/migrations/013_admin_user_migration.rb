@@ -1,7 +1,7 @@
 class AdminUserMigration < Sequel::Migration
   def up
     alter_table :users do
-      add_column :admin, Boolean
+      add_column :admin, FalseClass
     end
   end
 

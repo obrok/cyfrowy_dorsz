@@ -5,7 +5,8 @@ module CreationTestHelper
     :password => "123",
     :password_confirmation => "123",
     :name => "Mietek",
-    :surname => "Bogumila"
+    :surname => "Bogumila",
+    :admin => false
   }
 
   POLL_HASH = {    
