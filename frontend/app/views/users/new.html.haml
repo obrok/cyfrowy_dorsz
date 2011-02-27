@@ -1,0 +1,11 @@
+%h3= 'Tworzenie nowego prowadzącego'
+%p= 'Na podany przez Ciebie adres email zostanie wysłany specjalny link umożliwiający wygenerowania hasła dla użytkownika.'
+
+= form_for(@user, :action => resource(:users), :method => :post) do
+  %fieldset
+    .ctrl
+      = text_field(:email, :label => "Email prowadzącego")
+      %span.validation.error
+        = @user.errors.on(:email)
+    .ctrl.buttons
+      = submit("Stwórz")

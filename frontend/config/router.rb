@@ -25,10 +25,6 @@ Merb::Router.prepare do
     collection :change_password, :method => :post
   end
 
-  resources :admins do
-    collection :tasks, :method => :get
-  end
-
   slice(:merb_auth_slice_password, :name_prefix => nil, :path_prefix => "")
 
   default_routes

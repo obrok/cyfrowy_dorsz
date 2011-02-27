@@ -12,6 +12,28 @@ class Users < Application
                                    :perform_reset_password
                                   ]
 
+  before :ensure_authenticated, :only => [:profile,
+                                          :update,
+                                          :change_password,
+                                         ]
+  before :ensure_admin, :only => [:new,
+                                  :create
+                                 ]
+
+  def new
+    @user = User.new
+    render :layout => :application
+  end
+
+  def create
+    @user = User.new(params[:user].merge(:admin => false))
+    @user.randomize_password!
+    @user.reset_password!
+    redirect(resource(:users, :new), :notice => "Konto zostało utworzone")
+  rescue Sequel::ValidationFailed
+    render :new
+  end
+
   def profile
     @user = session.user
     render :layout => :application
@@ -69,6 +91,11 @@ class Users < Application
     @token = params[:token]
     @user = User[:login_token => @token]
     raise Forbidden unless @token && @user
+  end
+
+  def ensure_admin
+    ensure_authenticated
+    raise Forbidden unless session.user.admin?
   end
 end
 
