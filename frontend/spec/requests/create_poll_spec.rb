@@ -15,6 +15,7 @@ describe Questions, "Creating the poll" do
   it "shows new poll form" do
     visit resource(:polls, :new)
     response.should include "Podaj nazwę nowej ankiety"
+    response.should include "Dziękujemy za wypełnienie ankiety"
   end
 
   it "creates the poll correctly" do
@@ -22,8 +23,11 @@ describe Questions, "Creating the poll" do
     visit resource(:polls, :new)
     fill_in "Nazwa", :with => poll.name
     fill_in "Typ zajęć", :with => poll.poll_type
+    fill_in "Tekst podziękowania", :with => "Nie dziękujemy"
     click_button "Stwórz"
+
     response.should include "Stworzono ankietę " + poll.name
+    response.should include "Nie dziękujemy"
   end
 
   it "shows edit poll form correctly" do

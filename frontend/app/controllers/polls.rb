@@ -4,7 +4,7 @@ require 'lib/load_helper'
 class Polls < Application
   include LoadHelper  
   before :ensure_authenticated
-  before :load_poll, :only => [:edit, :stats]
+  before :load_poll, :only => [:edit, :stats, :update]
   before :load_polls, :only => [:new, :index, :create]
 
   def new
@@ -18,8 +18,9 @@ class Polls < Application
 
   def create
     poll = (params[:poll] || {}).merge(:user => session.user)
-    @poll = Poll.create(poll)
-    redirect resource(@poll, :edit), :notice => "Stworzono ankietę #{@poll.name}"
+    @poll = Poll.new(poll)
+    @poll.save
+    redirect resource(@poll, :edit), :notice => "Stworzono ankietę #{h(@poll.name)}"
   rescue Sequel::ValidationFailed
     @polls = session.user.reload.polls
     render :new
@@ -31,6 +32,13 @@ class Polls < Application
     @question_types = @poll.load_question_types
     
     render
+  end
+
+  def update
+    @poll.update_only(params[:poll], :thankyou)
+    redirect(resource(@poll, :edit), :notice => "Tekst podziękowania zmieniony")
+  rescue Exception
+    redirect(resource(@poll, :edit), :error => "Tekst podziękowania nie może być pusty")
   end
 
   def stats
