@@ -9,6 +9,7 @@ class User < Sequel::Model
     super
     validates_unique :email
     validates_presence :email
+    validates_presence :admin
   end
 
   SALT = "fdb568c1ee0a925b327826b8c63d75618f40b3a3"
@@ -25,7 +26,17 @@ class User < Sequel::Model
                                     {:user => self})
   end
 
+  def admin?
+    admin
+  end
+
+  def teacher?
+    !admin
+  end
+
   def ranking
+    return nil if admin?
+
     count = 0
     sum = 0
 
@@ -41,14 +52,15 @@ class User < Sequel::Model
     return "-"
   end
 
-  def self.all_by_rankings
+  def self.all_teachers_by_rankings
     rankings = Hash.new
 
-    User.all.each do |user|
+    users = User.filter(:admin => false)
+    users.each do |user|
       rankings[user] = user.ranking == "-" ? -1 : user.ranking
     end
 
-    User.all.sort_by{|u| rankings[u] }.reverse
+    users.sort_by{|u| rankings[u] }.reverse
   end
 
   private

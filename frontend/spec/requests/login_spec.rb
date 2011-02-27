@@ -11,6 +11,34 @@ describe "Logged in user" do
   end
 end
 
+describe "Logged in teacher" do
+  before(:each) do
+    login
+    visit resource(:admins, :tasks)
+  end
+
+  it "cannot access the admin controller" do
+    response_status.should == 403
+  end
+end
+
+describe "Logged in admin" do
+  before(:each) do
+    login_as(create_user(:admin => true))
+  end
+
+  it "can access the admin controller" do
+    visit resource(:admins, :tasks)
+    response_status.should == 200
+  end
+
+  it "should see link do administrators panel" do
+    visit "/"
+    response.should include "Administrator"
+  end
+
+end
+
 describe "Not logged in user" do
   before(:each) do
     logout

@@ -9,4 +9,7 @@
         =link_to("Dodaj ankietę", resource(:polls, :new))
   %li
     =link_to("Profil", resource(:users, :profile))
+  - if session.user.admin?
+    %li
+      =link_to("Administrator", resource(:admins, :tasks))
     
