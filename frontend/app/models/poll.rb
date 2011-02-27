@@ -41,9 +41,7 @@ class Poll < Sequel::Model
     super
     validates_presence :name
     validates_presence :thankyou
-
-    errors[:poll_type] << "niepoprawny typ ankiety" unless Poll::TYPES.include?(poll_type)
-    errors[:questions] << "tylko jedno pytanie o prowadzącego" if !new? && questions_dataset.filter(:question_type => Question::TYPES[:teacher]).count > 1
+    validates_includes TYPES, :poll_type, :message => "niepoprawny typ ankiety"
   end
 
   def update_questions_positions(positions={})

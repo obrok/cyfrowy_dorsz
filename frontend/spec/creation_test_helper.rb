@@ -67,10 +67,6 @@ module CreationTestHelper
     Question.create(question_hash.merge(values))
   end
                 
-  def new_question(values = {})
-    Question.new(question_hash.merge(values))
-  end
-
   def create_answer(values = {})
     Answer.create(answer_hash.merge(values))
   end

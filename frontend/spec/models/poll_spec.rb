@@ -45,12 +45,6 @@ describe Poll do
   end
 
 
-  it "should not be valid if contains two teacher choice questions" do
-    q1 = create_question(:question_type => Question::TYPES[:teacher], :poll => @poll)
-    q2 = create_question(:question_type => Question::TYPES[:teacher], :poll => @poll)
-    @poll.should_not be_valid
-  end
-  
   it "should filter answers per user" do
     q1 = create_question(:question_type => Question::TYPES[:teacher], :poll => @poll)
     u1 = create_user
