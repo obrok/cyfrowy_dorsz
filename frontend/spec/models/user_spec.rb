@@ -27,7 +27,7 @@ describe User do
 
   it "should validate email format" do
     @user.email = Time.now.to_f.to_s
-    @uset.should_not be_valid
+    @user.should_not be_valid
   end
 
   [:email, :password, :password_confirmation, :admin].each do |field|

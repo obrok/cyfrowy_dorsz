@@ -32,7 +32,7 @@ describe "Admin Panel" do
     visit resource(:users, :new)
     fill_in :email, :with => Time.now.to_f
     click_button "Stwórz"
-    response.should include "Niepoprawny format adresu email"
+    response.should include "Niepoprawny format"
   end
 
   it "should create user properly" do
