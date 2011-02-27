@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'digest/sha1'
+require 'lib/email_address_validator'
+require 'lib/regexp'
 
 class User < Sequel::Model
   plugin :validation_helpers
@@ -10,6 +12,7 @@ class User < Sequel::Model
     validates_unique :email
     validates_presence :email
     validates_presence :admin
+	errors[:email] << 'Niepoprawny format' unless EmailAddressValidator.validate(email)
   end
 
   SALT = "fdb568c1ee0a925b327826b8c63d75618f40b3a3"

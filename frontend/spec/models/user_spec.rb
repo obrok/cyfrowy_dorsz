@@ -19,9 +19,15 @@ describe User do
 
   it "should validate uniqueness of email" do
     user = User.new
+    user.admin = false
     user.email = @user.email
     user.password = user.password_confirmation = "123"
     user.should_not be_valid
+  end
+
+  it "should validate email format" do
+    @user.email = Time.now.to_f.to_s
+    @uset.should_not be_valid
   end
 
   [:email, :password, :password_confirmation, :admin].each do |field|

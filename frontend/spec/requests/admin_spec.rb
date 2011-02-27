@@ -28,7 +28,7 @@ describe "Admin Panel" do
     response.should include "Email prowadzącego"
   end
 
-  it "should validate email format" do
+  it "should inform about incorrect email format" do
     visit resource(:users, :new)
     fill_in :email, :with => Time.now.to_f
     click_button "Stwórz"
