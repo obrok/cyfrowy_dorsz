@@ -14,6 +14,8 @@ describe Rankings do
     question2 = create_question(:poll => poll2, :question_type => Question::TYPES[:closed])
     create_question_answer(:question => question2, :value => 5)
     create_question_answer(:question => question2, :value => 4)
+
+    @admin = create_user(:name => "Jolka", :surname => "Bukowska", :admin => true)
   end
 
   it "should contain user's name and surname" do
@@ -41,8 +43,7 @@ describe Rankings do
   end
 
   it "should not include admin account" do
-    @user.admin = true
-    response.should_not include(@user.name)
-    response.should_not include(@user.surname)
+    response.should_not include(@admin.name)
+    response.should_not include(@admin.surname)
   end
 end

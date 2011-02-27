@@ -52,10 +52,10 @@ class User < Sequel::Model
     return "-"
   end
 
-  def self.all_by_rankings
+  def self.all_teachers_by_rankings
     rankings = Hash.new
 
-    users = User[:admin => false]
+    users = User.filter(:admin => false)
     users.each do |user|
       rankings[user] = user.ranking == "-" ? -1 : user.ranking
     end
