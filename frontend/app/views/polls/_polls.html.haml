@@ -1,7 +1,11 @@
 %h1 Twoje ankiety
 %table.custom
   %tr
-  - @polls.each do |poll|
-    %tr
-      %td.action= link_to(image_tag('/images/edit.png', :alt => 'edytuj', :title => 'edytuj'), resource(poll, :edit), :class => 'image-link')
-      %td= h(poll.name)
+    %th= 'Nazwa ankiety'
+    %th= 'Liczba odpowiedzi'
+    %th.action
+    - @polls.each do |poll|
+      %tr
+        %td= h(poll.name)
+        %td= poll.answers.count
+        %td.action= link_to(image_tag('/images/edit.png', :alt => 'edytuj', :title => 'edytuj'), resource(poll, :edit), :class => 'image-link')

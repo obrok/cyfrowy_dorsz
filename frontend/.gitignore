@@ -25,4 +25,5 @@ config/database.yml
 .rvmrc
 .bundle
 *.swp
+*.db-journal
 config/environments/production.rb

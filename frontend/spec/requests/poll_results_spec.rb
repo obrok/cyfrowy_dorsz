@@ -4,6 +4,7 @@ require 'spec/spec_helper'
 describe "Per question results" do
   before(:each) do
     @poll = create_poll
+    @poll2 = create_poll(:user => @poll.user)
     @user = @poll.user
     @user2 = create_user
     @q1 = create_question(:text => "Pytanie 1", :poll => @poll, :question_type => Question::TYPES[:open])
@@ -54,6 +55,15 @@ describe "Per question results" do
     click_button "Pokaż"
     response.should include @a1.value
     response.should_not include @a2.value
+  end
+
+  it "should display number of answers in polls list" do
+    visit resource(:polls)
+    response.should include "Liczba odpowiedzi"
+    p @poll.answers.count.to_s
+    p @poll2.answers.count.to_s
+    response.should include @poll.answers.count.to_s
+    response.should include @poll2.answers.count.to_s
   end
 end
 
