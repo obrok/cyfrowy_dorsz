@@ -60,8 +60,6 @@ describe "Per question results" do
   it "should display number of answers in polls list" do
     visit resource(:polls)
     response.should include "Liczba odpowiedzi"
-    p @poll.answers.count.to_s
-    p @poll2.answers.count.to_s
     response.should include @poll.answers.count.to_s
     response.should include @poll2.answers.count.to_s
   end
