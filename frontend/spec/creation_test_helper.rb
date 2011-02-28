@@ -37,18 +37,20 @@ module CreationTestHelper
     POLL_HASH.merge(:name => "#{Time.now.to_f}", :poll_type => Poll::TYPES[rand(Poll::TYPES.size)], :user => create_user)
   end
 
-  def answer_hash
-    poll = create_poll
-    ANSWER_HASH.merge(:date => DateTime.now, :poll => poll, :token => create_token(:poll => poll))
+  def answer_hash(values = {})
+    poll = values[:poll] || create_poll
+    token = values[:token] || create_token(:poll => poll)
+    ANSWER_HASH.merge(:date => DateTime.now, :poll => poll, :token => token)
   end
 
   def question_hash
     QUESTION_HASH.merge(:text => Time.now.to_f, :poll => create_poll)
   end
 
-  def question_answer_hash
-    question = create_question
-    QUESTION_ANSWER_HASH.merge(:question => question, :answer => create_answer(:poll => question.poll))
+  def question_answer_hash(values = {})
+    question = values[:question] || create_question()
+    answer = values[:answer] || create_answer(:poll => question.poll)
+    QUESTION_ANSWER_HASH.merge(:question => question, :answer => answer).merge(values)
   end
 
   def token_hash
@@ -67,16 +69,12 @@ module CreationTestHelper
     Question.create(question_hash.merge(values))
   end
                 
-  def new_question(values = {})
-    Question.new(question_hash.merge(values))
-  end
-
   def create_answer(values = {})
-    Answer.create(answer_hash.merge(values))
+    Answer.create(answer_hash(values))
   end
 
   def create_question_answer(values = {})
-    QuestionAnswer.create(question_answer_hash.merge(values))
+    QuestionAnswer.create(question_answer_hash(values))
   end
 
   def create_token(values = {})

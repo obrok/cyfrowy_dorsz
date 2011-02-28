@@ -54,7 +54,7 @@ class Questions < Application
   end
 
   def ensure_can_manage
-    raise Forbidden unless @question.question_answers.empty?
+    raise Forbidden if @question.locked?
   end
 end
 

@@ -67,10 +67,11 @@ class Question < Sequel::Model
   def validate
     super
     validates_unique [:poll_id, :text], :message => "Pytanie o takiej nazwie już istnieje"
+    validates_unique([:question_type], :message => "Istnieje juz pytanie o prowadzacego") { |ds| ds.filter(:question_type => TYPES[:teacher]).filter(:poll_id => poll_id) }
     validates_presence :text, :message => "treść pytania jest wymagana"
     validates_presence :poll
+    validates_includes TYPES.values, :question_type, :message => "niepoprawny typ pytania"
     errors[:possible_answer] << "Wymagana przynajmniej jedna mozliwa odpowiedz" if choice? && (possible_answers.blank? || possible_answers.empty?)
-    errors[:question_type] << "niepoprawny typ pytania" unless TYPES.values.include?(question_type)
   end
 
   def open?
@@ -87,6 +88,10 @@ class Question < Sequel::Model
 
   def teacher?
     question_type == TYPES[:teacher]
+  end
+
+  def locked?
+    not question_answers.empty?
   end
 
   def title
