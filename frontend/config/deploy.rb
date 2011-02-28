@@ -32,6 +32,7 @@ namespace :deploy do
   desc "Link in the production extras and Migrate the Database"
   task :copy_configuration do
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/frontend/config/database.yml"
+    run "ln -nfs #{shared_path}/config/production.rb #{release_path}/frontend/config/environments/production.rb"
     run "ln -nfs #{shared_path}/log #{release_path}/frontend/log"
     deploy.migrate
   end

@@ -100,6 +100,7 @@ GEM
       diff-lcs (>= 1.1.2)
       extlib (>= 0.9.5)
       highline (>= 1.4.0)
+    tlsmail (0.0.1)
     webrat (0.7.3)
       nokogiri (>= 1.2.0)
       rack (>= 1.0)
@@ -131,4 +132,5 @@ DEPENDENCIES
   rspec (< 2.0.0)
   ruby-debug
   sqlite3-ruby (= 1.2.5)
+  tlsmail
   webrat

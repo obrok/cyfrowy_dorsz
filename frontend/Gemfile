@@ -26,6 +26,8 @@ gem "merb-slices", merb_gems_version
 gem "merb_sequel"
 gem "sqlite3-ruby", "1.2.5"
 
+gem 'tlsmail'
+
 group :development, :test do
   gem "webrat"
   gem "ruby-debug"
