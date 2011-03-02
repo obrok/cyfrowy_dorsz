@@ -64,6 +64,11 @@ class Question < Sequel::Model
     return question_answers_dataset.filter(:answer_id => answer_ids)
   end
 
+  def question_type=(value)
+    self.possible_answers = [] unless (value == TYPES[:choice] || value == TYPES[:teacher])
+    super(value)
+  end
+
   def validate
     super
     validates_unique [:poll_id, :text], :message => "Pytanie o takiej nazwie już istnieje"
@@ -92,6 +97,14 @@ class Question < Sequel::Model
 
   def locked?
     not question_answers.empty?
+  end
+
+  def load_question_types
+    if teacher?
+      return TYPES.values
+    else
+      return poll.load_question_types
+    end
   end
 
   def title

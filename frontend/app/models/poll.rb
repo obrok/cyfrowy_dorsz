@@ -31,7 +31,7 @@ class Poll < Sequel::Model
 
   def load_question_types
     if self.contains_teacher_question?
-      Question::TYPES.values.reject { |qt| qt == Question::TYPES[:teacher] }
+      Question::TYPES.values - [Question::TYPES[:teacher]]
     else
       Question::TYPES.values
     end

@@ -24,7 +24,7 @@ class Questions < Application
   end
 
   def edit
-    @question_types = @question.poll.load_question_types
+    @question_types = @question.load_question_types
     render
   end
 
@@ -32,7 +32,7 @@ class Questions < Application
     @question.update(params[:question])
     redirect resource(@poll, :edit)
   rescue Sequel::ValidationFailed
-    @question_types = @question.poll.load_question_types
+    @question_types = @question.load_question_types
     render :edit
   end
 
