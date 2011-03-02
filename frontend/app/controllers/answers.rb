@@ -10,7 +10,7 @@ class Answers < Application
     @token = Token[:value => params[:token]] unless params[:token] == nil
     @token = Token[:value => params[:id]] unless params[:id] == nil
 
-    if (@token.present? && @token.valid_to_use?)
+    if (@token && @token.present? && @token.valid_to_use?)
       message[:notice] = "Witamy w sesji"
     else
       message[:error] = "Nieważny token"
