@@ -34,6 +34,11 @@ describe Questions do
         response_status.should == 200
       end
 
+      it "shows teacher question type when editing teacher question" do
+        visit resource(@poll, @teacher_question, :edit)
+        response.should include Question::TYPES[:teacher]
+      end
+
       it "shows user info as possible answer in teacher choice question" do
         visit resource(@poll, @teacher_question, :edit)
         response.should include Question.user_to_teacher(@user)

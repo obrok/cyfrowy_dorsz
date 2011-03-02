@@ -128,6 +128,6 @@ describe "Teacher Question" do
 
   it "should be removed from other questions possible types" do
     question = create_question(:poll => @question.poll)
-    question.load_question_types.should == Question::TYPES.remove(Question::TYPES[:teacher])
+    question.load_question_types.should == Question::TYPES.values - [Question::TYPES[:teacher]]
   end
 end
