@@ -59,11 +59,27 @@ describe Question do
     create_question_answer(:question => @question)
     @question.locked?.should be_true
   end
+
+  it "should clear possible answers when question type is changed" do
+    @question.question_type = Question::TYPES[:choice]
+    @question.possible_answers = ["Tak", "Nie"]
+    @question.save
+    @question.reload
+
+    @question.question_type = Question::TYPES[:closed]
+    @question.save
+    @question.reload
+
+    @question.should be_closed
+    @question.possible_answers.class.should == Array
+    @question.possible_answers.should be_empty
+  end
+
 end
 
-describe "Closed Question" do
+describe "Choice Question" do
   before(:each) do
-    @question = create_question(:question_type => "Wyboru")
+    @question = create_question(:question_type => Question::TYPES[:choice])
   end
 
   after(:each) do
@@ -80,18 +96,38 @@ describe "Closed Question" do
     @question.should_not be_closed
   end
 
-  it "should have no possible answers by default" do
-    @question.possible_answers.class.should == Array
-    @question.possible_answers.should_not be_empty
+  it "should not be valid without possible answers" do
+    @question.possible_answers = []
+    @question.should_not be_valid
   end
 
   it "should properly serialize an array of strings" do
     @question.possible_answers = ["Tak", "Nie"]
     @question.save
     @question.reload
-    
+
     @question.possible_answers.class.should == Array
     @question.possible_answers.should include "Tak"
     @question.possible_answers.should include "Nie"
+  end
+end
+
+
+describe "Teacher Question" do
+  before(:each) do
+    @question = create_question(:question_type => Question::TYPES[:teacher])
+  end
+
+  after(:each) do
+    @question.destroy
+  end
+
+  it "should return all types as possible question type" do
+    @question.load_question_types.should == Question::TYPES.values
+  end
+
+  it "should be removed from other questions possible types" do
+    question = create_question(:poll => @question.poll)
+    question.load_question_types.should == Question::TYPES.remove(Question::TYPES[:teacher])
   end
 end

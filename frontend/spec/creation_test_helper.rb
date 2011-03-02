@@ -14,8 +14,7 @@ module CreationTestHelper
 
   QUESTION_HASH = {
     :question_type => "Zamknięte",
-    :position => 1,
-    :possible_answers => ["ania123"]
+    :position => 1
   }
 
   ANSWER_HASH = {
@@ -44,7 +43,8 @@ module CreationTestHelper
   end
 
   def question_hash
-    QUESTION_HASH.merge(:text => Time.now.to_f, :poll => create_poll)
+    QUESTION_HASH.merge(:text => Time.now.to_f, :possible_answers => ["ania123"], :poll => create_poll)
+    
   end
 
   def question_answer_hash(values = {})
