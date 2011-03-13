@@ -76,7 +76,7 @@ $(document).ready(function() {
   })
 
   togglePossibleAnswer($("#question_question_type"));
-  $("#question_question_type").change(function() {
+  $("#question_question_type").live("change", function() {
     togglePossibleAnswer($(this));
   });
 });
