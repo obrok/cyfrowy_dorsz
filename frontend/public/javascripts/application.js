@@ -75,13 +75,9 @@ $(document).ready(function() {
     }
   })
 
+  togglePossibleAnswer($("#question_question_type"));
   $("#question_question_type").change(function() {
-    if ($(this).val() == "Wyboru") {
-        $("#question_possible_answer").val("");
-        $("#possible_answer_ctrl").show();
-    } else {
-        $("#possible_answer_ctrl").hide();
-    }
+    togglePossibleAnswer($(this));
   });
 });
 
@@ -91,6 +87,15 @@ function toggleQuestions() {
   }
   else {
     $(".custom-headers").show();
+  }
+}
+
+function togglePossibleAnswer(select) {
+  if (select.val() == "Wyboru") {
+    $("#question_possible_answer").val("");
+    $("#possible_answer_ctrl").show();
+  } else {
+    $("#possible_answer_ctrl").hide();
   }
 }
 
