@@ -27,7 +27,7 @@ class Polls < Application
   end
 
   def edit
-    @question = Question.new(:poll => @poll)
+    @question = Question.new(:poll => @poll, :question_type => Question::TYPES[:choice])
     @questions = @poll.questions_dataset.order(:position)
     @question_types = @poll.load_question_types
     
