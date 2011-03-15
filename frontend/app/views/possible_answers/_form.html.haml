@@ -1,9 +1,12 @@
 = form(:action => resource(question.poll, question, :possible_answers), :method => :post, :id => 'possible-answers-form') do
   %fieldset
-    .ctrl
-      - if question.choice?
+    - if question.choice?
+      .ctrl
         = text_field(:text, :label => "Nowa odpowiedź", :name => "answer")
-      - if question.teacher?
+      .ctrl.buttons
+        = submit("Dodaj odpowiedź")
+    - if question.teacher? && !@question.possible_teachers.empty?
+      .ctrl
         = select(:name => "answer", :label => "Nowy prowadzący", :collection => question.possible_teachers)
-    .ctrl.buttons
-      = submit("Dodaj odpowiedź")
+      .ctrl.buttons
+        = submit("Dodaj odpowiedź")
