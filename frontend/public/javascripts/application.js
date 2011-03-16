@@ -75,9 +75,8 @@ $(document).ready(function() {
     }
   })
 
-  togglePossibleAnswer($("#question_question_type"));
   $("#question_question_type").live("change", function() {
-    togglePossibleAnswer($(this));
+    togglePossibleAnswers($(this));
   });
 });
 
@@ -90,12 +89,18 @@ function toggleQuestions() {
   }
 }
 
-function togglePossibleAnswer(select) {
+function togglePossibleAnswers(select) {
   if (select.val() == "Wyboru") {
     $("#question_possible_answer").val("");
+    $("#teacher_ctrl").hide();
     $("#possible_answer_ctrl").show();
-  } else {
+  } else if (select.val() == "Prowadzący") {
+    $("#question_teacher").val("");
     $("#possible_answer_ctrl").hide();
+    $("#teacher_ctrl").show();
+  } else {
+     $("#possible_answer_ctrl").hide();
+     $("#teacher_ctrl").hide();
   }
 }
 

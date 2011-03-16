@@ -7,7 +7,7 @@ class Question < Sequel::Model
   many_to_one :poll
   one_to_many :question_answers
 
-  attr_accessor :possible_answer
+  attr_accessor :possible_answer, :teacher
 
   TYPES = {
     :open => "Otwarte",
@@ -19,9 +19,12 @@ class Question < Sequel::Model
   def before_validation
     if (choice? || teacher?) && possible_answers.blank?
       self.possible_answers = []
-      unless possible_answer.blank?
+      if !possible_answer.blank?
         self.add_possible_answer(possible_answer)
         self.possible_answer = nil
+      elsif !teacher.blank?
+        self.add_possible_answer(teacher)
+        self.teacher = nil
       end
     end
     super
