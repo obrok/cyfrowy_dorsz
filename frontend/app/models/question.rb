@@ -106,6 +106,10 @@ class Question < Sequel::Model
     !(choice? && !possible_answers.empty? || teacher? && possible_teachers.empty?)
   end
 
+  def can_delete_possible_answer?
+    possible_answers.size > 1
+  end
+
   def load_question_types
     if teacher?
       return TYPES.values

@@ -17,9 +17,10 @@
       - @question.formatted_possible_answers.each_with_index do |answer, index|
         %li
           %span.title= h(answer)
-          %span.action= link_to(image_tag('/images/delete.png', :alt => 'usuń', :title => "Usuń #{h(answer)}"), url(:controller => :possible_answers, :question_id => @question.id, :answer_id => index, :action => :delete), :class => 'image-link delete-posiible-answer')
+          - if @question.can_delete_possible_answer?
+            %span.action= link_to(image_tag('/images/delete.png', :alt => 'usuń', :title => "Usuń #{h(answer)}"), url(:controller => :possible_answers, :question_id => @question.id, :answer_id => index, :action => :delete), :class => 'image-link delete-posiible-answer')
 
-  .ctrl#possible_answer_ctrl{ :style => "#{@question.choice? ? 'display:static' : 'display:none'}" }
+  .ctrl#possible_answer_ctrl{ :style => "#{@question.new? && @question.choice? ? 'display:static' : 'display:none'}" }
     = text_field(:possible_answer, :label => "Mozliwa odpowiedz")
     %span.validation.error
       = @question.errors.on(:possible_answer)
