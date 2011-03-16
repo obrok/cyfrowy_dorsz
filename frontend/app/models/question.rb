@@ -19,10 +19,10 @@ class Question < Sequel::Model
   def before_validation
     if (choice? || teacher?) && possible_answers.blank?
       self.possible_answers = []
-      if !possible_answer.blank?
+      if choice? && !possible_answer.blank?
         self.add_possible_answer(possible_answer)
         self.possible_answer = nil
-      elsif !teacher.blank?
+      elsif teacher? && !teacher.blank?
         self.add_possible_answer(teacher)
         self.teacher = nil
       end
@@ -80,6 +80,7 @@ class Question < Sequel::Model
     validates_presence :poll
     validates_includes TYPES.values, :question_type, :message => "niepoprawny typ pytania"
     errors[:possible_answer] << "Wymagana przynajmniej jedna mozliwa odpowiedz" if choice? && (possible_answers.blank? || possible_answers.empty?)
+    errors[:possible_answer] << "Mozliwa opowiedz nie moze byc pusta" if choice? && (!possible_answers.blank? && possible_answers.any?(&:blank?))
   end
 
   def open?

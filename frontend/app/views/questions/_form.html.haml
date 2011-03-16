@@ -11,7 +11,7 @@
       = select(:question_type, :label => "Typ pytania", :collection => @question_types, :disabled => 'disabled')
     %span.validation.error
       = @question.errors.on(:question_type)
-  - if (@question.choice? || @question.teacher?) && @question.formatted_possible_answers && !@question.formatted_possible_answers.empty?
+  - if (@question.choice? || @question.teacher?) && @question.formatted_possible_answers && !@question.formatted_possible_answers.empty? && @question.errors.empty?
     %span.custom-headers.label= 'Możliwe odpowiedzi'
     %ul.custom
       - @question.formatted_possible_answers.each_with_index do |answer, index|

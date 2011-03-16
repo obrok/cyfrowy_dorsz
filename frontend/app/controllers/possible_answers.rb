@@ -9,6 +9,13 @@ class PossibleAnswers < Application
     @question.add_possible_answer(params[:answer])
     @question.save
     redirect resource(@question.poll, @question, :edit)
+  rescue Sequel::ValidationFailed
+    @poll = @question.poll
+    @question_types = @question.load_question_types
+    render :edit
+  end
+
+  def edit
   end
 
   def delete
