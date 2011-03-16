@@ -20,9 +20,11 @@ $(document).ready(function() {
       data: data,
       success: function(html, textStatus) {
         $('span.validation.error').remove();
+        $('#question_text, #question_possible_answer').removeClass("error");
         if (!html.match('Treść pytania')) {
           $("#questions").append(html);
           toggleQuestions();
+          $('#question_text, #question_possible_answer').val("");
         }
         else {
           $("form#new-question-form").replaceWith(html);
