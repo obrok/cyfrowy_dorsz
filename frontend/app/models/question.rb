@@ -52,7 +52,11 @@ class Question < Sequel::Model
   end
 
   def possible_teachers
-    return User.filter(~{:id => possible_answers}).map{|u| [u.id, Question.user_to_teacher(u)]}
+    if errors.empty?
+      User.filter(~{:id => possible_answers}).map{|u| [u.id, Question.user_to_teacher(u)]}
+    else
+      User.map{|u| [u.id, Question.user_to_teacher(u)]}
+    end
   end
 
   def create_question_answer(value)
