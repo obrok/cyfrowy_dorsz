@@ -102,6 +102,10 @@ class Question < Sequel::Model
     not question_answers.empty?
   end
 
+  def can_change_choice?
+    !(choice? && !possible_answers.empty? || teacher? && possible_teachers.empty?)
+  end
+
   def load_question_types
     if teacher?
       return TYPES.values
