@@ -71,4 +71,19 @@ describe User do
     @user.teacher?.should be_false
     @user.admin?.should be_true
   end
+
+  it "should block user's polls when user is blocked" do
+    @poll.blocked?.should be_false
+    @user.blocked = true
+    @user.save
+    poll = create_poll(:user => @user)
+    poll.blocked?.should be_true
+  end
+
+  it "should not allow to block admins" do
+    user = create_user(:admin => true)
+    user.blocked = true
+    user.save
+    user.blocked?.should be_false
+  end
 end

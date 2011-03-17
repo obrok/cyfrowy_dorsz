@@ -1,6 +1,10 @@
 %h1 Blokuj ankiety
 - @users.each do |user|
   %h2= user.email
+  -if user.blocked?
+    %td.action= link_to(image_tag('/images/unblock.png', :alt => 'odblokuj', :title => 'odblokuj'), resource(user, :unblock), :class => 'image-link')
+  -else
+    %td.action= link_to(image_tag('/images/block.png', :alt => 'blokuj', :title => 'blokuj'), resource(user, :block), :class => 'image-link')
   %table.custom
     %tr
       %th= 'Nazwa ankiety'
@@ -8,7 +12,7 @@
       - user.polls.each do |poll|
         %tr
           %td= h(poll.name)
-          -if poll.blocked
+          -if poll.blocked?
             %td.action= link_to(image_tag('/images/unblock.png', :alt => 'odblokuj', :title => 'odblokuj'), resource(poll, :unblock), :class => 'image-link')
           -else
             %td.action= link_to(image_tag('/images/block.png', :alt => 'blokuj', :title => 'blokuj'), resource(poll, :block), :class => 'image-link')

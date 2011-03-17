@@ -73,4 +73,8 @@ class Poll < Sequel::Model
   def locked?
     not answers.empty?
   end
+
+  def blocked?
+    user.blocked? || blocked
+  end
 end

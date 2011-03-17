@@ -61,4 +61,7 @@ describe Poll do
     @poll.answers_for_user(u1).should_not include a2.answer
   end
  
+  it "should not be blocked after creation" do
+    @poll.blocked?.should be_false
+  end
 end

@@ -2,6 +2,7 @@
 class PossibleAnswers < Application
   
   before :ensure_authenticated
+  before :ensure_not_blocked
   before :load_question
   before :ensure_can_manage
 

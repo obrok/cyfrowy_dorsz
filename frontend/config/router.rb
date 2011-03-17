@@ -27,6 +27,8 @@ Merb::Router.prepare do
     collection :send_reset_password, :method => :post
     collection :profile, :method => :get
     collection :change_password, :method => :post
+    member :block, :method => :get
+    member :unblock, :method => :get
   end
 
   slice(:merb_auth_slice_password, :name_prefix => nil, :path_prefix => "")

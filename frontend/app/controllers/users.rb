@@ -16,18 +16,27 @@ class Users < Application
                                           :update,
                                           :change_password,
                                          ]
+
+  before :ensure_not_blocked, :only => [:profile,
+                                          :update,
+                                          :change_password,
+                                       ]
+
   before :ensure_admin, :only => [:new,
                                   :create,
-                                  :admin
+                                  :admin,
+                                  :block,
+                                  :unblock
                                  ]
 
   def new
     @user = User.new
+    @user.blocked = false
     render :layout => :application
   end
 
   def create
-    @user = User.new(params[:user].merge(:admin => false))
+    @user = User.new(params[:user].merge(:admin => false, :blocked => false))
     @user.randomize_password!
     @user.reset_password!
     redirect(resource(:users, :new), :notice => "Konto zostało utworzone")
@@ -38,6 +47,24 @@ class Users < Application
   def admin
     @users = User.all
     render :layout => :application
+  end
+
+  def block
+    @user = User[:id => params[:id]]
+    if not @user.admin? then
+      @user.blocked = true
+    end
+    @user.save
+    redirect(resource(:users, :admin))
+  end
+
+  def unblock
+    @user = User[:id => params[:id]]
+    if not @user.admin? then
+      @user.blocked = false
+    end
+    @user.save
+    redirect(resource(:users, :admin))
   end
 
   def profile

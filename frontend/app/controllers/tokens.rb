@@ -4,6 +4,7 @@ class Tokens < Application
   include LoadHelper
 
   before :ensure_authenticated
+  before :ensure_not_blocked
   before :load_poll, :only => [:delete, :index, :generate, :save, :print]
   before :load_token, :only => [:delete]
   def new

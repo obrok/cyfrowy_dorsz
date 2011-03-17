@@ -4,6 +4,7 @@ class Questions < Application
   include LoadHelper
 
   before :ensure_authenticated
+  before :ensure_not_blocked
   before :load_poll, :exclude => [:new]
   before :load_question, :exclude => [:new, :create, :update_positions]
   before :ensure_can_manage, :exclude => [:new, :create, :update_positions]

@@ -4,6 +4,7 @@ require 'lib/load_helper'
 class Polls < Application
   include LoadHelper  
   before :ensure_authenticated
+  before :ensure_not_blocked
   before :load_poll, :only => [:edit, :stats, :update]
   before :load_polls, :only => [:new, :index, :create]
 

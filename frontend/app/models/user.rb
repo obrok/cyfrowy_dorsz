@@ -37,6 +37,11 @@ class User < Sequel::Model
     !admin
   end
 
+  def blocked?
+    return false if admin?
+    blocked
+  end
+
   def ranking
     return nil if admin?
 

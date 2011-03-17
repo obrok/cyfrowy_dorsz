@@ -10,6 +10,10 @@ class Application < Merb::Controller
     raise Forbidden if session.user
   end
 
+  def ensure_not_blocked
+    raise Forbidden if session.user.blocked?
+  end
+
   def ensure_csrf_valid
     if [:put, :post].include?(request.method)        
       raise BadRequest unless token_valid?

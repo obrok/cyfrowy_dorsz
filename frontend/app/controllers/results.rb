@@ -1,5 +1,6 @@
 class Results < Application
   before :ensure_authenticated
+  before :ensure_not_blocked
   
   def index
     user = User[params[:teacher_id]]

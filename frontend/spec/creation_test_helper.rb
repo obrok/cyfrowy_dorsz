@@ -6,10 +6,12 @@ module CreationTestHelper
     :password_confirmation => "123",
     :name => "Mietek",
     :surname => "Bogumila",
-    :admin => false
+    :admin => false,
+    :blocked => false
   }
 
-  POLL_HASH = {    
+  POLL_HASH = {
+    :blocked => false
   }
 
   QUESTION_HASH = {

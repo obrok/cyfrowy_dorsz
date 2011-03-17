@@ -45,6 +45,29 @@ describe "Admin Panel" do
   end
 end
 
+describe "Blocking users" do
+  before(:each) do
+    @user = create_user(:admin => false)
+
+    login_as(create_user(:admin => true))
+  end
+
+  it "should allow admin to block users" do
+    visit resource(@user, :block)
+    logout
+    login_as(@user)
+    response_status.should == 403
+  end
+
+  it "should allow admin to unblock users" do
+    user = create_user(:blocked => true)
+    visit resource(user, :unblock)
+    logout
+    login_as(user)
+    response_status.should == 200
+  end
+end
+
 describe "Blocking polls" do
   before(:each) do
     @poll = create_poll
