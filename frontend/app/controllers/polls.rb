@@ -25,7 +25,7 @@ class Polls < Application
     @polls = session.user.reload.polls
     render :new
   end
-
+  
   def edit
     @question = Question.new(:poll => @poll, :question_type => Question::TYPES[:choice])
     @questions = @poll.questions_dataset.order(:position)

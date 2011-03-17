@@ -69,4 +69,8 @@ class Poll < Sequel::Model
     end
     answers
   end
+
+  def locked?
+    not answers.empty?
+  end
 end

@@ -1,16 +1,14 @@
 %h1= "Edycja ankiety <span class='name'>'#{h(@poll.name)}'</span>"
 
-= form_for(@poll, :action => resource(@poll), :method => :put) do
-  %fieldset
-    .ctrl_textarea
-      = text_area :thankyou, :label => "Tekst podziękowania"
-    .ctrl.buttons
-      = submit "Zmień"
+-if !@poll.locked?
+  = form_for(@poll, :action => resource(@poll), :method => :put) do
+    %fieldset
+      .ctrl_textarea
+        = text_area :thankyou, :label => "Tekst podziękowania"
+      .ctrl.buttons
+        = submit "Zmień"
 
-= link_to 'Statystyki', resource(@poll, :stats)
-= link_to("Generuj tokeny", resource(@poll, :tokens, :generate), "method" => "post")
-= link_to("Pokaż tokeny", resource(@poll, :tokens))
-= link_to("Drukuj tokeny", resource(@poll, :tokens, :print))
+= partial 'tokens/links'
 
 %h3 Pytania
 .custom-headers
@@ -20,6 +18,6 @@
   - @questions.each do |question|
     = partial 'questions/question', :question => question
 
-
-%h3 Dodaj nowe pytanie
-= partial 'questions/new', :poll => @poll, :question => Question.new
+-if !@poll.locked?
+  %h3 Dodaj nowe pytanie
+  = partial 'questions/new', :poll => @poll, :question => Question.new

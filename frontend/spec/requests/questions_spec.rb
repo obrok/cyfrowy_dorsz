@@ -69,8 +69,7 @@ describe Questions do
     context "question has some answers" do
       it "should be forbidden" do
         create_question_answer(:question => @question)
-        visit resource(@poll, :edit)
-        click_link 'usuń'
+        visit resource(@poll, @question, :delete)
         response_status.should == 403
       end
     end
