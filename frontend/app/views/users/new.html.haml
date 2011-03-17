@@ -9,3 +9,5 @@
         = @user.errors.on(:email)
     .ctrl.buttons
       = submit("Stwórz")
+
+= link_to 'Blokuj ankiety', resource(:users, :admin)

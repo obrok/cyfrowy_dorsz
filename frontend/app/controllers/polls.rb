@@ -19,6 +19,7 @@ class Polls < Application
   def create
     poll = (params[:poll] || {}).merge(:user => session.user)
     @poll = Poll.new(poll)
+    @poll.blocked = false
     @poll.save
     redirect resource(@poll, :edit), :notice => "Stworzono ankietę #{h(@poll.name)}"
   rescue Sequel::ValidationFailed
@@ -48,6 +49,26 @@ class Polls < Application
     @teachers = (@poll.teacher_question &&  @poll.teacher_question.selectable_possible_answers) || []
 
     render
+  end
+
+  def block
+    user = session.user
+    @poll = Poll[:id => params[:id]]
+    if user.admin? then
+      @poll.blocked = true
+      @poll.save
+    end
+    redirect(resource(:users, :admin))
+  end
+
+  def unblock
+    user = session.user
+    @poll = Poll[:id => params[:id]]
+    if user.admin? then
+      @poll.blocked = false
+      @poll.save
+    end
+    redirect(resource(:users, :admin))
   end
 end
 

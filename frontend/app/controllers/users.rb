@@ -17,7 +17,8 @@ class Users < Application
                                           :change_password,
                                          ]
   before :ensure_admin, :only => [:new,
-                                  :create
+                                  :create,
+                                  :admin
                                  ]
 
   def new
@@ -32,6 +33,11 @@ class Users < Application
     redirect(resource(:users, :new), :notice => "Konto zostało utworzone")
   rescue Sequel::ValidationFailed
     render :new
+  end
+
+  def admin
+    @users = User.all
+    render :layout => :application
   end
 
   def profile

@@ -19,7 +19,7 @@ class Token < Sequel::Model
   end
 
   def valid_to_use?
-    remaining_count>0 && valid_until>DateTime::now
+    remaining_count>0 && valid_until>DateTime::now && !poll.blocked
   end
 
   def remaining_count

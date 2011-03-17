@@ -8,6 +8,8 @@ Merb::Router.prepare do
     end
 
     member :stats, :method => :get
+    member :block, :method => :get
+    member :unblock, :method => :get
     resources :tokens do
       collection :generate, :method => :get
       collection :save, :method => :post
@@ -17,6 +19,8 @@ Merb::Router.prepare do
   end
 
   resources :users do
+    collection :admin, :method => :get
+
     collection :reset_password, :method => :get
     collection :perform_reset_password, :method => :post
     collection :request_reset_password, :method => :get

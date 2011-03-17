@@ -44,3 +44,90 @@ describe "Admin Panel" do
     last_email.to.should include name
   end
 end
+
+describe "Blocking polls" do
+  before(:each) do
+    @poll = create_poll
+    @poll2 = create_poll(:user => @poll.user)
+    @user = @poll.user
+    @user2 = create_user
+    @q1 = create_question(:text => "Pytanie 1", :poll => @poll, :question_type => Question::TYPES[:open])
+    @q2 = create_question(:text => "Pytanie 2", :poll => @poll, :question_type => Question::TYPES[:open])
+    @q3 = create_question(:text => "Pytanie 3", :poll => @poll, :question_type => Question::TYPES[:teacher])
+    @q3.add_possible_answer(@user.id)
+    @q3.add_possible_answer(@user2.id)
+    @q3.save
+
+    @a1 = create_question_answer(:question => @q1, :value => "Odpowiedź 1")
+    @a2 = create_question_answer(:question => @q1, :value => "Odpowiedź 2")
+    @a3 = create_question_answer(:question => @q2, :value => "Odpowiedź 3")
+    @a4 = create_question_answer(:question => @q3, :value => @user.id, :answer => @a1.answer)
+    @a5 = create_question_answer(:question => @q3, :value => @user2.id, :answer => @a2.answer)   
+
+    login_as(create_user(:admin => true))
+  end
+
+  it "should not be accessible by teacher" do
+    logout
+    login
+    visit resource(:users, :admin)
+
+    response_status.should == 403
+  end
+
+  it "should be accessible by admin" do
+    visit resource(:users, :admin)
+    response_status.should == 200
+  end
+
+  it "should contain users' mails and polls" do
+    visit resource(:users, :admin)
+    response.should include @user.email
+    response.should include @poll.name
+  end
+
+  it "should allow admin to block a poll" do
+    token = create_token(:poll => @poll)
+    visit resource(@poll, :block)
+
+    logout
+    visit "/"
+    click_link "Student"
+
+    fill_in "Token", :with => token.value
+    click_button "Wypełnij ankietę"
+    response.should_not include @poll.name
+  end
+
+  it "should not allow teacher to block a poll" do
+    logout
+    login_as(create_user(:admin => false))
+    visit resource(@poll, :block)
+
+    response_status.should == 403
+  end
+
+  it "should allow admin to unblock a poll" do
+    token = create_token(:poll => @poll)
+    visit resource(@poll, :block)
+
+    logout
+    visit "/"
+    click_link "Student"
+
+    fill_in "Token", :with => token.value
+    click_button "Wypełnij ankietę"
+    response.should_not include @poll.name
+
+    login_as(create_user(:admin => true))
+    visit resource(@poll, :unblock)
+
+    logout
+    visit "/"
+    click_link "Student"
+
+    fill_in "Token", :with => token.value
+    click_button "Wypełnij ankietę"
+    response.should include @poll.name
+  end
+end
