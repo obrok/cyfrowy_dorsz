@@ -68,12 +68,16 @@ $(document).ready(function() {
   });
   $('form#generate-tokens-form #value').blur(function() {
     var count = $('form#generate-tokens-form #count');
+    var max_usage = $('form#generate-tokens-form #nil_class_max_usage');
     if ($(this).attr("value") != "") {
       count.attr("value", 1);
       count.attr("disabled", "disabled");
+      max_usage.removeAttr("disabled");
     }
     else {
       count.removeAttr("disabled");
+      max_usage.attr("value", 1);
+      max_usage.attr("disabled", "disabled");
     }
   })
 

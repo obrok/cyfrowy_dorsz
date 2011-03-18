@@ -23,7 +23,7 @@ class Tokens < Application
 
   def save
     @errors = {}
-    @errors[:max_usage] = "Niepoprawna wartość" if params[:max_usage].to_i < 1
+    @errors[:max_usage] = "Niepoprawna wartość" if !params[:value].blank? and params[:max_usage].to_i < 1
     @errors[:count] = "Niepoprawna wartość" if params[:count].to_i < 1 and params[:value].blank?
     return render :generate unless @errors.empty?
 
