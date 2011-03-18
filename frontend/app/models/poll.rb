@@ -41,6 +41,8 @@ class Poll < Sequel::Model
     super
     validates_presence :name
     validates_presence :thankyou
+    validates_presence :visible
+    validates_presence :blocked
     validates_includes TYPES, :poll_type, :message => "niepoprawny typ ankiety"
   end
 
@@ -76,5 +78,9 @@ class Poll < Sequel::Model
 
   def blocked?
     user.blocked? || blocked
+  end
+  
+  def visible?
+    !blocked? && visible
   end
 end

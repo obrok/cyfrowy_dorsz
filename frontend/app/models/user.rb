@@ -12,6 +12,7 @@ class User < Sequel::Model
     validates_unique :email
     validates_presence :email
     validates_presence :admin
+    validates_presence :blocked
     errors[:email] << 'Niepoprawny format' unless EmailAddressValidator.validate(email)
   end
 

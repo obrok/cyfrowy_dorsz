@@ -89,4 +89,14 @@ describe "Student" do
 
     poll.answers.first.question_answers.first.value.should == user.id.to_s
   end
+
+  it "should not allow to see a hidden poll" do
+    token = create_token
+    token.poll.visible = false
+    token.poll.save
+
+    fill_in "Token", :with => token.value
+    click_button "Wypełnij ankietę"
+    response.should include "Nieważny token"
+  end
 end

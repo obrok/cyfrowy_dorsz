@@ -11,7 +11,8 @@ module CreationTestHelper
   }
 
   POLL_HASH = {
-    :blocked => false
+    :blocked => false,
+    :visible => true
   }
 
   QUESTION_HASH = {

@@ -21,6 +21,7 @@ class Polls < Application
     poll = (params[:poll] || {}).merge(:user => session.user)
     @poll = Poll.new(poll)
     @poll.blocked = false
+    @poll.visible = true
     @poll.save
     redirect resource(@poll, :edit), :notice => "Stworzono ankietę #{h(@poll.name)}"
   rescue Sequel::ValidationFailed
@@ -52,24 +53,50 @@ class Polls < Application
     render
   end
 
+  def show
+    change_visibility(true)
+  end
+
+  def hide
+    change_visibility(false)
+  end
+
   def block
-    user = session.user
-    @poll = Poll[:id => params[:id]]
-    if user.admin? then
-      @poll.blocked = true
-      @poll.save
-    end
-    redirect(resource(:users, :admin))
+    change_blocked(true)
   end
 
   def unblock
+    change_blocked(false)
+  end
+
+  private
+
+  def change_blocked(blocked)
     user = session.user
     @poll = Poll[:id => params[:id]]
     if user.admin? then
-      @poll.blocked = false
+      @poll.blocked = blocked
+      @poll.save
+    else 
+      raise Forbidden
+    end
+    
+    if session.user.admin?
+      redirect(resource(:users, :admin))
+    else
+      redirect(resource(@poll, :edit))
+    end
+  end
+
+  def change_visibility(visible)
+    user = session.user
+    @poll = Poll[:id => params[:id]]
+    if user.id == @poll.user.id then
+      @poll.visible = visible
       @poll.save
     end
-    redirect(resource(:users, :admin))
+    
+    redirect(resource(@poll, :edit))
   end
 end
 
