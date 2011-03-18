@@ -6,6 +6,7 @@ class Question < Sequel::Model
 
   many_to_one :poll
   one_to_many :question_answers
+  many_to_one :copy_of, :class => Question
 
   attr_accessor :possible_answer, :teacher
 
@@ -143,5 +144,12 @@ class Question < Sequel::Model
   def self.user_to_teacher(u)
     "#{u.name} #{u.surname} #{u.email}"
   end
-
+  
+  def copy!(poll)
+    result = Question.new(values.reject{|key, val| key == :id})
+    result.possible_answers = possible_answers
+    result.poll = poll
+    result.copy_of = self
+    result.save
+  end
 end

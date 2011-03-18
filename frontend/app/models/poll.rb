@@ -83,4 +83,15 @@ class Poll < Sequel::Model
   def visible?
     !blocked? && visible
   end
+
+  def copy!
+    result = nil
+    db.transaction do
+      result = Poll.create(values.reject{|key, val| key == :id})
+      for question in questions
+        question.copy!(result)
+      end
+    end
+    result
+  end
 end
