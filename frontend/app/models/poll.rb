@@ -7,6 +7,7 @@ class Poll < Sequel::Model
   one_to_many :questions
   one_to_many :tokens
   one_to_many :answers
+  many_to_one :copy_of, :class => Poll
 
   def initialize(*args)
     super(*args)
@@ -82,5 +83,19 @@ class Poll < Sequel::Model
   
   def visible?
     !blocked? && visible
+  end
+
+  def copy!
+    result = nil
+    db.transaction do
+      result = Poll.create(values.reject{|key, val| key == :id})
+      for question in questions
+        question.copy!(result)
+      end
+      result.copy_of = self
+      result.name = name + " Kopia"
+      result.save
+    end
+    result
   end
 end

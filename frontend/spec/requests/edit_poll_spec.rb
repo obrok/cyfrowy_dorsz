@@ -18,6 +18,12 @@ describe Questions, "Creating the poll" do
     click_button("Zmień")
     @poll.reload.thankyou.should == "Nowy tekst podziękowania"
   end
+
+  it "is possible to change poll name" do
+    fill_in("Nazwa", :with => "Nowa nazwa")
+    click_button("Zmień")
+    @poll.reload.name.should == "Nowa nazwa"
+  end
 end
 
 describe "Edit poll" do
@@ -67,6 +73,11 @@ describe "Poll with answers" do
 
   it "should not be possible to change thankyou text" do
     response.should_not include "Zmień"
+  end
+
+  it "should be possible to copy the poll" do
+    click_button "Skopiuj ankietę"
+    response.should include @poll.name + " Kopia"
   end
 end
 

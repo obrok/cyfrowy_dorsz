@@ -64,4 +64,28 @@ describe Poll do
   it "should not be blocked after creation" do
     @poll.blocked?.should be_false
   end
+
+  it "should allow copying" do
+    q1 = create_question(:question_type => Question::TYPES[:teacher], :poll => @poll)
+    u1 = create_user
+    q1.add_possible_answer(u1.id)
+
+    q2 = create_question(:question_type => Question::TYPES[:closed], :poll => @poll)
+    
+    other = @poll.copy!
+
+    other.id.should_not == @poll.id
+    other.user.should == @poll.user
+    other.thankyou.should == @poll.thankyou
+    other.copy_of.should == @poll
+    other.name.should == @poll.name + " Kopia"
+
+    q1copy = other.questions.find{|x| x.text == q1.text}
+    q1copy.should_not be_nil
+    q1copy.id.should_not == q1.id
+    q1copy.possible_answers.should == q1.reload.possible_answers
+    q1copy.copy_of.id.should == q1.id
+
+    other.questions.find{|x| x.text == q2.text}.should be_true
+  end
 end
