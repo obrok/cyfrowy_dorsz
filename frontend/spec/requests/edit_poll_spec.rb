@@ -18,6 +18,12 @@ describe Questions, "Creating the poll" do
     click_button("Zmień")
     @poll.reload.thankyou.should == "Nowy tekst podziękowania"
   end
+
+  it "is possible to change poll name" do
+    fill_in("Nazwa", :with => "Nowa nazwa")
+    click_button("Zmień")
+    @poll.reload.name.should == "Nowa nazwa"
+  end
 end
 
 describe "Edit poll" do

@@ -4,6 +4,8 @@
   = form_for(@poll, :action => resource(@poll), :method => :put) do
     %fieldset
       .ctrl_textarea
+        = text_field :name, :label => "Nazwa"
+      .ctrl_textarea
         = text_area :thankyou, :label => "Tekst podziękowania"
       .ctrl.buttons
         = submit "Zmień"

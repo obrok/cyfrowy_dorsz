@@ -38,7 +38,7 @@ class Polls < Application
   end
 
   def update
-    @poll.update_only(params[:poll], :thankyou)
+    @poll.update_only(params[:poll], :thankyou, :name)
     redirect(resource(@poll, :edit), :notice => "Tekst podziękowania zmieniony")
   rescue Exception
     redirect(resource(@poll, :edit), :error => "Tekst podziękowania nie może być pusty")
