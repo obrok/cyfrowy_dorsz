@@ -7,6 +7,7 @@ class Poll < Sequel::Model
   one_to_many :questions
   one_to_many :tokens
   one_to_many :answers
+  many_to_one :copy_of, :class => Poll
 
   def initialize(*args)
     super(*args)
@@ -91,6 +92,8 @@ class Poll < Sequel::Model
       for question in questions
         question.copy!(result)
       end
+      result.copy_of = self
+      result.save
     end
     result
   end
