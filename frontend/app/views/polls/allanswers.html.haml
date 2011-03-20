@@ -1,0 +1,9 @@
+%h3= "Odpowiedzi do wszystkich pytań ankiety '<span class='name'>#{@poll.name}</span>':"
+= link_to 'Powrot do ankiety', resource(@poll, :edit)
+
+- @poll.questions.each do |question|
+  %p= question.text
+  %ul.answers
+    - question.question_answers.each do |answer|
+      %li= h(answer.formatted_value)
+
