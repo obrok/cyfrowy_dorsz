@@ -12,6 +12,7 @@ Merb::Router.prepare do
     member :unblock, :method => :get
     member :show, :method => :get
     member :hide, :method => :get
+    member :copy, :method => :post
     resources :tokens do
       collection :generate, :method => :get
       collection :save, :method => :post

@@ -1,5 +1,10 @@
 %h1= "Edycja ankiety <span class='name'>'#{h(@poll.name)}'</span>"
 
+= form(:action => resource(@poll, :copy), :method => :post) do
+  %fieldset
+    .ctrl.buttons
+      = submit "Skopiuj ankietę"
+
 -if !@poll.locked?
   = form_for(@poll, :action => resource(@poll), :method => :put) do
     %fieldset

@@ -78,6 +78,7 @@ describe Poll do
     other.user.should == @poll.user
     other.thankyou.should == @poll.thankyou
     other.copy_of.should == @poll
+    other.name.should == @poll.name + " Kopia"
 
     q1copy = other.questions.find{|x| x.text == q1.text}
     q1copy.should_not be_nil

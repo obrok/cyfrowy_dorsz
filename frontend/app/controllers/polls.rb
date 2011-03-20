@@ -5,7 +5,7 @@ class Polls < Application
   include LoadHelper  
   before :ensure_authenticated
   before :ensure_not_blocked
-  before :load_poll, :only => [:edit, :stats, :update]
+  before :load_poll, :only => [:edit, :stats, :update, :copy]
   before :load_polls, :only => [:new, :index, :create]
 
   def new
@@ -15,6 +15,10 @@ class Polls < Application
 
   def index
     render
+  end
+
+  def copy
+    redirect(resource(@poll.copy!), :notice => "Ankieta skopiowana")
   end
 
   def create

@@ -93,6 +93,7 @@ class Poll < Sequel::Model
         question.copy!(result)
       end
       result.copy_of = self
+      result.name = name + " Kopia"
       result.save
     end
     result

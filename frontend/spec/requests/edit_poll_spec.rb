@@ -74,5 +74,10 @@ describe "Poll with answers" do
   it "should not be possible to change thankyou text" do
     response.should_not include "Zmień"
   end
+
+  it "should be possible to copy the poll" do
+    click_button "Skopiuj ankietę"
+    response.should include @poll.name + " Kopia"
+  end
 end
 
