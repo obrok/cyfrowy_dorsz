@@ -59,7 +59,7 @@ describe User do
     @user.ranking.should == 2.5
   end
 
-  it "shoud not count ranking for admin" do
+  it "should not count ranking for admin" do
     @user.admin = true
     @user.ranking.should be_nil
   end
