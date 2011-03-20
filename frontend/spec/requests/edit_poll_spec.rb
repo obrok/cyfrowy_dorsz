@@ -78,6 +78,7 @@ describe "Poll with answers" do
   it "should be possible to copy the poll" do
     click_button "Skopiuj ankietę"
     response.should include @poll.name + " Kopia"
+    @poll.user.polls.size.should == 2
   end
 end
 
