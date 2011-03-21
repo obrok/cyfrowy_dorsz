@@ -44,6 +44,22 @@ describe "Edit poll" do
     visit(resource(@poll, :show))
     response.should include "Ukryj ankietę."
   end
+
+  it "should not link to tokens in admin's poll" do
+    admin = create_user(:admin => true)
+    poll = create_poll(:user => admin)
+    visit resource(poll, :edit)
+
+    response.should_not include "tokeny"
+  end 
+
+  it "should not link to stats in admin's poll" do
+    admin = create_user(:admin => true)
+    poll = create_poll(:user => admin)
+    visit resource(poll, :edit)
+
+    response.should_not include "Statystyki"
+  end 
 end
 
 describe "Poll with answers" do

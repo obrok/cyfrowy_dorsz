@@ -53,6 +53,9 @@ class Answers < Application
     end
     render
   rescue Sequel::ValidationFailed
+    @question_answers.each do |question, question_answer|
+      params[question.id] = question_answer.value
+    end
     render :show
   end
 end

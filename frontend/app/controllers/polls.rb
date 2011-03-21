@@ -5,7 +5,7 @@ class Polls < Application
   include LoadHelper  
   before :ensure_authenticated
   before :ensure_not_blocked
-  before :load_poll, :only => [:edit, :stats, :update, :copy, :make_main]
+  before :load_poll, :only => [:edit, :stats, :update, :copy, :allanswers, :make_main]
   before :load_polls, :only => [:new, :index, :create]
 
   def new
@@ -72,6 +72,10 @@ class Polls < Application
     @answers = @poll.setup_answers_for_stats(@questions, user)
     @teachers = (@poll.teacher_question &&  @poll.teacher_question.selectable_possible_answers) || []
 
+    render
+  end
+
+  def allanswers
     render
   end
 

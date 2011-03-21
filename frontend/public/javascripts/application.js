@@ -25,6 +25,9 @@ $(document).ready(function() {
           $("#questions").append(html);
           toggleQuestions();
           $('#question_text, #question_possible_answer').val("");
+          if ($("#question_question_type").val() == 'Prowadzący') {
+            $("#question_question_type option[value='" + $("#question_question_type").val() + "']").remove();
+          }
         }
         else {
           $("form#new-question-form").replaceWith(html);

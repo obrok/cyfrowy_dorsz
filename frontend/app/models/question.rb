@@ -109,7 +109,7 @@ class Question < Sequel::Model
   end
 
   def can_change_choice?
-    !(choice? && !possible_answers.empty? || teacher? && possible_teachers.empty?)
+    !(choice? && !possible_answers.empty? || teacher? && !possible_teachers.empty?)
   end
 
   def can_delete_possible_answer?

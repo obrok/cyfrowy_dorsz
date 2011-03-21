@@ -15,6 +15,7 @@ Merb::Router.prepare do
     member :copy, :method => :post
     member :make_main, :method => :post
     collection :create_main_copy, :method => :post
+    member :allanswers, :method => :get
     resources :tokens do
       collection :generate, :method => :get
       collection :save, :method => :post

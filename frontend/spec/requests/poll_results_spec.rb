@@ -116,3 +116,32 @@ describe "Per question results from poll without teacher question" do
     response.should include "Możesz dodać pytanie o prowadzącego aby filtrować wyniki."
   end
 end
+
+describe "Poll results" do
+  before(:each) do
+    @poll = create_poll
+    @user = @poll.user
+    @q1 = create_question(:text => "Pytanie 1", :poll => @poll, :question_type => Question::TYPES[:open])
+    @q2 = create_question(:text => "Pytanie 2", :poll => @poll, :question_type => Question::TYPES[:open])
+
+    @a1 = create_question_answer(:question => @q1, :value => "Odpowiedź 1")
+    @a2 = create_question_answer(:question => @q1, :value => "Odpowiedź 2")
+    @a3 = create_question_answer(:question => @q2, :value => "Odpowiedź 3")
+
+    login_as(@user, CreationTestHelper::USER_HASH[:password])
+    visit resource(@poll, :edit)
+  end
+
+  it "should be acessible from poll edit view" do
+    response.should include "Wszystkie odpowiedzi"
+  end
+
+  it "should display all question with all answers" do
+    visit resource(@poll, :allanswers)
+    response.should include @q1.text
+    response.should include @q2.text
+    response.should include @a1.value
+    response.should include @a2.value
+    response.should include @a3.value
+  end
+end

@@ -49,8 +49,9 @@ end
 describe "Blocking users" do
   before(:each) do
     @user = create_user(:admin => false)
+    @admin = create_user(:admin => true)
 
-    login_as(create_user(:admin => true))
+    login_as(@admin)
   end
 
   it "should allow admin to block users" do
@@ -66,6 +67,12 @@ describe "Blocking users" do
     logout
     login_as(user)
     response_status.should == 200
+  end
+
+  it "should not display admin user" do
+    visit resource(:users, :admin)
+    #checks if admin's email is displayed only once (because admin is logged in)
+    response.index(@admin.email).should == response.rindex(@admin.email)
   end
 end
 

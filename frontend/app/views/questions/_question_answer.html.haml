@@ -1,13 +1,17 @@
 .ctrl
   - if question.open?
-    = text_field :name => question.id, :label => question.title, :value => h(params[question.id.to_s])
+    = text_field :name => question.id, :label => question.text, :value => h(params[question.id.to_s])
     %span.validation.error
       = question_answer.errors.on(:value)
   - if question.choice?
-    = select(:name => question.id, :label => question.title, :collection => question.selectable_possible_answers.map{|x| h(x)}, :selected => params[question.id], :prompt => "Wybierz odpowiedź")
+    = select(:name => question.id, :label => question.text, :collection => question.selectable_possible_answers.map{|x| h(x)}, :selected => params[question.id], :prompt => "Wybierz odpowiedź")
+    %span.validation.error
+      = question_answer.errors.on(:value)
   - if question.teacher?
-    = select(:name => question.id, :label => question.title, :collection => question.selectable_possible_answers.map{|x| [x.first, h(x.last)]}, :selected => params[question.id], :prompt => "Wybierz odpowiedź")
+    = select(:name => question.id, :label => question.text, :collection => question.selectable_possible_answers.map{|x| [x.first, h(x.last)]}, :selected => params[question.id], :prompt => "Wybierz odpowiedź")
     %span.validation.error
       = question_answer.errors.on(:value)
   - if question.closed?
-    = select(:name => question.id, :label => question.title, :collection => "1".."5", :selected => params[question.id])  
+    = select(:name => question.id, :label => question.text, :collection => "1".."5", :selected => params[question.id], :prompt => "Wybierz odpowiedź")  
+    %span.validation.error
+      = question_answer.errors.on(:value)
