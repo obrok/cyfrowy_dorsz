@@ -45,7 +45,7 @@ class Users < Application
   end
 
   def admin
-    @users = User.all
+    @users = User.filter(:admin => false)
     render :layout => :application
   end
 
