@@ -95,4 +95,9 @@ describe Poll do
     main.reload.should_not be_main
     @poll.should be_main
   end
+
+  it "should make main's copy not main" do
+    main = create_poll(:main => true)
+    main.copy!.should_not be_main
+  end
 end

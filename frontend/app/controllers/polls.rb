@@ -31,7 +31,7 @@ class Polls < Application
 
   def make_main
     raise Forbidden unless session.user.admin?
-    @poll.make_main
+    @poll.make_main!
     redirect(resource(@poll))
   end
 

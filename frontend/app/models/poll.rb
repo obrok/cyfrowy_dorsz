@@ -102,7 +102,7 @@ class Poll < Sequel::Model
   def copy!
     result = nil
     db.transaction do
-      result = Poll.create(values.reject{|key, val| key == :id})
+      result = Poll.create(values.reject{|key, val| [:id, :main].include?(key)})
       for question in questions
         question.copy!(result)
       end
