@@ -80,6 +80,20 @@ class Poll < Sequel::Model
   def blocked?
     user.blocked? || blocked
   end
+
+  def main?
+    main
+  end
+
+  def make_main!
+    db.transaction do
+      Poll.filter(:main => true).each do |poll|
+        poll.update(:main => false)
+      end
+      self.main = true
+      save
+    end
+  end
   
   def visible?
     !blocked? && visible

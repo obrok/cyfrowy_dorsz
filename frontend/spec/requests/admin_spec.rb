@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'spec/spec_helper'
 
 describe "Admin Panel" do
@@ -68,7 +69,7 @@ describe "Blocking users" do
   end
 end
 
-describe "Blocking polls" do
+describe "Admin poll functions" do
   before(:each) do
     @poll = create_poll
     @poll2 = create_poll(:user => @poll.user)
@@ -85,9 +86,12 @@ describe "Blocking polls" do
     @a2 = create_question_answer(:question => @q1, :value => "Odpowiedź 2")
     @a3 = create_question_answer(:question => @q2, :value => "Odpowiedź 3")
     @a4 = create_question_answer(:question => @q3, :value => @user.id, :answer => @a1.answer)
-    @a5 = create_question_answer(:question => @q3, :value => @user2.id, :answer => @a2.answer)   
+    @a5 = create_question_answer(:question => @q3, :value => @user2.id, :answer => @a2.answer)
 
-    login_as(create_user(:admin => true))
+    @admin = create_user(:admin => true)
+    @poll3 = create_poll(:user => @admin)
+
+    login_as(@admin)
   end
 
   it "should not be accessible by teacher" do
@@ -152,5 +156,12 @@ describe "Blocking polls" do
     fill_in "Token", :with => token.value
     click_button "Wypełnij ankietę"
     response.should include @poll.name
+  end
+
+  it "should allow admin to make a poll main" do
+    visit resource(@poll3, :edit)
+    click_button("Ustaw jako nadrzędną")
+    @poll3.reload.should be_main
+    response.should include "Ankieta nadrzędna"
   end
 end

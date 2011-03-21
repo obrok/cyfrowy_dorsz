@@ -1,5 +1,14 @@
 %h1= "Edycja ankiety <span class='name'>'#{h(@poll.name)}'</span>"
 
+- if @poll.main?
+  %h3= "Ankieta nadrzędna"
+
+- if session.user.admin?
+  = form(:action => resource(@poll, :make_main), :method => :post) do
+    %fieldset
+      .ctrl.buttons
+        = submit "Ustaw jako nadrzędną"
+
 = form(:action => resource(@poll, :copy), :method => :post) do
   %fieldset
     .ctrl.buttons

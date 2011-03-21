@@ -13,6 +13,7 @@ Merb::Router.prepare do
     member :show, :method => :get
     member :hide, :method => :get
     member :copy, :method => :post
+    member :make_main, :method => :post
     resources :tokens do
       collection :generate, :method => :get
       collection :save, :method => :post
@@ -23,7 +24,6 @@ Merb::Router.prepare do
 
   resources :users do
     collection :admin, :method => :get
-
     collection :reset_password, :method => :get
     collection :perform_reset_password, :method => :post
     collection :request_reset_password, :method => :get

@@ -88,4 +88,11 @@ describe Poll do
 
     other.questions.find{|x| x.text == q2.text}.should be_true
   end
+
+  it "should be only possible to have one main poll" do
+    main = create_poll(:main => true)
+    @poll.make_main!
+    main.reload.should_not be_main
+    @poll.should be_main
+  end
 end

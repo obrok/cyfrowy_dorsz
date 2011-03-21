@@ -5,7 +5,7 @@ class Polls < Application
   include LoadHelper  
   before :ensure_authenticated
   before :ensure_not_blocked
-  before :load_poll, :only => [:edit, :stats, :update, :copy]
+  before :load_poll, :only => [:edit, :stats, :update, :copy, :make_main]
   before :load_polls, :only => [:new, :index, :create]
 
   def new
@@ -15,6 +15,12 @@ class Polls < Application
 
   def index
     render
+  end
+
+  def make_main
+    raise Forbidden unless session.user.admin?
+    @poll.make_main
+    redirect(resource(@poll))
   end
 
   def copy
