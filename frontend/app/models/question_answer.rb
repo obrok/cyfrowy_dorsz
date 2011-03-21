@@ -32,7 +32,7 @@ class QuestionAnswer < Sequel::Model
     temp = values[:value]
     temp = temp.to_i if question && question.teacher?
     if question && (question.choice? || question.teacher?) && !question.possible_answers.include?(temp)
-      errors[:value] << 'musisz wybrać jedną z odpowiedzi'
+      errors[:value] << ' musisz wybrać jedną z odpowiedzi'
     end
   end
 end
