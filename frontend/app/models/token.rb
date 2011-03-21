@@ -11,6 +11,7 @@ class Token < Sequel::Model
     validates_presence :max_usage
     validates_unique :value, :message => "Nazwa musi być unikatowa" 
     errors[:max_usage] << "niepoprawna liczba użyć" if max_usage!=nil and max_usage<1
+    errors[:admin] << "ankieta admina nie może posiadać tokenów" if poll!=nil && poll.user.admin?
   end
 
   def self.generate_random_value(size = 8)

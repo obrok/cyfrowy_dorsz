@@ -15,9 +15,9 @@
       .ctrl.buttons
         = submit "Zmień"
 
-= partial 'tokens/links'
-
-= partial 'polls/links'
+-if !session.user.admin?
+  = partial 'tokens/links'
+  = partial 'polls/links'
 
 %h3 Pytania
 .custom-headers

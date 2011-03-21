@@ -46,7 +46,7 @@ describe Tokens do
     response.should include(@poll.name)
   end
 
-  it "shuld inform about incorrect tokens count" do
+  it "should inform about incorrect tokens count" do
     onetime_token("Ilość tokenów" => -5)
 
     response.should include("Niepoprawna wartość")

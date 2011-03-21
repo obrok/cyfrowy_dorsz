@@ -43,4 +43,10 @@ describe Token do
       @token.should_not be_valid
     end
   end
+
+  it "should not be possible to create tokens for admin's poll" do
+    admin = create_user(:admin => true)
+    poll = create_poll(:user => admin)
+    lambda { token = create_token(:poll => poll) }.should raise_error Sequel::ValidationFailed
+  end
 end
