@@ -13,6 +13,11 @@ describe Token do
     @token.should be_valid
   end
 
+  it "should not be valid if it's poll is main" do
+    @token.poll = create_poll(:main => true)
+    @token.should_not be_valid
+  end
+
   it "should not be used after creation" do
     @token.remaining_count.should > 0
   end

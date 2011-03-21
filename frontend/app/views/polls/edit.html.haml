@@ -24,7 +24,8 @@
       .ctrl.buttons
         = submit "Zmień"
 
-= partial 'tokens/links'
+- if !@poll.main?
+  = partial 'tokens/links'
 
 %h3 Pytania
 .custom-headers

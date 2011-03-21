@@ -12,6 +12,15 @@ describe Questions, "Creating the poll" do
     logout
   end
 
+  it "should be able to create a copy of the main poll" do
+    @user.polls_dataset.destroy
+    main = create_poll
+    main.make_main!
+    visit resource(:polls, :new)
+    click_button "Skopiuj ankietę nadrzędną"
+    @user.polls.first.copy_of.should == main
+  end
+
   it "shows new poll form" do
     visit resource(:polls, :new)
     response.should include "Podaj nazwę nowej ankiety"

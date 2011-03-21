@@ -1,4 +1,9 @@
 = partial 'polls'
+= form(:action => resource(:polls, :create_main_copy), :method => :post) do
+  %fieldset
+    .ctrl.buttons
+      = submit "Skopiuj ankietę nadrzędną"
+
 %h3 Podaj nazwę nowej ankiety
 = form_for(@poll, :action => resource(:polls), :method => :post) do
   .error

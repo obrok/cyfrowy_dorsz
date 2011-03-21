@@ -17,6 +17,18 @@ class Polls < Application
     render
   end
 
+  def create_main_copy
+    poll = Poll.filter(:main => true).first
+    if poll
+      new_poll = poll.copy!
+      new_poll.user = session.user
+      new_poll.save
+      redirect(resource(new_poll), :notice => "Ankieta skopiowana pomyślnie")
+    else
+      redirect(resource(:polls), :error => "Brak ankiety nadrzędnej")
+    end
+  end
+
   def make_main
     raise Forbidden unless session.user.admin?
     @poll.make_main
