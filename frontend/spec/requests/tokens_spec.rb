@@ -59,4 +59,17 @@ describe Tokens do
 
     response_status.should == 404
   end 
+
+  it "should not display used tokens" do
+    token = create_token(:max_usage => 1, :poll => @poll)
+
+    visit resource(@poll, :tokens)
+    response.should include token.value
+
+    ans = create_answer(:token => token)
+
+    visit resource(@poll, :tokens)
+
+    response.should_not include token.value
+  end 
 end

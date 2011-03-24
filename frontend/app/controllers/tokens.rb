@@ -12,7 +12,7 @@ class Tokens < Application
   end
 
   def index
-    @tokens = @poll.tokens
+    @tokens = @poll.tokens.find_all{|item| item.remaining_count > 0 }
     render
   end
 
