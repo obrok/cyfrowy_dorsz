@@ -70,6 +70,10 @@ class Polls < Application
     user = User[:id => params[:teacher_id]]
     @questions = @poll.questions_dataset.filter(:question_type => Question::TYPES[:closed]).all
     @answers = @poll.setup_answers_for_stats(@questions, user)
+
+    @questions_choice = @poll.questions_dataset.filter(:question_type => Question::TYPES[:choice]).all
+    @answers_choice = @poll.setup_answers_for_stats(@questions_choice, user)
+
     @teachers = (@poll.teacher_question &&  @poll.teacher_question.selectable_possible_answers) || []
 
     render

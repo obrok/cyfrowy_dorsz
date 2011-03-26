@@ -9,7 +9,7 @@
         %tr
           %td
           - @questions.each do |question|
-            %th= question.title
+            %th= question.text
       %tbody        
         - @answers.keys.each do |answer|
           %tr
@@ -17,7 +17,23 @@
             - @questions.each do |question|
               %td= @answers[answer][question] ? @answers[answer][question] : 0
 
+  #stats-content
+    %table#choice.custom
+      %thead
+        %tr
+          %td
+          - @questions_choice.each do |question|
+            %th= question.text
+      %tbody        
+        - @answers_choice.keys.each do |answer|
+          %tr
+            %th= answer            
+            - @questions_choice.each do |question|
+              %td= @answers_choice[answer][question] ? @answers_choice[answer][question] : 0
+
   %script{:type=>"text/javascript"}
     //<![CDATA[
     $('#stats').visualize({type: 'bar', title: 'Zestawienie wyników pytań zamkniętych'});
+    $('#choice').visualize({type: 'bar', title: 'Zestawienie wyników pytań wyboru'});
     //]]>
+
