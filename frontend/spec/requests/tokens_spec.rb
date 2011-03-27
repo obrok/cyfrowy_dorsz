@@ -60,6 +60,17 @@ describe Tokens do
     response_status.should == 404
   end 
 
+  it "should be possible to delete used token" do
+    token = create_token(:poll => @poll, :max_usage => 10)
+    question = create_question(:poll => @poll)
+
+    answer = create_answer(:token => token)
+    visit resource(@poll, :tokens)
+    response.should include token.value
+    click_link 'usuń'
+    response.should_not include token.value
+  end
+
   it "should not display used tokens" do
     token = create_token(:max_usage => 1, :poll => @poll)
 
