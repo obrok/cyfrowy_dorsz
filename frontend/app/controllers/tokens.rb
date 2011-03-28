@@ -43,8 +43,12 @@ class Tokens < Application
   end
 
   def delete
-    @token.destroy 
-    redirect(resource(@poll, :tokens), :message => message)
+    if @token.max_usage != @token.remaining_count
+      redirect(resource(@poll, :tokens), :error => "Nie można usunać użytego tokenu")
+    else
+      @token.destroy 
+      redirect(resource(@poll, :tokens))
+    end
   end
 
   def print

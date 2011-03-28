@@ -68,7 +68,8 @@ describe Tokens do
     visit resource(@poll, :tokens)
     response.should include token.value
     click_link 'usuń'
-    response.should_not include token.value
+    response.should include token.value
+    response.should include "Nie można usunać użytego tokenu"
   end
 
   it "should not display used tokens" do

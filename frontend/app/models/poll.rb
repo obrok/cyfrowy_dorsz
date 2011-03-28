@@ -58,7 +58,10 @@ class Poll < Sequel::Model
   def setup_answers_for_stats(questions, user)
     answers = {}
     questions.each do |question|
+      p "user", user
+      p "pre", question.question_answers.to_a
       collection = user ? question.question_answers_for_user(user) : question.question_answers
+      p "post", collection.to_a
       collection.each do |answer|
         value = answer.value
         unless answers[value]
